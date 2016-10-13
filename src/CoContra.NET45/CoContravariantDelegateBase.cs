@@ -38,7 +38,7 @@ namespace CoContra {
 
 		public override Boolean Equals(Object obj) => array.Equals(obj);
 		public override Int32 GetHashCode() => array.GetHashCode();
-		public Boolean Equals(CoContravariantDelegateBase<TDelegate> other) => array.Equals(other.array);
+		public Boolean Equals(CoContravariantDelegateBase<TDelegate> other) => other != null && array.Equals(other.array);
 
 		Int32 IStructuralComparable.CompareTo(Object other, IComparer comparer) => ((IStructuralComparable) array).CompareTo(other, comparer);
 		Boolean IStructuralEquatable.Equals(Object other, IEqualityComparer comparer) => ((IStructuralEquatable) array).Equals(other, comparer);
