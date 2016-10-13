@@ -8,7 +8,7 @@ namespace CoContra {
 		public static CovariantAction<T> operator +(CovariantAction<T> cf, Action<T> action) { cf.Add(action); return cf; }
 		public static CovariantAction<T> operator -(CovariantAction<T> cf, Action<T> action) { cf.Remove(action); return cf; }
 		
-		public Object Target => GetSingleOrNull()?.Target;
+		public Object Target => GetInvocationList().FirstOrDefault()?.Target;
 		public void Invoke(T arg) {
 			var array = GetInvocationList();
 			for (var i = 0; i < array.Length; i++)
@@ -23,7 +23,7 @@ namespace CoContra {
 		public static CovariantAction<T1, T2> operator +(CovariantAction<T1, T2> cf, Action<T1, T2> action) { cf.Add(action); return cf; }
 		public static CovariantAction<T1, T2> operator -(CovariantAction<T1, T2> cf, Action<T1, T2> action) { cf.Remove(action); return cf; }
 		
-		public Object Target => GetSingleOrNull()?.Target;
+		public Object Target => GetInvocationList().FirstOrDefault()?.Target;
 		public void Invoke(T1 arg1, T2 arg2) {
 			var array = GetInvocationList();
 			for (var i = 0; i < array.Length; i++)
@@ -38,7 +38,7 @@ namespace CoContra {
 		public static CovariantAction<T1, T2, T3> operator +(CovariantAction<T1, T2, T3> cf, Action<T1, T2, T3> action) { cf.Add(action); return cf; }
 		public static CovariantAction<T1, T2, T3> operator -(CovariantAction<T1, T2, T3> cf, Action<T1, T2, T3> action) { cf.Remove(action); return cf; }
 		
-		public Object Target => GetSingleOrNull()?.Target;
+		public Object Target => GetInvocationList().FirstOrDefault()?.Target;
 		public void Invoke(T1 arg1, T2 arg2, T3 arg3) {
 			var array = GetInvocationList();
 			for (var i = 0; i < array.Length; i++)
@@ -53,7 +53,7 @@ namespace CoContra {
 		public static CovariantAction<T1, T2, T3, T4> operator +(CovariantAction<T1, T2, T3, T4> cf, Action<T1, T2, T3, T4> action) { cf.Add(action); return cf; }
 		public static CovariantAction<T1, T2, T3, T4> operator -(CovariantAction<T1, T2, T3, T4> cf, Action<T1, T2, T3, T4> action) { cf.Remove(action); return cf; }
 		
-		public Object Target => GetSingleOrNull()?.Target;
+		public Object Target => GetInvocationList().FirstOrDefault()?.Target;
 		public void Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4) {
 			var array = GetInvocationList();
 			for (var i = 0; i < array.Length; i++)
@@ -68,7 +68,7 @@ namespace CoContra {
 		public static CovariantAction<T1, T2, T3, T4, T5> operator +(CovariantAction<T1, T2, T3, T4, T5> cf, Action<T1, T2, T3, T4, T5> action) { cf.Add(action); return cf; }
 		public static CovariantAction<T1, T2, T3, T4, T5> operator -(CovariantAction<T1, T2, T3, T4, T5> cf, Action<T1, T2, T3, T4, T5> action) { cf.Remove(action); return cf; }
 		
-		public Object Target => GetSingleOrNull()?.Target;
+		public Object Target => GetInvocationList().FirstOrDefault()?.Target;
 		public void Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5) {
 			var array = GetInvocationList();
 			for (var i = 0; i < array.Length; i++)
@@ -83,7 +83,7 @@ namespace CoContra {
 		public static CovariantAction<T1, T2, T3, T4, T5, T6> operator +(CovariantAction<T1, T2, T3, T4, T5, T6> cf, Action<T1, T2, T3, T4, T5, T6> action) { cf.Add(action); return cf; }
 		public static CovariantAction<T1, T2, T3, T4, T5, T6> operator -(CovariantAction<T1, T2, T3, T4, T5, T6> cf, Action<T1, T2, T3, T4, T5, T6> action) { cf.Remove(action); return cf; }
 		
-		public Object Target => GetSingleOrNull()?.Target;
+		public Object Target => GetInvocationList().FirstOrDefault()?.Target;
 		public void Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6) {
 			var array = GetInvocationList();
 			for (var i = 0; i < array.Length; i++)
@@ -98,7 +98,7 @@ namespace CoContra {
 		public static CovariantAction<T1, T2, T3, T4, T5, T6, T7> operator +(CovariantAction<T1, T2, T3, T4, T5, T6, T7> cf, Action<T1, T2, T3, T4, T5, T6, T7> action) { cf.Add(action); return cf; }
 		public static CovariantAction<T1, T2, T3, T4, T5, T6, T7> operator -(CovariantAction<T1, T2, T3, T4, T5, T6, T7> cf, Action<T1, T2, T3, T4, T5, T6, T7> action) { cf.Remove(action); return cf; }
 		
-		public Object Target => GetSingleOrNull()?.Target;
+		public Object Target => GetInvocationList().FirstOrDefault()?.Target;
 		public void Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7) {
 			var array = GetInvocationList();
 			for (var i = 0; i < array.Length; i++)
@@ -113,7 +113,7 @@ namespace CoContra {
 		public static CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8> operator +(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8> cf, Action<T1, T2, T3, T4, T5, T6, T7, T8> action) { cf.Add(action); return cf; }
 		public static CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8> operator -(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8> cf, Action<T1, T2, T3, T4, T5, T6, T7, T8> action) { cf.Remove(action); return cf; }
 		
-		public Object Target => GetSingleOrNull()?.Target;
+		public Object Target => GetInvocationList().FirstOrDefault()?.Target;
 		public void Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8) {
 			var array = GetInvocationList();
 			for (var i = 0; i < array.Length; i++)
@@ -128,7 +128,7 @@ namespace CoContra {
 		public static CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9> operator +(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9> cf, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9> action) { cf.Add(action); return cf; }
 		public static CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9> operator -(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9> cf, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9> action) { cf.Remove(action); return cf; }
 		
-		public Object Target => GetSingleOrNull()?.Target;
+		public Object Target => GetInvocationList().FirstOrDefault()?.Target;
 		public void Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9) {
 			var array = GetInvocationList();
 			for (var i = 0; i < array.Length; i++)
@@ -143,7 +143,7 @@ namespace CoContra {
 		public static CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> operator +(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> cf, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> action) { cf.Add(action); return cf; }
 		public static CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> operator -(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> cf, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> action) { cf.Remove(action); return cf; }
 		
-		public Object Target => GetSingleOrNull()?.Target;
+		public Object Target => GetInvocationList().FirstOrDefault()?.Target;
 		public void Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10) {
 			var array = GetInvocationList();
 			for (var i = 0; i < array.Length; i++)
@@ -158,7 +158,7 @@ namespace CoContra {
 		public static CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> operator +(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> cf, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> action) { cf.Add(action); return cf; }
 		public static CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> operator -(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> cf, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> action) { cf.Remove(action); return cf; }
 		
-		public Object Target => GetSingleOrNull()?.Target;
+		public Object Target => GetInvocationList().FirstOrDefault()?.Target;
 		public void Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11) {
 			var array = GetInvocationList();
 			for (var i = 0; i < array.Length; i++)
@@ -173,7 +173,7 @@ namespace CoContra {
 		public static CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> operator +(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> cf, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> action) { cf.Add(action); return cf; }
 		public static CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> operator -(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> cf, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> action) { cf.Remove(action); return cf; }
 		
-		public Object Target => GetSingleOrNull()?.Target;
+		public Object Target => GetInvocationList().FirstOrDefault()?.Target;
 		public void Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12) {
 			var array = GetInvocationList();
 			for (var i = 0; i < array.Length; i++)
@@ -188,7 +188,7 @@ namespace CoContra {
 		public static CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> operator +(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> cf, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> action) { cf.Add(action); return cf; }
 		public static CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> operator -(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> cf, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> action) { cf.Remove(action); return cf; }
 		
-		public Object Target => GetSingleOrNull()?.Target;
+		public Object Target => GetInvocationList().FirstOrDefault()?.Target;
 		public void Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13) {
 			var array = GetInvocationList();
 			for (var i = 0; i < array.Length; i++)
@@ -203,7 +203,7 @@ namespace CoContra {
 		public static CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> operator +(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> cf, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> action) { cf.Add(action); return cf; }
 		public static CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> operator -(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> cf, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> action) { cf.Remove(action); return cf; }
 		
-		public Object Target => GetSingleOrNull()?.Target;
+		public Object Target => GetInvocationList().FirstOrDefault()?.Target;
 		public void Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, T14 arg14) {
 			var array = GetInvocationList();
 			for (var i = 0; i < array.Length; i++)
@@ -218,7 +218,7 @@ namespace CoContra {
 		public static CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> operator +(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> cf, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> action) { cf.Add(action); return cf; }
 		public static CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> operator -(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> cf, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> action) { cf.Remove(action); return cf; }
 		
-		public Object Target => GetSingleOrNull()?.Target;
+		public Object Target => GetInvocationList().FirstOrDefault()?.Target;
 		public void Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, T14 arg14, T15 arg15) {
 			var array = GetInvocationList();
 			for (var i = 0; i < array.Length; i++)
@@ -233,7 +233,7 @@ namespace CoContra {
 		public static CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> operator +(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> cf, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> action) { cf.Add(action); return cf; }
 		public static CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> operator -(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> cf, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> action) { cf.Remove(action); return cf; }
 		
-		public Object Target => GetSingleOrNull()?.Target;
+		public Object Target => GetInvocationList().FirstOrDefault()?.Target;
 		public void Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, T14 arg14, T15 arg15, T16 arg16) {
 			var array = GetInvocationList();
 			for (var i = 0; i < array.Length; i++)

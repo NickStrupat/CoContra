@@ -22,7 +22,7 @@ namespace CoContra {
 		public static CoContravariantFunc<<#= typeArgs #>> operator +(CoContravariantFunc<<#= typeArgs #>> cf, Func<<#= typeArgs #>> func) { cf.Add(func); return cf; }
 		public static CoContravariantFunc<<#= typeArgs #>> operator -(CoContravariantFunc<<#= typeArgs #>> cf, Func<<#= typeArgs #>> func) { cf.Remove(func); return cf; }
 		
-		public Object Target => GetSingleOrNull()?.Target;
+		public Object Target => GetInvocationList().FirstOrDefault()?.Target;
 		public TResult Invoke(<#= invokeParams #>) {
 			var array = GetInvocationList();
 			var result = default(TResult);

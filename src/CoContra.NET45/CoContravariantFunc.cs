@@ -8,7 +8,7 @@ namespace CoContra {
 		public static CoContravariantFunc<TResult> operator +(CoContravariantFunc<TResult> cf, Func<TResult> func) { cf.Add(func); return cf; }
 		public static CoContravariantFunc<TResult> operator -(CoContravariantFunc<TResult> cf, Func<TResult> func) { cf.Remove(func); return cf; }
 		
-		public Object Target => GetSingleOrNull()?.Target;
+		public Object Target => GetInvocationList().FirstOrDefault()?.Target;
 		public TResult Invoke() {
 			var array = GetInvocationList();
 			var result = default(TResult);
@@ -25,7 +25,7 @@ namespace CoContra {
 		public static CoContravariantFunc<T, TResult> operator +(CoContravariantFunc<T, TResult> cf, Func<T, TResult> func) { cf.Add(func); return cf; }
 		public static CoContravariantFunc<T, TResult> operator -(CoContravariantFunc<T, TResult> cf, Func<T, TResult> func) { cf.Remove(func); return cf; }
 		
-		public Object Target => GetSingleOrNull()?.Target;
+		public Object Target => GetInvocationList().FirstOrDefault()?.Target;
 		public TResult Invoke(T arg) {
 			var array = GetInvocationList();
 			var result = default(TResult);
@@ -42,7 +42,7 @@ namespace CoContra {
 		public static CoContravariantFunc<T1, T2, TResult> operator +(CoContravariantFunc<T1, T2, TResult> cf, Func<T1, T2, TResult> func) { cf.Add(func); return cf; }
 		public static CoContravariantFunc<T1, T2, TResult> operator -(CoContravariantFunc<T1, T2, TResult> cf, Func<T1, T2, TResult> func) { cf.Remove(func); return cf; }
 		
-		public Object Target => GetSingleOrNull()?.Target;
+		public Object Target => GetInvocationList().FirstOrDefault()?.Target;
 		public TResult Invoke(T1 arg1, T2 arg2) {
 			var array = GetInvocationList();
 			var result = default(TResult);
@@ -59,7 +59,7 @@ namespace CoContra {
 		public static CoContravariantFunc<T1, T2, T3, TResult> operator +(CoContravariantFunc<T1, T2, T3, TResult> cf, Func<T1, T2, T3, TResult> func) { cf.Add(func); return cf; }
 		public static CoContravariantFunc<T1, T2, T3, TResult> operator -(CoContravariantFunc<T1, T2, T3, TResult> cf, Func<T1, T2, T3, TResult> func) { cf.Remove(func); return cf; }
 		
-		public Object Target => GetSingleOrNull()?.Target;
+		public Object Target => GetInvocationList().FirstOrDefault()?.Target;
 		public TResult Invoke(T1 arg1, T2 arg2, T3 arg3) {
 			var array = GetInvocationList();
 			var result = default(TResult);
@@ -76,7 +76,7 @@ namespace CoContra {
 		public static CoContravariantFunc<T1, T2, T3, T4, TResult> operator +(CoContravariantFunc<T1, T2, T3, T4, TResult> cf, Func<T1, T2, T3, T4, TResult> func) { cf.Add(func); return cf; }
 		public static CoContravariantFunc<T1, T2, T3, T4, TResult> operator -(CoContravariantFunc<T1, T2, T3, T4, TResult> cf, Func<T1, T2, T3, T4, TResult> func) { cf.Remove(func); return cf; }
 		
-		public Object Target => GetSingleOrNull()?.Target;
+		public Object Target => GetInvocationList().FirstOrDefault()?.Target;
 		public TResult Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4) {
 			var array = GetInvocationList();
 			var result = default(TResult);
@@ -93,7 +93,7 @@ namespace CoContra {
 		public static CoContravariantFunc<T1, T2, T3, T4, T5, TResult> operator +(CoContravariantFunc<T1, T2, T3, T4, T5, TResult> cf, Func<T1, T2, T3, T4, T5, TResult> func) { cf.Add(func); return cf; }
 		public static CoContravariantFunc<T1, T2, T3, T4, T5, TResult> operator -(CoContravariantFunc<T1, T2, T3, T4, T5, TResult> cf, Func<T1, T2, T3, T4, T5, TResult> func) { cf.Remove(func); return cf; }
 		
-		public Object Target => GetSingleOrNull()?.Target;
+		public Object Target => GetInvocationList().FirstOrDefault()?.Target;
 		public TResult Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5) {
 			var array = GetInvocationList();
 			var result = default(TResult);
@@ -110,7 +110,7 @@ namespace CoContra {
 		public static CoContravariantFunc<T1, T2, T3, T4, T5, T6, TResult> operator +(CoContravariantFunc<T1, T2, T3, T4, T5, T6, TResult> cf, Func<T1, T2, T3, T4, T5, T6, TResult> func) { cf.Add(func); return cf; }
 		public static CoContravariantFunc<T1, T2, T3, T4, T5, T6, TResult> operator -(CoContravariantFunc<T1, T2, T3, T4, T5, T6, TResult> cf, Func<T1, T2, T3, T4, T5, T6, TResult> func) { cf.Remove(func); return cf; }
 		
-		public Object Target => GetSingleOrNull()?.Target;
+		public Object Target => GetInvocationList().FirstOrDefault()?.Target;
 		public TResult Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6) {
 			var array = GetInvocationList();
 			var result = default(TResult);
@@ -127,7 +127,7 @@ namespace CoContra {
 		public static CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, TResult> operator +(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, TResult> cf, Func<T1, T2, T3, T4, T5, T6, T7, TResult> func) { cf.Add(func); return cf; }
 		public static CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, TResult> operator -(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, TResult> cf, Func<T1, T2, T3, T4, T5, T6, T7, TResult> func) { cf.Remove(func); return cf; }
 		
-		public Object Target => GetSingleOrNull()?.Target;
+		public Object Target => GetInvocationList().FirstOrDefault()?.Target;
 		public TResult Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7) {
 			var array = GetInvocationList();
 			var result = default(TResult);
@@ -144,7 +144,7 @@ namespace CoContra {
 		public static CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, TResult> operator +(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, TResult> cf, Func<T1, T2, T3, T4, T5, T6, T7, T8, TResult> func) { cf.Add(func); return cf; }
 		public static CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, TResult> operator -(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, TResult> cf, Func<T1, T2, T3, T4, T5, T6, T7, T8, TResult> func) { cf.Remove(func); return cf; }
 		
-		public Object Target => GetSingleOrNull()?.Target;
+		public Object Target => GetInvocationList().FirstOrDefault()?.Target;
 		public TResult Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8) {
 			var array = GetInvocationList();
 			var result = default(TResult);
@@ -161,7 +161,7 @@ namespace CoContra {
 		public static CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult> operator +(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult> cf, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult> func) { cf.Add(func); return cf; }
 		public static CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult> operator -(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult> cf, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult> func) { cf.Remove(func); return cf; }
 		
-		public Object Target => GetSingleOrNull()?.Target;
+		public Object Target => GetInvocationList().FirstOrDefault()?.Target;
 		public TResult Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9) {
 			var array = GetInvocationList();
 			var result = default(TResult);
@@ -178,7 +178,7 @@ namespace CoContra {
 		public static CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult> operator +(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult> cf, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult> func) { cf.Add(func); return cf; }
 		public static CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult> operator -(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult> cf, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult> func) { cf.Remove(func); return cf; }
 		
-		public Object Target => GetSingleOrNull()?.Target;
+		public Object Target => GetInvocationList().FirstOrDefault()?.Target;
 		public TResult Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10) {
 			var array = GetInvocationList();
 			var result = default(TResult);
@@ -195,7 +195,7 @@ namespace CoContra {
 		public static CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult> operator +(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult> cf, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult> func) { cf.Add(func); return cf; }
 		public static CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult> operator -(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult> cf, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult> func) { cf.Remove(func); return cf; }
 		
-		public Object Target => GetSingleOrNull()?.Target;
+		public Object Target => GetInvocationList().FirstOrDefault()?.Target;
 		public TResult Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11) {
 			var array = GetInvocationList();
 			var result = default(TResult);
@@ -212,7 +212,7 @@ namespace CoContra {
 		public static CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult> operator +(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult> cf, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult> func) { cf.Add(func); return cf; }
 		public static CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult> operator -(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult> cf, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult> func) { cf.Remove(func); return cf; }
 		
-		public Object Target => GetSingleOrNull()?.Target;
+		public Object Target => GetInvocationList().FirstOrDefault()?.Target;
 		public TResult Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12) {
 			var array = GetInvocationList();
 			var result = default(TResult);
@@ -229,7 +229,7 @@ namespace CoContra {
 		public static CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult> operator +(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult> cf, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult> func) { cf.Add(func); return cf; }
 		public static CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult> operator -(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult> cf, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult> func) { cf.Remove(func); return cf; }
 		
-		public Object Target => GetSingleOrNull()?.Target;
+		public Object Target => GetInvocationList().FirstOrDefault()?.Target;
 		public TResult Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13) {
 			var array = GetInvocationList();
 			var result = default(TResult);
@@ -246,7 +246,7 @@ namespace CoContra {
 		public static CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult> operator +(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult> cf, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult> func) { cf.Add(func); return cf; }
 		public static CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult> operator -(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult> cf, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult> func) { cf.Remove(func); return cf; }
 		
-		public Object Target => GetSingleOrNull()?.Target;
+		public Object Target => GetInvocationList().FirstOrDefault()?.Target;
 		public TResult Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, T14 arg14) {
 			var array = GetInvocationList();
 			var result = default(TResult);
@@ -263,7 +263,7 @@ namespace CoContra {
 		public static CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult> operator +(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult> cf, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult> func) { cf.Add(func); return cf; }
 		public static CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult> operator -(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult> cf, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult> func) { cf.Remove(func); return cf; }
 		
-		public Object Target => GetSingleOrNull()?.Target;
+		public Object Target => GetInvocationList().FirstOrDefault()?.Target;
 		public TResult Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, T14 arg14, T15 arg15) {
 			var array = GetInvocationList();
 			var result = default(TResult);
@@ -280,7 +280,7 @@ namespace CoContra {
 		public static CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult> operator +(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult> cf, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult> func) { cf.Add(func); return cf; }
 		public static CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult> operator -(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult> cf, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult> func) { cf.Remove(func); return cf; }
 		
-		public Object Target => GetSingleOrNull()?.Target;
+		public Object Target => GetInvocationList().FirstOrDefault()?.Target;
 		public TResult Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, T14 arg14, T15 arg15, T16 arg16) {
 			var array = GetInvocationList();
 			var result = default(TResult);
