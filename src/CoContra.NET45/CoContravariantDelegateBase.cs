@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Immutable;
 
 namespace CoContra {
-	public abstract class CoContravariantDelegateBase<TDelegate> : IEquatable<CoContravariantDelegateBase<TDelegate>>, IStructuralComparable, IStructuralEquatable {
+	public abstract class CoContravariantDelegateBase<TDelegate> : IEquatable<CoContravariantDelegateBase<TDelegate>>, IStructuralComparable, IStructuralEquatable where TDelegate : class {
 		private ImmutableArray<TDelegate> array = ImmutableArray<TDelegate>.Empty;
 
 		protected CoContravariantDelegateBase(TDelegate @delegate) {
@@ -43,6 +43,11 @@ namespace CoContra {
 		Int32 IStructuralComparable.CompareTo(Object other, IComparer comparer) => ((IStructuralComparable) array).CompareTo(other, comparer);
 		Boolean IStructuralEquatable.Equals(Object other, IEqualityComparer comparer) => ((IStructuralEquatable) array).Equals(other, comparer);
 		Int32 IStructuralEquatable.GetHashCode(IEqualityComparer comparer) => ((IStructuralEquatable) array).GetHashCode(comparer);
+
+		protected TDelegate GetSingleOrNull() {
+			var invocationList = GetInvocationList();
+			return invocationList.Length == 1 ? invocationList[0] : null;
+		}
 
 		private static ImmutableArray<TDelegate> InterlockedGet(ref ImmutableArray<TDelegate> array) {
 			return ImmutableInterlocked.InterlockedCompareExchange(ref array, ImmutableArray<TDelegate>.Empty, ImmutableArray<TDelegate>.Empty);

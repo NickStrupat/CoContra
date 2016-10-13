@@ -21,30 +21,14 @@ namespace CoContra {
 		public static implicit operator Action<<#= typeArgs #>>(CovariantAction<<#= typeArgs #>> caction) { return caction.Invoke; }
 		public static CovariantAction<<#= typeArgs #>> operator +(CovariantAction<<#= typeArgs #>> cf, Action<<#= typeArgs #>> action) { cf.Add(action); return cf; }
 		public static CovariantAction<<#= typeArgs #>> operator -(CovariantAction<<#= typeArgs #>> cf, Action<<#= typeArgs #>> action) { cf.Remove(action); return cf; }
-
+		
+		public Object Target => GetSingleOrNull()?.Target;
 		public void Invoke(<#= invokeParams #>) {
 			var array = GetInvocationList();
 			for (var i = 0; i < array.Length; i++)
 				array[i].Invoke(<#= invokeArgs #>);
 		}
 	}
-	
-<# typeArgs = String.Join(", ", types.Concat(new [] { "TResult" })); #>
-	/*public class CoContravariantFunc<<#= typeArgs #>> : CoContravariantDelegateBase<Func<<#= typeArgs #>>> {
-		public CoContravariantFunc(Func<<#= typeArgs #>> func) : base(func) {}
-		public static implicit operator CoContravariantFunc<<#= typeArgs #>>(Func<<#= typeArgs #>> func) { return new CoContravariantFunc<<#= typeArgs #>>(func); }
-		public static implicit operator Func<<#= typeArgs #>>(CoContravariantFunc<<#= typeArgs #>> cfunc) { return cfunc.Invoke; }
-		public static CoContravariantFunc<<#= typeArgs #>> operator +(CoContravariantFunc<<#= typeArgs #>> cf, Func<<#= typeArgs #>> func) { cf.Add(func); return cf; }
-		public static CoContravariantFunc<<#= typeArgs #>> operator -(CoContravariantFunc<<#= typeArgs #>> cf, Func<<#= typeArgs #>> func) { cf.Remove(func); return cf; }
-
-		public TResult Invoke(<#= invokeParams #>) {
-			var array = GetInvocationList();
-			var result = default(TResult);
-			for (var i = 0; i < array.Length; i++)
-				array[i].Invoke(<#= invokeArgs #>);
-			return result;
-		}
-	}*/
 
 <# } #>
 }
