@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Immutable;
-using System.Linq;
 
 namespace CoContra {
 	public abstract class CoContravariantDelegateBase<TDelegate> : IEquatable<CoContravariantDelegateBase<TDelegate>>, IStructuralComparable, IStructuralEquatable where TDelegate : class {

@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Collections.Immutable;
-using System.Linq;
-using System.Threading.Tasks;
 using CoContra;
 
 namespace Testing {
@@ -30,7 +26,8 @@ namespace Testing {
 
 			//var cd = ContravariantEvent<Func<String>>.Empty;
 
-			DoIt doIt = Console.Write;
+			DoIt doIt = s => m.Invoke();
+			doIt += Console.Write;
 			doIt += Console.WriteLine;
 			doIt("asdf");
 
