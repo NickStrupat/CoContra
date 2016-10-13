@@ -26,7 +26,7 @@ namespace CoContra {
 			var array = GetInvocationList();
 			var result = default(TResult);
 			for (var i = 0; i < array.Length; i++)
-				array[i].Invoke(<#= invokeArgs #>);
+				result = array[i].Invoke(<#= invokeArgs #>);
 			return result;
 		}
 	}

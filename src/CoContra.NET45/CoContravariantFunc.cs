@@ -12,7 +12,7 @@ namespace CoContra {
 			var array = GetInvocationList();
 			var result = default(TResult);
 			for (var i = 0; i < array.Length; i++)
-				array[i].Invoke();
+				result = array[i].Invoke();
 			return result;
 		}
 	}
@@ -28,7 +28,7 @@ namespace CoContra {
 			var array = GetInvocationList();
 			var result = default(TResult);
 			for (var i = 0; i < array.Length; i++)
-				array[i].Invoke(arg);
+				result = array[i].Invoke(arg);
 			return result;
 		}
 	}
@@ -44,7 +44,7 @@ namespace CoContra {
 			var array = GetInvocationList();
 			var result = default(TResult);
 			for (var i = 0; i < array.Length; i++)
-				array[i].Invoke(arg1, arg2);
+				result = array[i].Invoke(arg1, arg2);
 			return result;
 		}
 	}
@@ -60,7 +60,7 @@ namespace CoContra {
 			var array = GetInvocationList();
 			var result = default(TResult);
 			for (var i = 0; i < array.Length; i++)
-				array[i].Invoke(arg1, arg2, arg3);
+				result = array[i].Invoke(arg1, arg2, arg3);
 			return result;
 		}
 	}
@@ -76,7 +76,7 @@ namespace CoContra {
 			var array = GetInvocationList();
 			var result = default(TResult);
 			for (var i = 0; i < array.Length; i++)
-				array[i].Invoke(arg1, arg2, arg3, arg4);
+				result = array[i].Invoke(arg1, arg2, arg3, arg4);
 			return result;
 		}
 	}
@@ -92,7 +92,7 @@ namespace CoContra {
 			var array = GetInvocationList();
 			var result = default(TResult);
 			for (var i = 0; i < array.Length; i++)
-				array[i].Invoke(arg1, arg2, arg3, arg4, arg5);
+				result = array[i].Invoke(arg1, arg2, arg3, arg4, arg5);
 			return result;
 		}
 	}
@@ -108,7 +108,7 @@ namespace CoContra {
 			var array = GetInvocationList();
 			var result = default(TResult);
 			for (var i = 0; i < array.Length; i++)
-				array[i].Invoke(arg1, arg2, arg3, arg4, arg5, arg6);
+				result = array[i].Invoke(arg1, arg2, arg3, arg4, arg5, arg6);
 			return result;
 		}
 	}
@@ -124,7 +124,7 @@ namespace CoContra {
 			var array = GetInvocationList();
 			var result = default(TResult);
 			for (var i = 0; i < array.Length; i++)
-				array[i].Invoke(arg1, arg2, arg3, arg4, arg5, arg6, arg7);
+				result = array[i].Invoke(arg1, arg2, arg3, arg4, arg5, arg6, arg7);
 			return result;
 		}
 	}
@@ -140,7 +140,7 @@ namespace CoContra {
 			var array = GetInvocationList();
 			var result = default(TResult);
 			for (var i = 0; i < array.Length; i++)
-				array[i].Invoke(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
+				result = array[i].Invoke(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
 			return result;
 		}
 	}
@@ -156,7 +156,7 @@ namespace CoContra {
 			var array = GetInvocationList();
 			var result = default(TResult);
 			for (var i = 0; i < array.Length; i++)
-				array[i].Invoke(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
+				result = array[i].Invoke(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
 			return result;
 		}
 	}
@@ -172,7 +172,7 @@ namespace CoContra {
 			var array = GetInvocationList();
 			var result = default(TResult);
 			for (var i = 0; i < array.Length; i++)
-				array[i].Invoke(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10);
+				result = array[i].Invoke(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10);
 			return result;
 		}
 	}
@@ -188,7 +188,7 @@ namespace CoContra {
 			var array = GetInvocationList();
 			var result = default(TResult);
 			for (var i = 0; i < array.Length; i++)
-				array[i].Invoke(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11);
+				result = array[i].Invoke(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11);
 			return result;
 		}
 	}
@@ -204,7 +204,7 @@ namespace CoContra {
 			var array = GetInvocationList();
 			var result = default(TResult);
 			for (var i = 0; i < array.Length; i++)
-				array[i].Invoke(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12);
+				result = array[i].Invoke(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12);
 			return result;
 		}
 	}
@@ -220,7 +220,7 @@ namespace CoContra {
 			var array = GetInvocationList();
 			var result = default(TResult);
 			for (var i = 0; i < array.Length; i++)
-				array[i].Invoke(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13);
+				result = array[i].Invoke(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13);
 			return result;
 		}
 	}
@@ -236,7 +236,7 @@ namespace CoContra {
 			var array = GetInvocationList();
 			var result = default(TResult);
 			for (var i = 0; i < array.Length; i++)
-				array[i].Invoke(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14);
+				result = array[i].Invoke(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14);
 			return result;
 		}
 	}
@@ -252,7 +252,7 @@ namespace CoContra {
 			var array = GetInvocationList();
 			var result = default(TResult);
 			for (var i = 0; i < array.Length; i++)
-				array[i].Invoke(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15);
+				result = array[i].Invoke(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15);
 			return result;
 		}
 	}
@@ -268,7 +268,7 @@ namespace CoContra {
 			var array = GetInvocationList();
 			var result = default(TResult);
 			for (var i = 0; i < array.Length; i++)
-				array[i].Invoke(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16);
+				result = array[i].Invoke(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16);
 			return result;
 		}
 	}

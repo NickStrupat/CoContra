@@ -18,6 +18,8 @@ namespace Testing {
 			CoContravariantFunc<object> multi2 = objectFactory;
 			multi2 += stringFactory;
 
+			Func<Object> m = multi1;
+			var d = m.Invoke();
 			var b = multi1.Invoke();
 			var c = multi2.Invoke();
 
@@ -50,14 +52,14 @@ namespace Testing {
 		public event Action<String> What { add { what += value; } remove { what -= value; } }
 
 		public event Action<String> What2;
-		public event Func<String> Fuck;
+		public event Func<String> Bar;
 		public event EventHandler<String> Event;
 		public event EventHandler Event2;
 
 		public void Foo() {
-			Fuck += () => "asdf";
-			Fuck += () => "fdsa";
-			var dfsa = Fuck();
+			Bar += () => "asdf";
+			Bar += () => "fdsa";
+			var dfsa = Bar();
 		}
 	}
 	//public class ClickEventArgs : EventArgs { }
