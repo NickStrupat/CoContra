@@ -1,0 +1,18 @@
+{
+	"version": "1.0.0-*",
+	"buildOptions": {
+		"compile": [ "../CoContra.NET45/*.cs" ]
+	},
+
+	"dependencies": {
+		"NETStandard.Library": "1.6.0",
+		"System.Collections.Immutable": "1.2.0"
+	},
+
+	"frameworks": {
+		"net451": {},
+		"netstandard1.3": {
+			"imports": "dnxcore50"
+		}
+	}
+}

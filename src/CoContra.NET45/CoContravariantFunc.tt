@@ -1,0 +1,35 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>
+using System;
+
+namespace CoContra {
+<#
+	for (var i = 0; i != 17; i++) {
+		var suffixes = Enumerable.Range(0, i).Select(x => i == 1 ? "" : (x + 1).ToString());
+		var types = suffixes.Select(x => "T" + x);
+		var typeArgs = String.Join(", ", types.Concat(new [] { "TResult" }));
+		var invokeParams = String.Join(", ", suffixes.Select(x => "T" + x + " arg" + x));
+		var invokeArgs = String.Join(", ", suffixes.Select(x => "arg" + x));
+#>
+	public class CoContravariantFunc<<#= typeArgs #>> : CoContravariantDelegateBase<Func<<#= typeArgs #>>> {
+		public CoContravariantFunc(Func<<#= typeArgs #>> func) : base(func) {}
+		public static implicit operator CoContravariantFunc<<#= typeArgs #>>(Func<<#= typeArgs #>> func) { return new CoContravariantFunc<<#= typeArgs #>>(func); }
+		public static implicit operator Func<<#= typeArgs #>>(CoContravariantFunc<<#= typeArgs #>> cfunc) { return cfunc.Invoke; }
+		public static CoContravariantFunc<<#= typeArgs #>> operator +(CoContravariantFunc<<#= typeArgs #>> cf, Func<<#= typeArgs #>> func) { cf.Add(func); return cf; }
+		public static CoContravariantFunc<<#= typeArgs #>> operator -(CoContravariantFunc<<#= typeArgs #>> cf, Func<<#= typeArgs #>> func) { cf.Remove(func); return cf; }
+
+		public TResult Invoke(<#= invokeParams #>) {
+			var array = GetInvocationList();
+			var result = default(TResult);
+			for (var i = 0; i < array.Length; i++)
+				array[i].Invoke(<#= invokeArgs #>);
+			return result;
+		}
+	}
+
+<# } #>
+}
