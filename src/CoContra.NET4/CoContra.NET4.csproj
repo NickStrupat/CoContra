@@ -48,9 +48,6 @@
     <Compile Include="..\CoContra.NET45\CovariantAction.cs">
       <Link>CovariantAction.cs</Link>
     </Compile>
-    <Compile Include="..\CoContra.NET45\CovariantEventHandler.cs">
-      <Link>CovariantEventHandler.cs</Link>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

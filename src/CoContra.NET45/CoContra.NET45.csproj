@@ -50,7 +50,6 @@
       <DependentUpon>CovariantAction.tt</DependentUpon>
     </Compile>
     <Compile Include="CoContravariantDelegateBase.cs" />
-    <Compile Include="CovariantEventHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
