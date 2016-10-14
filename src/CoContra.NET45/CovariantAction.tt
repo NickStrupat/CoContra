@@ -23,10 +23,19 @@ namespace CoContra {
 		public static CovariantAction<<#= typeArgs #>> operator -(CovariantAction<<#= typeArgs #>> cf, Action<<#= typeArgs #>> action) { cf.Remove(action); return cf; }
 		
 		public Object Target => GetSingleOrNull()?.Target;
+
 		public void Invoke(<#= invokeParams #>) {
 			var array = GetInvocationList();
 			for (var i = 0; i < array.Length; i++)
 				array[i].Invoke(<#= invokeArgs #>);
+		}
+
+		public override Object DynamicInvoke(params Object[] args) {
+			var array = GetInvocationList();
+			var result = default(Object);
+			for (var i = 0; i < array.Length; i++)
+				result = array[i].DynamicInvoke(args);
+			return result;
 		}
 	}
 

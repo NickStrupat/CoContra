@@ -10,6 +10,8 @@ namespace CoContra {
 			Add(@delegate);
 		}
 
+		public abstract Object DynamicInvoke(params Object[] args);
+
 		public ImmutableArray<TDelegate> GetInvocationList() => InterlockedGet(ref array);
 
 		public void Add(TDelegate @delegate) {
