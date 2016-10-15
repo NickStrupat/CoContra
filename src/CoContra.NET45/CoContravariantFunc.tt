@@ -21,6 +21,8 @@ namespace CoContra {
 		public static implicit operator Func<<#= typeArgs #>>(CoContravariantFunc<<#= typeArgs #>> cfunc) { return cfunc.Invoke; }
 		public static CoContravariantFunc<<#= typeArgs #>> operator +(CoContravariantFunc<<#= typeArgs #>> cf, Func<<#= typeArgs #>> func) { cf.Add(func); return cf; }
 		public static CoContravariantFunc<<#= typeArgs #>> operator -(CoContravariantFunc<<#= typeArgs #>> cf, Func<<#= typeArgs #>> func) { cf.Remove(func); return cf; }
+		public static Boolean operator ==(CoContravariantFunc<<#= typeArgs #>> left, CoContravariantFunc<<#= typeArgs #>> right) => left?.GetInvocationList() == right?.GetInvocationList();
+		public static Boolean operator !=(CoContravariantFunc<<#= typeArgs #>> left, CoContravariantFunc<<#= typeArgs #>> right) => left?.GetInvocationList() != right?.GetInvocationList();
 		
 		public Object Target => GetSingleOrNull()?.Target;
 

@@ -7,6 +7,8 @@ namespace CoContra {
 		public static implicit operator Func<TResult>(CoContravariantFunc<TResult> cfunc) { return cfunc.Invoke; }
 		public static CoContravariantFunc<TResult> operator +(CoContravariantFunc<TResult> cf, Func<TResult> func) { cf.Add(func); return cf; }
 		public static CoContravariantFunc<TResult> operator -(CoContravariantFunc<TResult> cf, Func<TResult> func) { cf.Remove(func); return cf; }
+		public static Boolean operator ==(CoContravariantFunc<TResult> left, CoContravariantFunc<TResult> right) => left?.GetInvocationList() == right?.GetInvocationList();
+		public static Boolean operator !=(CoContravariantFunc<TResult> left, CoContravariantFunc<TResult> right) => left?.GetInvocationList() != right?.GetInvocationList();
 		
 		public Object Target => GetSingleOrNull()?.Target;
 
@@ -33,6 +35,8 @@ namespace CoContra {
 		public static implicit operator Func<T, TResult>(CoContravariantFunc<T, TResult> cfunc) { return cfunc.Invoke; }
 		public static CoContravariantFunc<T, TResult> operator +(CoContravariantFunc<T, TResult> cf, Func<T, TResult> func) { cf.Add(func); return cf; }
 		public static CoContravariantFunc<T, TResult> operator -(CoContravariantFunc<T, TResult> cf, Func<T, TResult> func) { cf.Remove(func); return cf; }
+		public static Boolean operator ==(CoContravariantFunc<T, TResult> left, CoContravariantFunc<T, TResult> right) => left?.GetInvocationList() == right?.GetInvocationList();
+		public static Boolean operator !=(CoContravariantFunc<T, TResult> left, CoContravariantFunc<T, TResult> right) => left?.GetInvocationList() != right?.GetInvocationList();
 		
 		public Object Target => GetSingleOrNull()?.Target;
 
@@ -59,6 +63,8 @@ namespace CoContra {
 		public static implicit operator Func<T1, T2, TResult>(CoContravariantFunc<T1, T2, TResult> cfunc) { return cfunc.Invoke; }
 		public static CoContravariantFunc<T1, T2, TResult> operator +(CoContravariantFunc<T1, T2, TResult> cf, Func<T1, T2, TResult> func) { cf.Add(func); return cf; }
 		public static CoContravariantFunc<T1, T2, TResult> operator -(CoContravariantFunc<T1, T2, TResult> cf, Func<T1, T2, TResult> func) { cf.Remove(func); return cf; }
+		public static Boolean operator ==(CoContravariantFunc<T1, T2, TResult> left, CoContravariantFunc<T1, T2, TResult> right) => left?.GetInvocationList() == right?.GetInvocationList();
+		public static Boolean operator !=(CoContravariantFunc<T1, T2, TResult> left, CoContravariantFunc<T1, T2, TResult> right) => left?.GetInvocationList() != right?.GetInvocationList();
 		
 		public Object Target => GetSingleOrNull()?.Target;
 
@@ -85,6 +91,8 @@ namespace CoContra {
 		public static implicit operator Func<T1, T2, T3, TResult>(CoContravariantFunc<T1, T2, T3, TResult> cfunc) { return cfunc.Invoke; }
 		public static CoContravariantFunc<T1, T2, T3, TResult> operator +(CoContravariantFunc<T1, T2, T3, TResult> cf, Func<T1, T2, T3, TResult> func) { cf.Add(func); return cf; }
 		public static CoContravariantFunc<T1, T2, T3, TResult> operator -(CoContravariantFunc<T1, T2, T3, TResult> cf, Func<T1, T2, T3, TResult> func) { cf.Remove(func); return cf; }
+		public static Boolean operator ==(CoContravariantFunc<T1, T2, T3, TResult> left, CoContravariantFunc<T1, T2, T3, TResult> right) => left?.GetInvocationList() == right?.GetInvocationList();
+		public static Boolean operator !=(CoContravariantFunc<T1, T2, T3, TResult> left, CoContravariantFunc<T1, T2, T3, TResult> right) => left?.GetInvocationList() != right?.GetInvocationList();
 		
 		public Object Target => GetSingleOrNull()?.Target;
 
@@ -111,6 +119,8 @@ namespace CoContra {
 		public static implicit operator Func<T1, T2, T3, T4, TResult>(CoContravariantFunc<T1, T2, T3, T4, TResult> cfunc) { return cfunc.Invoke; }
 		public static CoContravariantFunc<T1, T2, T3, T4, TResult> operator +(CoContravariantFunc<T1, T2, T3, T4, TResult> cf, Func<T1, T2, T3, T4, TResult> func) { cf.Add(func); return cf; }
 		public static CoContravariantFunc<T1, T2, T3, T4, TResult> operator -(CoContravariantFunc<T1, T2, T3, T4, TResult> cf, Func<T1, T2, T3, T4, TResult> func) { cf.Remove(func); return cf; }
+		public static Boolean operator ==(CoContravariantFunc<T1, T2, T3, T4, TResult> left, CoContravariantFunc<T1, T2, T3, T4, TResult> right) => left?.GetInvocationList() == right?.GetInvocationList();
+		public static Boolean operator !=(CoContravariantFunc<T1, T2, T3, T4, TResult> left, CoContravariantFunc<T1, T2, T3, T4, TResult> right) => left?.GetInvocationList() != right?.GetInvocationList();
 		
 		public Object Target => GetSingleOrNull()?.Target;
 
@@ -137,6 +147,8 @@ namespace CoContra {
 		public static implicit operator Func<T1, T2, T3, T4, T5, TResult>(CoContravariantFunc<T1, T2, T3, T4, T5, TResult> cfunc) { return cfunc.Invoke; }
 		public static CoContravariantFunc<T1, T2, T3, T4, T5, TResult> operator +(CoContravariantFunc<T1, T2, T3, T4, T5, TResult> cf, Func<T1, T2, T3, T4, T5, TResult> func) { cf.Add(func); return cf; }
 		public static CoContravariantFunc<T1, T2, T3, T4, T5, TResult> operator -(CoContravariantFunc<T1, T2, T3, T4, T5, TResult> cf, Func<T1, T2, T3, T4, T5, TResult> func) { cf.Remove(func); return cf; }
+		public static Boolean operator ==(CoContravariantFunc<T1, T2, T3, T4, T5, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, TResult> right) => left?.GetInvocationList() == right?.GetInvocationList();
+		public static Boolean operator !=(CoContravariantFunc<T1, T2, T3, T4, T5, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, TResult> right) => left?.GetInvocationList() != right?.GetInvocationList();
 		
 		public Object Target => GetSingleOrNull()?.Target;
 
@@ -163,6 +175,8 @@ namespace CoContra {
 		public static implicit operator Func<T1, T2, T3, T4, T5, T6, TResult>(CoContravariantFunc<T1, T2, T3, T4, T5, T6, TResult> cfunc) { return cfunc.Invoke; }
 		public static CoContravariantFunc<T1, T2, T3, T4, T5, T6, TResult> operator +(CoContravariantFunc<T1, T2, T3, T4, T5, T6, TResult> cf, Func<T1, T2, T3, T4, T5, T6, TResult> func) { cf.Add(func); return cf; }
 		public static CoContravariantFunc<T1, T2, T3, T4, T5, T6, TResult> operator -(CoContravariantFunc<T1, T2, T3, T4, T5, T6, TResult> cf, Func<T1, T2, T3, T4, T5, T6, TResult> func) { cf.Remove(func); return cf; }
+		public static Boolean operator ==(CoContravariantFunc<T1, T2, T3, T4, T5, T6, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, T6, TResult> right) => left?.GetInvocationList() == right?.GetInvocationList();
+		public static Boolean operator !=(CoContravariantFunc<T1, T2, T3, T4, T5, T6, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, T6, TResult> right) => left?.GetInvocationList() != right?.GetInvocationList();
 		
 		public Object Target => GetSingleOrNull()?.Target;
 
@@ -189,6 +203,8 @@ namespace CoContra {
 		public static implicit operator Func<T1, T2, T3, T4, T5, T6, T7, TResult>(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, TResult> cfunc) { return cfunc.Invoke; }
 		public static CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, TResult> operator +(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, TResult> cf, Func<T1, T2, T3, T4, T5, T6, T7, TResult> func) { cf.Add(func); return cf; }
 		public static CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, TResult> operator -(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, TResult> cf, Func<T1, T2, T3, T4, T5, T6, T7, TResult> func) { cf.Remove(func); return cf; }
+		public static Boolean operator ==(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, TResult> right) => left?.GetInvocationList() == right?.GetInvocationList();
+		public static Boolean operator !=(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, TResult> right) => left?.GetInvocationList() != right?.GetInvocationList();
 		
 		public Object Target => GetSingleOrNull()?.Target;
 
@@ -215,6 +231,8 @@ namespace CoContra {
 		public static implicit operator Func<T1, T2, T3, T4, T5, T6, T7, T8, TResult>(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, TResult> cfunc) { return cfunc.Invoke; }
 		public static CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, TResult> operator +(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, TResult> cf, Func<T1, T2, T3, T4, T5, T6, T7, T8, TResult> func) { cf.Add(func); return cf; }
 		public static CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, TResult> operator -(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, TResult> cf, Func<T1, T2, T3, T4, T5, T6, T7, T8, TResult> func) { cf.Remove(func); return cf; }
+		public static Boolean operator ==(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, TResult> right) => left?.GetInvocationList() == right?.GetInvocationList();
+		public static Boolean operator !=(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, TResult> right) => left?.GetInvocationList() != right?.GetInvocationList();
 		
 		public Object Target => GetSingleOrNull()?.Target;
 
@@ -241,6 +259,8 @@ namespace CoContra {
 		public static implicit operator Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult>(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult> cfunc) { return cfunc.Invoke; }
 		public static CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult> operator +(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult> cf, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult> func) { cf.Add(func); return cf; }
 		public static CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult> operator -(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult> cf, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult> func) { cf.Remove(func); return cf; }
+		public static Boolean operator ==(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult> right) => left?.GetInvocationList() == right?.GetInvocationList();
+		public static Boolean operator !=(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult> right) => left?.GetInvocationList() != right?.GetInvocationList();
 		
 		public Object Target => GetSingleOrNull()?.Target;
 
@@ -267,6 +287,8 @@ namespace CoContra {
 		public static implicit operator Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult>(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult> cfunc) { return cfunc.Invoke; }
 		public static CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult> operator +(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult> cf, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult> func) { cf.Add(func); return cf; }
 		public static CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult> operator -(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult> cf, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult> func) { cf.Remove(func); return cf; }
+		public static Boolean operator ==(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult> right) => left?.GetInvocationList() == right?.GetInvocationList();
+		public static Boolean operator !=(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult> right) => left?.GetInvocationList() != right?.GetInvocationList();
 		
 		public Object Target => GetSingleOrNull()?.Target;
 
@@ -293,6 +315,8 @@ namespace CoContra {
 		public static implicit operator Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult>(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult> cfunc) { return cfunc.Invoke; }
 		public static CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult> operator +(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult> cf, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult> func) { cf.Add(func); return cf; }
 		public static CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult> operator -(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult> cf, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult> func) { cf.Remove(func); return cf; }
+		public static Boolean operator ==(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult> right) => left?.GetInvocationList() == right?.GetInvocationList();
+		public static Boolean operator !=(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult> right) => left?.GetInvocationList() != right?.GetInvocationList();
 		
 		public Object Target => GetSingleOrNull()?.Target;
 
@@ -319,6 +343,8 @@ namespace CoContra {
 		public static implicit operator Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult>(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult> cfunc) { return cfunc.Invoke; }
 		public static CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult> operator +(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult> cf, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult> func) { cf.Add(func); return cf; }
 		public static CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult> operator -(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult> cf, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult> func) { cf.Remove(func); return cf; }
+		public static Boolean operator ==(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult> right) => left?.GetInvocationList() == right?.GetInvocationList();
+		public static Boolean operator !=(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult> right) => left?.GetInvocationList() != right?.GetInvocationList();
 		
 		public Object Target => GetSingleOrNull()?.Target;
 
@@ -345,6 +371,8 @@ namespace CoContra {
 		public static implicit operator Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult>(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult> cfunc) { return cfunc.Invoke; }
 		public static CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult> operator +(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult> cf, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult> func) { cf.Add(func); return cf; }
 		public static CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult> operator -(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult> cf, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult> func) { cf.Remove(func); return cf; }
+		public static Boolean operator ==(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult> right) => left?.GetInvocationList() == right?.GetInvocationList();
+		public static Boolean operator !=(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult> right) => left?.GetInvocationList() != right?.GetInvocationList();
 		
 		public Object Target => GetSingleOrNull()?.Target;
 
@@ -371,6 +399,8 @@ namespace CoContra {
 		public static implicit operator Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult>(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult> cfunc) { return cfunc.Invoke; }
 		public static CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult> operator +(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult> cf, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult> func) { cf.Add(func); return cf; }
 		public static CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult> operator -(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult> cf, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult> func) { cf.Remove(func); return cf; }
+		public static Boolean operator ==(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult> right) => left?.GetInvocationList() == right?.GetInvocationList();
+		public static Boolean operator !=(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult> right) => left?.GetInvocationList() != right?.GetInvocationList();
 		
 		public Object Target => GetSingleOrNull()?.Target;
 
@@ -397,6 +427,8 @@ namespace CoContra {
 		public static implicit operator Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult>(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult> cfunc) { return cfunc.Invoke; }
 		public static CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult> operator +(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult> cf, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult> func) { cf.Add(func); return cf; }
 		public static CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult> operator -(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult> cf, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult> func) { cf.Remove(func); return cf; }
+		public static Boolean operator ==(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult> right) => left?.GetInvocationList() == right?.GetInvocationList();
+		public static Boolean operator !=(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult> right) => left?.GetInvocationList() != right?.GetInvocationList();
 		
 		public Object Target => GetSingleOrNull()?.Target;
 
@@ -423,6 +455,8 @@ namespace CoContra {
 		public static implicit operator Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult>(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult> cfunc) { return cfunc.Invoke; }
 		public static CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult> operator +(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult> cf, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult> func) { cf.Add(func); return cf; }
 		public static CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult> operator -(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult> cf, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult> func) { cf.Remove(func); return cf; }
+		public static Boolean operator ==(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult> right) => left?.GetInvocationList() == right?.GetInvocationList();
+		public static Boolean operator !=(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult> right) => left?.GetInvocationList() != right?.GetInvocationList();
 		
 		public Object Target => GetSingleOrNull()?.Target;
 
