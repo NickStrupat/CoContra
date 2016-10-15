@@ -6,7 +6,7 @@ namespace CoContra {
 	public abstract class CoContravariantDelegateBase<TDelegate> : IEquatable<CoContravariantDelegateBase<TDelegate>>, IStructuralComparable, IStructuralEquatable where TDelegate : class {
 		private ImmutableArray<TDelegate> array = ImmutableArray<TDelegate>.Empty;
 
-		protected CoContravariantDelegateBase(TDelegate @delegate) {
+		internal CoContravariantDelegateBase(TDelegate @delegate) {
 			Add(@delegate);
 		}
 
