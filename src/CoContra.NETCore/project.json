@@ -1,5 +1,14 @@
 {
 	"version": "1.0.0-*",
+	"title": "CoContra",
+	"description": "Delegate-like classes for covariant and contravariant delegates and events",
+	"authors": [ "Nick Strupat" ],
+	"packOptions": {
+		"tags": [ "covariance", "covariant", "contravariance", "contravariant", "delegate" ],
+		"projectUrl": "https://github.com/NickStrupat/CoContra",
+		"licenseUrl": "https://raw.githubusercontent.com/NickStrupat/CoContra/master/LICENSE"
+	},
+
 	"buildOptions": {
 		"compile": [ "../CoContra.NET45/*.cs" ]
 	},
