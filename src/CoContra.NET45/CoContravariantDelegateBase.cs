@@ -14,7 +14,7 @@ namespace CoContra {
 
 		public ImmutableArray<TDelegate> GetInvocationList() => InterlockedGet(ref array);
 
-		public void Add(TDelegate @delegate) {
+		protected void Add(TDelegate @delegate) {
 			if (@delegate == null)
 				return;
 
@@ -26,7 +26,7 @@ namespace CoContra {
 			while (initial != ImmutableInterlocked.InterlockedCompareExchange(ref array, computed, initial));
 		}
 
-		public void Remove(TDelegate @delegate) {
+		protected void Remove(TDelegate @delegate) {
 			if (@delegate == null)
 				return;
 
