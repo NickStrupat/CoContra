@@ -5,6 +5,8 @@
 <#@ import namespace="System.Collections.Generic" #>
 <#@ output extension=".cs" #>
 using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace CoContra {
 <#
@@ -33,6 +35,29 @@ namespace CoContra {
 				result = array[i].Invoke(<#= invokeArgs #>);
 			return result;
 		}
+
+#if NET4
+		public Task<TResult> InvokeAsync(<#= invokeParams + (invokeParams.Length == 0 ? "" : ", ") #>CancellationToken cancellationToken = default(CancellationToken)) => Task.Factory.StartNew(() => Invoke(<#= invokeArgs #>), cancellationToken);
+#else
+		public Task<TResult> InvokeAsync(<#= invokeParams + (invokeParams.Length == 0 ? "" : ", ") #>CancellationToken cancellationToken = default(CancellationToken)) => Task.Run(() => Invoke(<#= invokeArgs #>), cancellationToken);
+#endif
+
+		public IAsyncResult BeginInvoke(<#= invokeParams + (invokeParams.Length == 0 ? "" : ", ") #>AsyncCallback callback, Object state) {
+			var task = InvokeAsync(<#= invokeArgs #>);
+			var tcs = new TaskCompletionSource<TResult>(state);
+			task.ContinueWith(t => {
+				if (t.IsFaulted)
+					tcs.TrySetException(t.Exception.InnerExceptions);
+				else if (t.IsCanceled)
+					tcs.TrySetCanceled();
+				else
+					tcs.TrySetResult(t.Result);
+				callback?.Invoke(tcs.Task);
+			}, TaskScheduler.Default);
+			return tcs.Task;
+		}
+
+		public TResult EndInvoke(IAsyncResult asyncResult) => ((Task<TResult>) asyncResult).Result;
 
 		public override Object DynamicInvoke(params Object[] args) {
 			var array = GetInvocationList();
