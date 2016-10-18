@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Immutable;
+using System.Threading.Tasks;
 using CoContra;
 
 namespace Testing {
@@ -13,6 +14,7 @@ namespace Testing {
 
 			CoContravariantFunc<object> multi2 = objectFactory;
 			multi2 += stringFactory;
+			multi2 += () => "";
 
 			Func<Object> m = multi1;
 			var d = m.Invoke();
@@ -30,10 +32,14 @@ namespace Testing {
 			doIt += Console.Write;
 			doIt += Console.WriteLine;
 			doIt("asdf");
+			//doIt.BeginInvoke("", null, null);
 
-			var ca = new CovariantAction<String>((s => s += ""));
-			ca.Add(e => e += 3);
+			var ca = new CovariantAction<String>(Console.WriteLine);
+			ca += e => e += 3;
 			Func<Int64, Int64> a = t => t + 4;
+			ca.InvokeAsync("invokeasync").Wait();
+			var who = ca.BeginInvoke("begininvoke", ar => { }, null);
+			ca.EndInvoke(who);
 
 			var thing = new Thing();
 			thing.Foo();
