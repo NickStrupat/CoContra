@@ -25,7 +25,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>TRACE;NET4</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -43,9 +43,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Tests.NETCore\Tests.cs">
-      <Link>Tests.cs</Link>
+    <Compile Include="..\Tests.NETCore\CoContravariantFuncTests.cs">
+      <Link>CoContravariantFuncTests.cs</Link>
     </Compile>
+    <Compile Include="..\Tests.NETCore\CovariantActionTests.cs">
+      <Link>CovariantActionTests.cs</Link>
+    </Compile>
+    <Compile Include="..\Tests.NETCore\Foo.cs">
+      <Link>Foo.cs</Link>
+    </Compile>
+    <Compile Include="Extensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

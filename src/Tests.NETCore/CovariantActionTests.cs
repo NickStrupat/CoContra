@@ -10,15 +10,7 @@ using Xunit;
 #endif
 
 namespace Tests {
-#if NET4
-	internal static class Extensions {
-		public static MethodInfo GetMethodInfo(this Action<Object> action) => action.Method;
-		public static MethodInfo GetMethodInfo(this CovariantAction<Object> caction) => caction.Method;
-		public static Type GetTypeInfo(this Type type) => type;
-	}
-#endif
-
-	public class Tests {
+	public class CovariantActionTests {
 		[Fact]
 		public void CombineCovariantDelegatesWithActionFails() {
 			Action<String> stringFactory = s => { };
@@ -29,18 +21,6 @@ namespace Tests {
 
 			Action<String> multi2 = stringFactory;
 			Assert.Throws<ArgumentException>(() => multi2 += objectFactory);
-		}
-
-		[Fact]
-		public void CombineContravariantDelegatesWithFuncFails() {
-			Func<String> stringFactory = () => "hello";
-			Func<Object> objectFactory = () => new Object();
-
-			Func<Object> multi1 = stringFactory;
-			Assert.Throws<ArgumentException>(() => multi1 += objectFactory);
-
-			Func<Object> multi2 = objectFactory;
-			Assert.Throws<ArgumentException>(() => multi2 += stringFactory);
 		}
 
 		[Fact]
@@ -56,23 +36,10 @@ namespace Tests {
 		}
 
 		[Fact]
-		public void CombineContravariantDelegatesWithContravariantFunc() {
-			Func<String> stringFactory = () => "hello";
-			Func<Object> objectFactory = () => new Object();
-
-			CoContravariantFunc<Object> multi1 = stringFactory;
-			multi1 += objectFactory;
-
-			CoContravariantFunc<Object> multi2 = objectFactory;
-			multi2 += stringFactory;
-		}
-
-		[Fact]
 		public void NullConstructorArgument() {
-			Assert.Throws<ArgumentNullException>(() => new CoContravariantFunc<Object>(null));
+			Assert.Throws<ArgumentNullException>(() => new CovariantAction<Object>(null));
 		}
 
-		class Foo { public void Bar(Object o) { } public void Baz(Object o) { } public static void StaticMethod(Object o) { } }
 		[Fact]
 		public void TargetProperty() {
 			var foo = new Foo();
@@ -107,12 +74,12 @@ namespace Tests {
 
 			var action = new Action<Object>(foo.Bar);
 			var caction = new CovariantAction<Object>(foo.Bar);
-			Assert.True(ReferenceEquals(foo.GetType().GetMethod(nameof(Foo.Bar)), caction.GetMethodInfo()));
+			Assert.True(ReferenceEquals(foo.VoidBarMethodInfo, caction.GetMethodInfo()));
 			Assert.True(ReferenceEquals(action.GetMethodInfo(), caction.GetMethodInfo()));
 
 			action += foo2.Baz;
 			caction += foo2.Baz;
-			Assert.True(ReferenceEquals(foo2.GetType().GetMethod(nameof(Foo.Baz)), caction.GetMethodInfo()));
+			Assert.True(ReferenceEquals(foo2.VoidBazMethodInfo, caction.GetMethodInfo()));
 			Assert.True(ReferenceEquals(action.GetMethodInfo(), caction.GetMethodInfo()));
 
 			Action<Object> a = x => { };
@@ -122,8 +89,18 @@ namespace Tests {
 
 			action += Foo.StaticMethod;
 			caction += Foo.StaticMethod;
-			Assert.True(ReferenceEquals(typeof(Foo).GetMethod(nameof(Foo.StaticMethod)), caction.GetMethodInfo()));
+			Assert.True(ReferenceEquals(Foo.StaticVoidMethodMethodInfo, caction.GetMethodInfo()));
 			Assert.True(ReferenceEquals(action.GetMethodInfo(), caction.GetMethodInfo()));
+		}
+
+		[Fact]
+		public void Invoke() {
+			var count = 0;
+			var caction = new CovariantAction<String>(o => count++);
+			var action = new Action<Object>(s => count++);
+			caction += action;
+			caction.Invoke(null);
+			Assert.True(2 == count);
 		}
 	}
 }
