@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using System.Threading.Tasks;
 using CoContra;
 
 #if NET4
@@ -93,13 +94,74 @@ namespace Tests {
 			Assert.True(ReferenceEquals(action.GetMethodInfo(), caction.GetMethodInfo()));
 		}
 
+		private const String InvokeArgument = "Test";
+
 		[Fact]
 		public void Invoke() {
 			var count = 0;
-			var caction = new CovariantAction<String>(o => count++);
-			var action = new Action<Object>(s => count++);
+			var caction = new CovariantAction<String>(s => {
+				count++;
+				Assert.True(s == InvokeArgument);
+			});
+			var action = new Action<Object>(o => {
+				count++;
+				Assert.True((String) o == InvokeArgument);
+			});
 			caction += action;
-			caction.Invoke(null);
+			Assert.True(0 == count);
+			caction.Invoke(InvokeArgument);
+			Assert.True(2 == count);
+		}
+
+		[Fact]
+		public void DynamicInvoke() {
+			var count = 0;
+			var caction = new CovariantAction<String>(s => {
+				count++;
+				Assert.True(s == InvokeArgument);
+			});
+			var action = new Action<Object>(o => {
+				count++;
+				Assert.True((String) o == InvokeArgument);
+			});
+			caction += action;
+			Assert.True(0 == count);
+			caction.DynamicInvoke(InvokeArgument);
+			Assert.True(2 == count);
+		}
+
+		[Fact]
+		public void InvokeAsync() {
+			var count = 0;
+			var caction = new CovariantAction<String>(s => {
+				count++;
+				Assert.True(s == InvokeArgument);
+			});
+			var action = new Action<Object>(o => {
+				count++;
+				Assert.True((String) o == InvokeArgument);
+			});
+			caction += action;
+			Assert.True(0 == count);
+			caction.InvokeAsync(InvokeArgument).Wait();
+			Assert.True(2 == count);
+		}
+
+		[Fact]
+		public void BeginInvoke() {
+			var count = 0;
+			var caction = new CovariantAction<String>(s => {
+				count++;
+				Assert.True(s == InvokeArgument);
+			});
+			var action = new Action<Object>(o => {
+				count++;
+				Assert.True((String) o == InvokeArgument);
+			});
+			caction += action;
+			Assert.True(0 == count);
+			var ar = caction.BeginInvoke(InvokeArgument, null, null);
+			caction.EndInvoke(ar);
 			Assert.True(2 == count);
 		}
 	}
