@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -12,7 +14,8 @@ namespace CoContra {
 		public static Boolean operator ==(CoContravariantFunc<TResult> left, CoContravariantFunc<TResult> right) => left?.GetInvocationList() == right?.GetInvocationList();
 		public static Boolean operator !=(CoContravariantFunc<TResult> left, CoContravariantFunc<TResult> right) => left?.GetInvocationList() != right?.GetInvocationList();
 		
-		public Object Target => GetSingleOrNull()?.Target;
+		public Object Target => GetInvocationList().LastOrDefault()?.Target;
+		public MethodInfo Method => GetInvocationList().LastOrDefault()?.Method;
 
 		public TResult Invoke() {
 			var array = GetInvocationList();
@@ -63,7 +66,8 @@ namespace CoContra {
 		public static Boolean operator ==(CoContravariantFunc<T, TResult> left, CoContravariantFunc<T, TResult> right) => left?.GetInvocationList() == right?.GetInvocationList();
 		public static Boolean operator !=(CoContravariantFunc<T, TResult> left, CoContravariantFunc<T, TResult> right) => left?.GetInvocationList() != right?.GetInvocationList();
 		
-		public Object Target => GetSingleOrNull()?.Target;
+		public Object Target => GetInvocationList().LastOrDefault()?.Target;
+		public MethodInfo Method => GetInvocationList().LastOrDefault()?.Method;
 
 		public TResult Invoke(T arg) {
 			var array = GetInvocationList();
@@ -114,7 +118,8 @@ namespace CoContra {
 		public static Boolean operator ==(CoContravariantFunc<T1, T2, TResult> left, CoContravariantFunc<T1, T2, TResult> right) => left?.GetInvocationList() == right?.GetInvocationList();
 		public static Boolean operator !=(CoContravariantFunc<T1, T2, TResult> left, CoContravariantFunc<T1, T2, TResult> right) => left?.GetInvocationList() != right?.GetInvocationList();
 		
-		public Object Target => GetSingleOrNull()?.Target;
+		public Object Target => GetInvocationList().LastOrDefault()?.Target;
+		public MethodInfo Method => GetInvocationList().LastOrDefault()?.Method;
 
 		public TResult Invoke(T1 arg1, T2 arg2) {
 			var array = GetInvocationList();
@@ -165,7 +170,8 @@ namespace CoContra {
 		public static Boolean operator ==(CoContravariantFunc<T1, T2, T3, TResult> left, CoContravariantFunc<T1, T2, T3, TResult> right) => left?.GetInvocationList() == right?.GetInvocationList();
 		public static Boolean operator !=(CoContravariantFunc<T1, T2, T3, TResult> left, CoContravariantFunc<T1, T2, T3, TResult> right) => left?.GetInvocationList() != right?.GetInvocationList();
 		
-		public Object Target => GetSingleOrNull()?.Target;
+		public Object Target => GetInvocationList().LastOrDefault()?.Target;
+		public MethodInfo Method => GetInvocationList().LastOrDefault()?.Method;
 
 		public TResult Invoke(T1 arg1, T2 arg2, T3 arg3) {
 			var array = GetInvocationList();
@@ -216,7 +222,8 @@ namespace CoContra {
 		public static Boolean operator ==(CoContravariantFunc<T1, T2, T3, T4, TResult> left, CoContravariantFunc<T1, T2, T3, T4, TResult> right) => left?.GetInvocationList() == right?.GetInvocationList();
 		public static Boolean operator !=(CoContravariantFunc<T1, T2, T3, T4, TResult> left, CoContravariantFunc<T1, T2, T3, T4, TResult> right) => left?.GetInvocationList() != right?.GetInvocationList();
 		
-		public Object Target => GetSingleOrNull()?.Target;
+		public Object Target => GetInvocationList().LastOrDefault()?.Target;
+		public MethodInfo Method => GetInvocationList().LastOrDefault()?.Method;
 
 		public TResult Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4) {
 			var array = GetInvocationList();
@@ -267,7 +274,8 @@ namespace CoContra {
 		public static Boolean operator ==(CoContravariantFunc<T1, T2, T3, T4, T5, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, TResult> right) => left?.GetInvocationList() == right?.GetInvocationList();
 		public static Boolean operator !=(CoContravariantFunc<T1, T2, T3, T4, T5, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, TResult> right) => left?.GetInvocationList() != right?.GetInvocationList();
 		
-		public Object Target => GetSingleOrNull()?.Target;
+		public Object Target => GetInvocationList().LastOrDefault()?.Target;
+		public MethodInfo Method => GetInvocationList().LastOrDefault()?.Method;
 
 		public TResult Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5) {
 			var array = GetInvocationList();
@@ -318,7 +326,8 @@ namespace CoContra {
 		public static Boolean operator ==(CoContravariantFunc<T1, T2, T3, T4, T5, T6, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, T6, TResult> right) => left?.GetInvocationList() == right?.GetInvocationList();
 		public static Boolean operator !=(CoContravariantFunc<T1, T2, T3, T4, T5, T6, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, T6, TResult> right) => left?.GetInvocationList() != right?.GetInvocationList();
 		
-		public Object Target => GetSingleOrNull()?.Target;
+		public Object Target => GetInvocationList().LastOrDefault()?.Target;
+		public MethodInfo Method => GetInvocationList().LastOrDefault()?.Method;
 
 		public TResult Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6) {
 			var array = GetInvocationList();
@@ -369,7 +378,8 @@ namespace CoContra {
 		public static Boolean operator ==(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, TResult> right) => left?.GetInvocationList() == right?.GetInvocationList();
 		public static Boolean operator !=(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, TResult> right) => left?.GetInvocationList() != right?.GetInvocationList();
 		
-		public Object Target => GetSingleOrNull()?.Target;
+		public Object Target => GetInvocationList().LastOrDefault()?.Target;
+		public MethodInfo Method => GetInvocationList().LastOrDefault()?.Method;
 
 		public TResult Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7) {
 			var array = GetInvocationList();
@@ -420,7 +430,8 @@ namespace CoContra {
 		public static Boolean operator ==(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, TResult> right) => left?.GetInvocationList() == right?.GetInvocationList();
 		public static Boolean operator !=(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, TResult> right) => left?.GetInvocationList() != right?.GetInvocationList();
 		
-		public Object Target => GetSingleOrNull()?.Target;
+		public Object Target => GetInvocationList().LastOrDefault()?.Target;
+		public MethodInfo Method => GetInvocationList().LastOrDefault()?.Method;
 
 		public TResult Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8) {
 			var array = GetInvocationList();
@@ -471,7 +482,8 @@ namespace CoContra {
 		public static Boolean operator ==(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult> right) => left?.GetInvocationList() == right?.GetInvocationList();
 		public static Boolean operator !=(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult> right) => left?.GetInvocationList() != right?.GetInvocationList();
 		
-		public Object Target => GetSingleOrNull()?.Target;
+		public Object Target => GetInvocationList().LastOrDefault()?.Target;
+		public MethodInfo Method => GetInvocationList().LastOrDefault()?.Method;
 
 		public TResult Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9) {
 			var array = GetInvocationList();
@@ -522,7 +534,8 @@ namespace CoContra {
 		public static Boolean operator ==(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult> right) => left?.GetInvocationList() == right?.GetInvocationList();
 		public static Boolean operator !=(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult> right) => left?.GetInvocationList() != right?.GetInvocationList();
 		
-		public Object Target => GetSingleOrNull()?.Target;
+		public Object Target => GetInvocationList().LastOrDefault()?.Target;
+		public MethodInfo Method => GetInvocationList().LastOrDefault()?.Method;
 
 		public TResult Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10) {
 			var array = GetInvocationList();
@@ -573,7 +586,8 @@ namespace CoContra {
 		public static Boolean operator ==(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult> right) => left?.GetInvocationList() == right?.GetInvocationList();
 		public static Boolean operator !=(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult> right) => left?.GetInvocationList() != right?.GetInvocationList();
 		
-		public Object Target => GetSingleOrNull()?.Target;
+		public Object Target => GetInvocationList().LastOrDefault()?.Target;
+		public MethodInfo Method => GetInvocationList().LastOrDefault()?.Method;
 
 		public TResult Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11) {
 			var array = GetInvocationList();
@@ -624,7 +638,8 @@ namespace CoContra {
 		public static Boolean operator ==(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult> right) => left?.GetInvocationList() == right?.GetInvocationList();
 		public static Boolean operator !=(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult> right) => left?.GetInvocationList() != right?.GetInvocationList();
 		
-		public Object Target => GetSingleOrNull()?.Target;
+		public Object Target => GetInvocationList().LastOrDefault()?.Target;
+		public MethodInfo Method => GetInvocationList().LastOrDefault()?.Method;
 
 		public TResult Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12) {
 			var array = GetInvocationList();
@@ -675,7 +690,8 @@ namespace CoContra {
 		public static Boolean operator ==(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult> right) => left?.GetInvocationList() == right?.GetInvocationList();
 		public static Boolean operator !=(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult> right) => left?.GetInvocationList() != right?.GetInvocationList();
 		
-		public Object Target => GetSingleOrNull()?.Target;
+		public Object Target => GetInvocationList().LastOrDefault()?.Target;
+		public MethodInfo Method => GetInvocationList().LastOrDefault()?.Method;
 
 		public TResult Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13) {
 			var array = GetInvocationList();
@@ -726,7 +742,8 @@ namespace CoContra {
 		public static Boolean operator ==(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult> right) => left?.GetInvocationList() == right?.GetInvocationList();
 		public static Boolean operator !=(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult> right) => left?.GetInvocationList() != right?.GetInvocationList();
 		
-		public Object Target => GetSingleOrNull()?.Target;
+		public Object Target => GetInvocationList().LastOrDefault()?.Target;
+		public MethodInfo Method => GetInvocationList().LastOrDefault()?.Method;
 
 		public TResult Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, T14 arg14) {
 			var array = GetInvocationList();
@@ -777,7 +794,8 @@ namespace CoContra {
 		public static Boolean operator ==(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult> right) => left?.GetInvocationList() == right?.GetInvocationList();
 		public static Boolean operator !=(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult> right) => left?.GetInvocationList() != right?.GetInvocationList();
 		
-		public Object Target => GetSingleOrNull()?.Target;
+		public Object Target => GetInvocationList().LastOrDefault()?.Target;
+		public MethodInfo Method => GetInvocationList().LastOrDefault()?.Method;
 
 		public TResult Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, T14 arg14, T15 arg15) {
 			var array = GetInvocationList();
@@ -828,7 +846,8 @@ namespace CoContra {
 		public static Boolean operator ==(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult> right) => left?.GetInvocationList() == right?.GetInvocationList();
 		public static Boolean operator !=(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult> right) => left?.GetInvocationList() != right?.GetInvocationList();
 		
-		public Object Target => GetSingleOrNull()?.Target;
+		public Object Target => GetInvocationList().LastOrDefault()?.Target;
+		public MethodInfo Method => GetInvocationList().LastOrDefault()?.Method;
 
 		public TResult Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, T14 arg14, T15 arg15, T16 arg16) {
 			var array = GetInvocationList();

@@ -5,6 +5,8 @@
 <#@ import namespace="System.Collections.Generic" #>
 <#@ output extension=".cs" #>
 using System;
+using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -26,7 +28,8 @@ namespace CoContra {
 		public static Boolean operator ==(CovariantAction<<#= typeArgs #>> left, CovariantAction<<#= typeArgs #>> right) => left?.GetInvocationList() == right?.GetInvocationList();
 		public static Boolean operator !=(CovariantAction<<#= typeArgs #>> left, CovariantAction<<#= typeArgs #>> right) => left?.GetInvocationList() != right?.GetInvocationList();
 		
-		public Object Target => GetSingleOrNull()?.Target;
+		public Object Target => GetInvocationList().LastOrDefault()?.Target;
+		public MethodInfo Method => GetInvocationList().LastOrDefault()?.Method;
 
 		public void Invoke(<#= invokeParams #>) {
 			var array = GetInvocationList();
