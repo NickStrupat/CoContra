@@ -3,9 +3,11 @@ using System.Collections;
 using System.Collections.Immutable;
 
 namespace CoContra {
-	public abstract class CoContravariantDelegateBase<TDelegate> : IEquatable<CoContravariantDelegateBase<TDelegate>>, IStructuralComparable, IStructuralEquatable where TDelegate : class {
+	public abstract class CoContravariantDelegateBase<TDelegate, TDerived> : IEquatable<TDerived>
+	where TDelegate : class
+	where TDerived : CoContravariantDelegateBase<TDelegate, TDerived> {
 		private ImmutableArray<TDelegate> array = ImmutableArray<TDelegate>.Empty;
-
+		
 		internal CoContravariantDelegateBase(TDelegate @delegate) {
 			Add(@delegate);
 		}
@@ -40,11 +42,7 @@ namespace CoContra {
 
 		public override Boolean Equals(Object obj) => array.Equals(obj);
 		public override Int32 GetHashCode() => array.GetHashCode();
-		public Boolean Equals(CoContravariantDelegateBase<TDelegate> other) => other != null && array.Equals(other.array);
-
-		Int32 IStructuralComparable.CompareTo(Object other, IComparer comparer) => ((IStructuralComparable) array).CompareTo(other, comparer);
-		Boolean IStructuralEquatable.Equals(Object other, IEqualityComparer comparer) => ((IStructuralEquatable) array).Equals(other, comparer);
-		Int32 IStructuralEquatable.GetHashCode(IEqualityComparer comparer) => ((IStructuralEquatable) array).GetHashCode(comparer);
+		public Boolean Equals(TDerived other) => other != null && array.Equals(other.array);
 
 		protected TDelegate GetSingleOrNull() {
 			var invocationList = GetInvocationList();

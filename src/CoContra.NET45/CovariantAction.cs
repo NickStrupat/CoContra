@@ -3,7 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 namespace CoContra {
-	public class CovariantAction<T> : CoContravariantDelegateBase<Action<T>> {
+	public class CovariantAction<T> : CoContravariantDelegateBase<Action<T>, CovariantAction<T>> {
 		public CovariantAction(Action<T> action) : base(action) {}
 		public static implicit operator CovariantAction<T>(Action<T> action) { return new CovariantAction<T>(action); }
 		public static implicit operator Action<T>(CovariantAction<T> caction) { return caction.Invoke; }
@@ -54,7 +54,7 @@ namespace CoContra {
 		}
 	}
 
-	public class CovariantAction<T1, T2> : CoContravariantDelegateBase<Action<T1, T2>> {
+	public class CovariantAction<T1, T2> : CoContravariantDelegateBase<Action<T1, T2>, CovariantAction<T1, T2>> {
 		public CovariantAction(Action<T1, T2> action) : base(action) {}
 		public static implicit operator CovariantAction<T1, T2>(Action<T1, T2> action) { return new CovariantAction<T1, T2>(action); }
 		public static implicit operator Action<T1, T2>(CovariantAction<T1, T2> caction) { return caction.Invoke; }
@@ -105,7 +105,7 @@ namespace CoContra {
 		}
 	}
 
-	public class CovariantAction<T1, T2, T3> : CoContravariantDelegateBase<Action<T1, T2, T3>> {
+	public class CovariantAction<T1, T2, T3> : CoContravariantDelegateBase<Action<T1, T2, T3>, CovariantAction<T1, T2, T3>> {
 		public CovariantAction(Action<T1, T2, T3> action) : base(action) {}
 		public static implicit operator CovariantAction<T1, T2, T3>(Action<T1, T2, T3> action) { return new CovariantAction<T1, T2, T3>(action); }
 		public static implicit operator Action<T1, T2, T3>(CovariantAction<T1, T2, T3> caction) { return caction.Invoke; }
@@ -156,7 +156,7 @@ namespace CoContra {
 		}
 	}
 
-	public class CovariantAction<T1, T2, T3, T4> : CoContravariantDelegateBase<Action<T1, T2, T3, T4>> {
+	public class CovariantAction<T1, T2, T3, T4> : CoContravariantDelegateBase<Action<T1, T2, T3, T4>, CovariantAction<T1, T2, T3, T4>> {
 		public CovariantAction(Action<T1, T2, T3, T4> action) : base(action) {}
 		public static implicit operator CovariantAction<T1, T2, T3, T4>(Action<T1, T2, T3, T4> action) { return new CovariantAction<T1, T2, T3, T4>(action); }
 		public static implicit operator Action<T1, T2, T3, T4>(CovariantAction<T1, T2, T3, T4> caction) { return caction.Invoke; }
@@ -207,7 +207,7 @@ namespace CoContra {
 		}
 	}
 
-	public class CovariantAction<T1, T2, T3, T4, T5> : CoContravariantDelegateBase<Action<T1, T2, T3, T4, T5>> {
+	public class CovariantAction<T1, T2, T3, T4, T5> : CoContravariantDelegateBase<Action<T1, T2, T3, T4, T5>, CovariantAction<T1, T2, T3, T4, T5>> {
 		public CovariantAction(Action<T1, T2, T3, T4, T5> action) : base(action) {}
 		public static implicit operator CovariantAction<T1, T2, T3, T4, T5>(Action<T1, T2, T3, T4, T5> action) { return new CovariantAction<T1, T2, T3, T4, T5>(action); }
 		public static implicit operator Action<T1, T2, T3, T4, T5>(CovariantAction<T1, T2, T3, T4, T5> caction) { return caction.Invoke; }
@@ -258,7 +258,7 @@ namespace CoContra {
 		}
 	}
 
-	public class CovariantAction<T1, T2, T3, T4, T5, T6> : CoContravariantDelegateBase<Action<T1, T2, T3, T4, T5, T6>> {
+	public class CovariantAction<T1, T2, T3, T4, T5, T6> : CoContravariantDelegateBase<Action<T1, T2, T3, T4, T5, T6>, CovariantAction<T1, T2, T3, T4, T5, T6>> {
 		public CovariantAction(Action<T1, T2, T3, T4, T5, T6> action) : base(action) {}
 		public static implicit operator CovariantAction<T1, T2, T3, T4, T5, T6>(Action<T1, T2, T3, T4, T5, T6> action) { return new CovariantAction<T1, T2, T3, T4, T5, T6>(action); }
 		public static implicit operator Action<T1, T2, T3, T4, T5, T6>(CovariantAction<T1, T2, T3, T4, T5, T6> caction) { return caction.Invoke; }
@@ -309,7 +309,7 @@ namespace CoContra {
 		}
 	}
 
-	public class CovariantAction<T1, T2, T3, T4, T5, T6, T7> : CoContravariantDelegateBase<Action<T1, T2, T3, T4, T5, T6, T7>> {
+	public class CovariantAction<T1, T2, T3, T4, T5, T6, T7> : CoContravariantDelegateBase<Action<T1, T2, T3, T4, T5, T6, T7>, CovariantAction<T1, T2, T3, T4, T5, T6, T7>> {
 		public CovariantAction(Action<T1, T2, T3, T4, T5, T6, T7> action) : base(action) {}
 		public static implicit operator CovariantAction<T1, T2, T3, T4, T5, T6, T7>(Action<T1, T2, T3, T4, T5, T6, T7> action) { return new CovariantAction<T1, T2, T3, T4, T5, T6, T7>(action); }
 		public static implicit operator Action<T1, T2, T3, T4, T5, T6, T7>(CovariantAction<T1, T2, T3, T4, T5, T6, T7> caction) { return caction.Invoke; }
@@ -360,7 +360,7 @@ namespace CoContra {
 		}
 	}
 
-	public class CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8> : CoContravariantDelegateBase<Action<T1, T2, T3, T4, T5, T6, T7, T8>> {
+	public class CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8> : CoContravariantDelegateBase<Action<T1, T2, T3, T4, T5, T6, T7, T8>, CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8>> {
 		public CovariantAction(Action<T1, T2, T3, T4, T5, T6, T7, T8> action) : base(action) {}
 		public static implicit operator CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8>(Action<T1, T2, T3, T4, T5, T6, T7, T8> action) { return new CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8>(action); }
 		public static implicit operator Action<T1, T2, T3, T4, T5, T6, T7, T8>(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8> caction) { return caction.Invoke; }
@@ -411,7 +411,7 @@ namespace CoContra {
 		}
 	}
 
-	public class CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9> : CoContravariantDelegateBase<Action<T1, T2, T3, T4, T5, T6, T7, T8, T9>> {
+	public class CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9> : CoContravariantDelegateBase<Action<T1, T2, T3, T4, T5, T6, T7, T8, T9>, CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9>> {
 		public CovariantAction(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9> action) : base(action) {}
 		public static implicit operator CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9> action) { return new CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9>(action); }
 		public static implicit operator Action<T1, T2, T3, T4, T5, T6, T7, T8, T9>(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9> caction) { return caction.Invoke; }
@@ -462,7 +462,7 @@ namespace CoContra {
 		}
 	}
 
-	public class CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> : CoContravariantDelegateBase<Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>> {
+	public class CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> : CoContravariantDelegateBase<Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>, CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>> {
 		public CovariantAction(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> action) : base(action) {}
 		public static implicit operator CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> action) { return new CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(action); }
 		public static implicit operator Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> caction) { return caction.Invoke; }
@@ -513,7 +513,7 @@ namespace CoContra {
 		}
 	}
 
-	public class CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> : CoContravariantDelegateBase<Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>> {
+	public class CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> : CoContravariantDelegateBase<Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>, CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>> {
 		public CovariantAction(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> action) : base(action) {}
 		public static implicit operator CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> action) { return new CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(action); }
 		public static implicit operator Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> caction) { return caction.Invoke; }
@@ -564,7 +564,7 @@ namespace CoContra {
 		}
 	}
 
-	public class CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> : CoContravariantDelegateBase<Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>> {
+	public class CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> : CoContravariantDelegateBase<Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>, CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>> {
 		public CovariantAction(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> action) : base(action) {}
 		public static implicit operator CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> action) { return new CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(action); }
 		public static implicit operator Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> caction) { return caction.Invoke; }
@@ -615,7 +615,7 @@ namespace CoContra {
 		}
 	}
 
-	public class CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> : CoContravariantDelegateBase<Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>> {
+	public class CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> : CoContravariantDelegateBase<Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>, CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>> {
 		public CovariantAction(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> action) : base(action) {}
 		public static implicit operator CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> action) { return new CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(action); }
 		public static implicit operator Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> caction) { return caction.Invoke; }
@@ -666,7 +666,7 @@ namespace CoContra {
 		}
 	}
 
-	public class CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> : CoContravariantDelegateBase<Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>> {
+	public class CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> : CoContravariantDelegateBase<Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>, CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>> {
 		public CovariantAction(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> action) : base(action) {}
 		public static implicit operator CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> action) { return new CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(action); }
 		public static implicit operator Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> caction) { return caction.Invoke; }
@@ -717,7 +717,7 @@ namespace CoContra {
 		}
 	}
 
-	public class CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> : CoContravariantDelegateBase<Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>> {
+	public class CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> : CoContravariantDelegateBase<Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>, CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>> {
 		public CovariantAction(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> action) : base(action) {}
 		public static implicit operator CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> action) { return new CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(action); }
 		public static implicit operator Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> caction) { return caction.Invoke; }
@@ -768,7 +768,7 @@ namespace CoContra {
 		}
 	}
 
-	public class CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> : CoContravariantDelegateBase<Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>> {
+	public class CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> : CoContravariantDelegateBase<Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>, CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>> {
 		public CovariantAction(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> action) : base(action) {}
 		public static implicit operator CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> action) { return new CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(action); }
 		public static implicit operator Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> caction) { return caction.Invoke; }

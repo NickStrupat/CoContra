@@ -9,7 +9,6 @@ using CoContra;
 namespace Testing.NET45 {
 	class Program {
 		static void Main(string[] args) {
-			CoContravariantDelegateBase<Action> a;
 			var b = new CovariantAction<Int32>(Console.WriteLine);
 			var c = new Action<String>(Console.WriteLine);
 			var d = c.BeginInvoke("Asdf", null, null);
