@@ -57,5 +57,64 @@ namespace Tests {
 			CoContravariantFunc<Object> multi2 = objectFactory;
 			multi2 += stringFactory;
 		}
+
+		[Fact]
+		public void NullConstructorArgument() {
+			Assert.Throws<ArgumentNullException>(() => new CoContravariantFunc<Object>(null));
+		}
+
+		class Foo { public void Bar(Object o) { } public void Baz(Object o) { } public static void StaticMethod(Object o) { } }
+		[Fact]
+		public void TargetProperty() {
+			var foo = new Foo();
+			var foo2 = new Foo();
+
+			var action = new Action<Object>(foo.Bar);
+			var caction = new CovariantAction<Object>(foo.Bar);
+			Assert.True(ReferenceEquals(foo, caction.Target));
+			Assert.True(ReferenceEquals(action.Target, caction.Target));
+
+			action += foo2.Baz;
+			caction += foo2.Baz;
+			Assert.True(ReferenceEquals(foo2, caction.Target));
+			Assert.True(ReferenceEquals(action.Target, caction.Target));
+
+			Action<Object> a = x => { };
+			action += a;
+			caction += a;
+			Assert.True(ReferenceEquals(a.Target, caction.Target));
+			Assert.True(ReferenceEquals(action.Target, caction.Target));
+
+			action += Foo.StaticMethod;
+			caction += Foo.StaticMethod;
+			Assert.True(ReferenceEquals(null, caction.Target));
+			Assert.True(ReferenceEquals(action.Target, caction.Target));
+		}
+
+		[Fact]
+		public void MethodProperty() {
+			var foo = new Foo();
+			var foo2 = new Foo();
+
+			var action = new Action<Object>(foo.Bar);
+			var caction = new CovariantAction<Object>(foo.Bar);
+			Assert.True(ReferenceEquals(foo.GetType().GetMethod(nameof(Foo.Bar)), caction.Method));
+			Assert.True(ReferenceEquals(action.Method, caction.Method));
+
+			action += foo2.Baz;
+			caction += foo2.Baz;
+			Assert.True(ReferenceEquals(foo2.GetType().GetMethod(nameof(Foo.Baz)), caction.Method));
+			Assert.True(ReferenceEquals(action.Method, caction.Method));
+
+			Action<Object> a = x => { };
+			action += a;
+			caction += a;
+			Assert.True(ReferenceEquals(action.Method, caction.Method));
+
+			action += Foo.StaticMethod;
+			caction += Foo.StaticMethod;
+			Assert.True(ReferenceEquals(typeof(Foo).GetMethod(nameof(Foo.StaticMethod)), caction.Method));
+			Assert.True(ReferenceEquals(action.Method, caction.Method));
+		}
 	}
 }
