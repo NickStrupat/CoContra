@@ -43,7 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Tests.NET45\Tests.cs">
+    <Compile Include="..\Tests.NETCore\Tests.cs">
       <Link>Tests.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Immutable;
+using System.Reflection;
 using System.Threading.Tasks;
 using CoContra;
 
@@ -8,6 +9,7 @@ namespace Testing {
 		public static void Main(string[] args) {
 			Func<String> stringFactory = () => "hello";
 			Func<Object> objectFactory = () => new object();
+			objectFactory.GetMethodInfo();
 
 			CoContravariantFunc<object> multi1 = stringFactory;
 			multi1 += objectFactory;

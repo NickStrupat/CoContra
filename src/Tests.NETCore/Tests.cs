@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using CoContra;
 
 #if NET4
@@ -9,6 +10,14 @@ using Xunit;
 #endif
 
 namespace Tests {
+#if NET4
+	internal static class Extensions {
+		public static MethodInfo GetMethodInfo(this Action<Object> action) => action.Method;
+		public static MethodInfo GetMethodInfo(this CovariantAction<Object> caction) => caction.Method;
+		public static Type GetTypeInfo(this Type type) => type;
+	}
+#endif
+
 	public class Tests {
 		[Fact]
 		public void CombineCovariantDelegatesWithActionFails() {
@@ -98,23 +107,23 @@ namespace Tests {
 
 			var action = new Action<Object>(foo.Bar);
 			var caction = new CovariantAction<Object>(foo.Bar);
-			Assert.True(ReferenceEquals(foo.GetType().GetMethod(nameof(Foo.Bar)), caction.Method));
-			Assert.True(ReferenceEquals(action.Method, caction.Method));
+			Assert.True(ReferenceEquals(foo.GetType().GetMethod(nameof(Foo.Bar)), caction.GetMethodInfo()));
+			Assert.True(ReferenceEquals(action.GetMethodInfo(), caction.GetMethodInfo()));
 
 			action += foo2.Baz;
 			caction += foo2.Baz;
-			Assert.True(ReferenceEquals(foo2.GetType().GetMethod(nameof(Foo.Baz)), caction.Method));
-			Assert.True(ReferenceEquals(action.Method, caction.Method));
+			Assert.True(ReferenceEquals(foo2.GetType().GetMethod(nameof(Foo.Baz)), caction.GetMethodInfo()));
+			Assert.True(ReferenceEquals(action.GetMethodInfo(), caction.GetMethodInfo()));
 
 			Action<Object> a = x => { };
 			action += a;
 			caction += a;
-			Assert.True(ReferenceEquals(action.Method, caction.Method));
+			Assert.True(ReferenceEquals(action.GetMethodInfo(), caction.GetMethodInfo()));
 
 			action += Foo.StaticMethod;
 			caction += Foo.StaticMethod;
-			Assert.True(ReferenceEquals(typeof(Foo).GetMethod(nameof(Foo.StaticMethod)), caction.Method));
-			Assert.True(ReferenceEquals(action.Method, caction.Method));
+			Assert.True(ReferenceEquals(typeof(Foo).GetMethod(nameof(Foo.StaticMethod)), caction.GetMethodInfo()));
+			Assert.True(ReferenceEquals(action.GetMethodInfo(), caction.GetMethodInfo()));
 		}
 	}
 }

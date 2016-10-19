@@ -29,7 +29,13 @@ namespace CoContra {
 		public static Boolean operator !=(CovariantAction<<#= typeArgs #>> left, CovariantAction<<#= typeArgs #>> right) => left?.GetInvocationList() != right?.GetInvocationList();
 		
 		public Object Target => GetInvocationList().LastOrDefault()?.Target;
+		
+#if NET4 || NET45
 		public MethodInfo Method => GetInvocationList().LastOrDefault()?.Method;
+#endif
+#if !NET4
+		public MethodInfo GetMethodInfo() => GetInvocationList().LastOrDefault()?.GetMethodInfo();
+#endif
 
 		public void Invoke(<#= invokeParams #>) {
 			var array = GetInvocationList();
