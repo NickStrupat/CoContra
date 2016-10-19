@@ -1,15 +1,16 @@
 using System;
-using System.Collections;
 using System.Collections.Immutable;
 
 namespace CoContra {
 	public abstract class CoContravariantDelegateBase<TDelegate, TDerived> : IEquatable<TDerived>
 	where TDelegate : class
 	where TDerived : CoContravariantDelegateBase<TDelegate, TDerived> {
-		private ImmutableArray<TDelegate> array = ImmutableArray<TDelegate>.Empty;
+		private ImmutableArray<TDelegate> array;
 		
 		internal CoContravariantDelegateBase(TDelegate @delegate) {
-			Add(@delegate);
+			if (@delegate == null)
+				throw new ArgumentNullException();
+			array = ImmutableArray<TDelegate>.Empty.Add(@delegate);
 		}
 
 		public abstract Object DynamicInvoke(params Object[] args);
