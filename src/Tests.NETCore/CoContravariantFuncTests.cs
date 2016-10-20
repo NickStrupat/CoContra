@@ -216,5 +216,42 @@ namespace Tests {
 		private static String F3() => null;
 		private static String F2() => null;
 		private static String F1() => null;
+
+		[Fact]
+		public void Equals() {
+			Func<String> a = F1;
+			Func<String> b = F1;
+			Assert.True(a.Equals(a));
+			Assert.True(a.Equals(b));
+			Assert.True(a.Equals((Object) a));
+			Assert.True(a.Equals((Object) b));
+
+			a += F2;
+			b += F2;
+			Assert.True(a.Equals(b));
+			Assert.True(a.Equals((Object) b));
+
+			a += F2;
+			b += F3;
+			Assert.False(a.Equals(b));
+			Assert.False(a.Equals((Object) b));
+
+			CoContravariantFunc<String> cca = (Func<String>) F1;
+			CoContravariantFunc<String> ccb = (Func<String>) F1;
+			Assert.True(cca.Equals(cca));
+			Assert.True(cca.Equals(ccb));
+			Assert.True(cca.Equals((Object) cca));
+			Assert.True(cca.Equals((Object) ccb));
+
+			cca += F2;
+			ccb += F2;
+			Assert.True(cca.Equals(ccb));
+			Assert.True(cca.Equals((Object) ccb));
+
+			cca += F2;
+			ccb += F3;
+			Assert.False(cca.Equals(ccb));
+			Assert.False(cca.Equals((Object) ccb));
+		}
 	}
 }

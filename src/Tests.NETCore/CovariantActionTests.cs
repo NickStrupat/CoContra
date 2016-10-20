@@ -200,6 +200,43 @@ namespace Tests {
 		private static void A2(String s) {}
 		private static void A1(String s) {}
 
+		[Fact]
+		public void Equals() {
+			Action<String> a = A1;
+			Action<String> b = A1;
+			Assert.True(a.Equals(a));
+			Assert.True(a.Equals(b));
+			Assert.True(a.Equals((Object) a));
+			Assert.True(a.Equals((Object) b));
+
+			a += A2;
+			b += A2;
+			Assert.True(a.Equals(b));
+			Assert.True(a.Equals((Object) b));
+
+			a += A2;
+			b += A3;
+			Assert.False(a.Equals(b));
+			Assert.False(a.Equals((Object) b));
+
+			CovariantAction<String> ca = (Action<String>) A1;
+			CovariantAction<String> cb = (Action<String>) A1;
+			Assert.True(ca.Equals(ca));
+			Assert.True(ca.Equals(cb));
+			Assert.True(ca.Equals((Object) ca));
+			Assert.True(ca.Equals((Object) cb));
+
+			ca += A2;
+			cb += A2;
+			Assert.True(ca.Equals(cb));
+			Assert.True(ca.Equals((Object) cb));
+
+			ca += A2;
+			cb += A3;
+			Assert.False(ca.Equals(cb));
+			Assert.False(ca.Equals((Object) cb));
+		}
+
 		// TODO:
 		// operators
 		// equality methods

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Immutable;
+using System.Linq;
 
 namespace CoContra {
 	public abstract class CoContravariantDelegateBase<TDelegate, TDerived> : IEquatable<TDerived>
@@ -38,9 +39,9 @@ namespace CoContra {
 			while (initial != ImmutableInterlocked.InterlockedCompareExchange(ref array, computed, initial));
 		}
 
-		public override Boolean Equals(Object obj) => array.Equals(obj);
+		public override Boolean Equals(Object obj) => Equals(obj as TDerived);
 		public override Int32 GetHashCode() => array.GetHashCode();
-		public Boolean Equals(TDerived other) => other != null && array.Equals(other.array);
+		public Boolean Equals(TDerived other) => other != null && (array.Equals(other.array) || array.SequenceEqual(other.array));
 
 		private static ImmutableArray<TDelegate> InterlockedGet(ref ImmutableArray<TDelegate> array) {
 			return ImmutableInterlocked.InterlockedCompareExchange(ref array, ImmutableArray<TDelegate>.Empty, ImmutableArray<TDelegate>.Empty);
