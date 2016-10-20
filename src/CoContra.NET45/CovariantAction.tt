@@ -20,6 +20,7 @@ namespace CoContra {
 		var invokeArgs = String.Join(", ", suffixes.Select(x => "arg" + x));
 #>
 	public class CovariantAction<<#= typeArgs #>> : CoContravariantDelegateBase<Action<<#= typeArgs #>>, CovariantAction<<#= typeArgs #>>> {
+		public CovariantAction() : base() {}
 		public CovariantAction(Action<<#= typeArgs #>> action) : base(action) {}
 		public static implicit operator CovariantAction<<#= typeArgs #>>(Action<<#= typeArgs #>> action) { return new CovariantAction<<#= typeArgs #>>(action); }
 		public static implicit operator Action<<#= typeArgs #>>(CovariantAction<<#= typeArgs #>> caction) { return caction.Invoke; }

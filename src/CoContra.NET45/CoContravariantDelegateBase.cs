@@ -6,12 +6,9 @@ namespace CoContra {
 	where TDelegate : class
 	where TDerived : CoContravariantDelegateBase<TDelegate, TDerived> {
 		private ImmutableArray<TDelegate> array;
-		
-		internal CoContravariantDelegateBase(TDelegate @delegate) {
-			if (@delegate == null)
-				throw new ArgumentNullException();
-			array = ImmutableArray<TDelegate>.Empty.Add(@delegate);
-		}
+
+		internal CoContravariantDelegateBase() { array = ImmutableArray<TDelegate>.Empty; }
+		internal CoContravariantDelegateBase(TDelegate @delegate) : this() { Add(@delegate); }
 
 		public abstract Object DynamicInvoke(params Object[] args);
 
