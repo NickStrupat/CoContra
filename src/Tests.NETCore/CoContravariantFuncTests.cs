@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Reflection;
 using CoContra;
 
@@ -192,5 +193,28 @@ namespace Tests {
 			result = foo.RaiseFuncs(InvokeArgument2);
 			Assert.True(ReturnValue == (String) result);
 		}
+
+		[Fact]
+		public void InvocationList() {
+			Func<String> f1 = F1;
+			Func<String> f2 = F2;
+			Func<String> f3 = F3;
+
+			CoContravariantFunc<String> ccfunc = f1;
+			ccfunc += f2;
+			ccfunc += f3;
+
+			Func<String> func = f1;
+			func += f2;
+			func += f3;
+
+			var ccfil = ccfunc.GetInvocationList().Cast<Delegate>();
+			var fil = func.GetInvocationList();
+			Assert.True(ccfil.SequenceEqual(fil));
+		}
+
+		private static String F3() => null;
+		private static String F2() => null;
+		private static String F1() => null;
 	}
 }
