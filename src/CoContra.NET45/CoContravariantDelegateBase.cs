@@ -42,11 +42,6 @@ namespace CoContra {
 		public override Int32 GetHashCode() => array.GetHashCode();
 		public Boolean Equals(TDerived other) => other != null && array.Equals(other.array);
 
-		protected TDelegate GetSingleOrNull() {
-			var invocationList = GetInvocationList();
-			return invocationList.Length == 1 ? invocationList[0] : null;
-		}
-
 		private static ImmutableArray<TDelegate> InterlockedGet(ref ImmutableArray<TDelegate> array) {
 			return ImmutableInterlocked.InterlockedCompareExchange(ref array, ImmutableArray<TDelegate>.Empty, ImmutableArray<TDelegate>.Empty);
 		}
