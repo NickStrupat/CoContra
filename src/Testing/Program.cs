@@ -53,7 +53,7 @@ namespace Testing {
 	}
 
 	public class Thing {
-		private CovariantAction<String> what;
+		private CovariantAction<String> what = new CovariantAction<String>(delegate { });
 		public event Action<String> What { add { what += value; } remove { what -= value; } }
 
 		public event Action<String> What2;

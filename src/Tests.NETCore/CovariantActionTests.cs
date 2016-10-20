@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using CoContra;
@@ -38,7 +39,7 @@ namespace Tests {
 
 		[Fact]
 		public void NullConstructorArgument() {
-			Assert.Throws<ArgumentNullException>(() => new CovariantAction<Object>(null));
+			new CovariantAction<Object>(null);
 		}
 
 		[Fact]
@@ -95,6 +96,7 @@ namespace Tests {
 		}
 
 		private const String InvokeArgument = "Test";
+		private const String InvokeArgument2 = "Test2";
 
 		[Fact]
 		public void Invoke() {
@@ -164,5 +166,42 @@ namespace Tests {
 			caction.EndInvoke(ar);
 			Assert.True(2 == count);
 		}
+
+		[Fact]
+		public void EventBackingField() {
+			var foo = new Foo();
+			foo.Actions += s => Assert.True(InvokeArgument == s);
+			foo.RaiseActions(InvokeArgument);
+			
+			foo.ReadOnlyActions += s => Assert.True(InvokeArgument2 == s);
+			foo.RaiseReadOnlyActions(InvokeArgument2);
+		}
+
+		[Fact]
+		public void InvocationList() {
+			Action<String> a1 = A1;
+			Action<String> a2 = A2;
+			Action<String> a3 = A3;
+
+			CovariantAction<String> caction = a1;
+			caction += a2;
+			caction += a3;
+
+			Action<String> action = a1;
+			action += a2;
+			action += a3;
+
+			var cail = caction.GetInvocationList().Cast<Delegate>();
+			var ail = action.GetInvocationList();
+			Assert.True(cail.SequenceEqual(ail));
+		}
+
+		private static void A3(String s) {}
+		private static void A2(String s) {}
+		private static void A1(String s) {}
+
+		// TODO:
+		// operators
+		// equality methods
 	}
 }

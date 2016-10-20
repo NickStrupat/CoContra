@@ -37,7 +37,7 @@ namespace Tests {
 
 		[Fact]
 		public void NullConstructorArgument() {
-			Assert.Throws<ArgumentNullException>(() => new CoContravariantFunc<Object>(null));
+			new CoContravariantFunc<Object>(null);
 		}
 
 		[Fact]
@@ -94,6 +94,7 @@ namespace Tests {
 		}
 
 		private const String InvokeArgument = "Test";
+		private const String InvokeArgument2 = "Test2";
 		private const String ReturnValue = "Result";
 
 		[Fact]
@@ -172,6 +173,24 @@ namespace Tests {
 			var result = ccfunc.EndInvoke(ar);
 			Assert.True(ReturnValue == (String) result);
 			Assert.True(2 == count);
+		}
+
+		[Fact]
+		public void EventBackingField() {
+			var foo = new Foo();
+			foo.ReadOnlyFuncs += s => {
+				Assert.True(s == InvokeArgument);
+				return ReturnValue;
+			};
+			var result = foo.RaiseReadOnlyFuncs(InvokeArgument);
+			Assert.True(ReturnValue == (String) result);
+
+			foo.Funcs += s => {
+				Assert.True(s == InvokeArgument2);
+				return ReturnValue;
+			};
+			result = foo.RaiseFuncs(InvokeArgument2);
+			Assert.True(ReturnValue == (String) result);
 		}
 	}
 }
