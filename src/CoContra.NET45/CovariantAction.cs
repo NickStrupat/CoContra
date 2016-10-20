@@ -12,8 +12,8 @@ namespace CoContra {
 		public static implicit operator Action<T>(CovariantAction<T> caction) { return caction.Invoke; }
 		public static CovariantAction<T> operator +(CovariantAction<T> cf, Action<T> action) { cf.Add(action); return cf; }
 		public static CovariantAction<T> operator -(CovariantAction<T> cf, Action<T> action) { cf.Remove(action); return cf; }
-		public static Boolean operator ==(CovariantAction<T> left, CovariantAction<T> right) => left?.GetInvocationList() == right?.GetInvocationList();
-		public static Boolean operator !=(CovariantAction<T> left, CovariantAction<T> right) => left?.GetInvocationList() != right?.GetInvocationList();
+		public static Boolean operator ==(CovariantAction<T> left, CovariantAction<T> right) => (left?.Equals(right)).GetValueOrDefault();
+		public static Boolean operator !=(CovariantAction<T> left, CovariantAction<T> right) => !(left == right);
 		
 		public Object Target => GetInvocationList().LastOrDefault()?.Target;
 		
@@ -71,8 +71,8 @@ namespace CoContra {
 		public static implicit operator Action<T1, T2>(CovariantAction<T1, T2> caction) { return caction.Invoke; }
 		public static CovariantAction<T1, T2> operator +(CovariantAction<T1, T2> cf, Action<T1, T2> action) { cf.Add(action); return cf; }
 		public static CovariantAction<T1, T2> operator -(CovariantAction<T1, T2> cf, Action<T1, T2> action) { cf.Remove(action); return cf; }
-		public static Boolean operator ==(CovariantAction<T1, T2> left, CovariantAction<T1, T2> right) => left?.GetInvocationList() == right?.GetInvocationList();
-		public static Boolean operator !=(CovariantAction<T1, T2> left, CovariantAction<T1, T2> right) => left?.GetInvocationList() != right?.GetInvocationList();
+		public static Boolean operator ==(CovariantAction<T1, T2> left, CovariantAction<T1, T2> right) => (left?.Equals(right)).GetValueOrDefault();
+		public static Boolean operator !=(CovariantAction<T1, T2> left, CovariantAction<T1, T2> right) => !(left == right);
 		
 		public Object Target => GetInvocationList().LastOrDefault()?.Target;
 		
@@ -130,8 +130,8 @@ namespace CoContra {
 		public static implicit operator Action<T1, T2, T3>(CovariantAction<T1, T2, T3> caction) { return caction.Invoke; }
 		public static CovariantAction<T1, T2, T3> operator +(CovariantAction<T1, T2, T3> cf, Action<T1, T2, T3> action) { cf.Add(action); return cf; }
 		public static CovariantAction<T1, T2, T3> operator -(CovariantAction<T1, T2, T3> cf, Action<T1, T2, T3> action) { cf.Remove(action); return cf; }
-		public static Boolean operator ==(CovariantAction<T1, T2, T3> left, CovariantAction<T1, T2, T3> right) => left?.GetInvocationList() == right?.GetInvocationList();
-		public static Boolean operator !=(CovariantAction<T1, T2, T3> left, CovariantAction<T1, T2, T3> right) => left?.GetInvocationList() != right?.GetInvocationList();
+		public static Boolean operator ==(CovariantAction<T1, T2, T3> left, CovariantAction<T1, T2, T3> right) => (left?.Equals(right)).GetValueOrDefault();
+		public static Boolean operator !=(CovariantAction<T1, T2, T3> left, CovariantAction<T1, T2, T3> right) => !(left == right);
 		
 		public Object Target => GetInvocationList().LastOrDefault()?.Target;
 		
@@ -189,8 +189,8 @@ namespace CoContra {
 		public static implicit operator Action<T1, T2, T3, T4>(CovariantAction<T1, T2, T3, T4> caction) { return caction.Invoke; }
 		public static CovariantAction<T1, T2, T3, T4> operator +(CovariantAction<T1, T2, T3, T4> cf, Action<T1, T2, T3, T4> action) { cf.Add(action); return cf; }
 		public static CovariantAction<T1, T2, T3, T4> operator -(CovariantAction<T1, T2, T3, T4> cf, Action<T1, T2, T3, T4> action) { cf.Remove(action); return cf; }
-		public static Boolean operator ==(CovariantAction<T1, T2, T3, T4> left, CovariantAction<T1, T2, T3, T4> right) => left?.GetInvocationList() == right?.GetInvocationList();
-		public static Boolean operator !=(CovariantAction<T1, T2, T3, T4> left, CovariantAction<T1, T2, T3, T4> right) => left?.GetInvocationList() != right?.GetInvocationList();
+		public static Boolean operator ==(CovariantAction<T1, T2, T3, T4> left, CovariantAction<T1, T2, T3, T4> right) => (left?.Equals(right)).GetValueOrDefault();
+		public static Boolean operator !=(CovariantAction<T1, T2, T3, T4> left, CovariantAction<T1, T2, T3, T4> right) => !(left == right);
 		
 		public Object Target => GetInvocationList().LastOrDefault()?.Target;
 		
@@ -248,8 +248,8 @@ namespace CoContra {
 		public static implicit operator Action<T1, T2, T3, T4, T5>(CovariantAction<T1, T2, T3, T4, T5> caction) { return caction.Invoke; }
 		public static CovariantAction<T1, T2, T3, T4, T5> operator +(CovariantAction<T1, T2, T3, T4, T5> cf, Action<T1, T2, T3, T4, T5> action) { cf.Add(action); return cf; }
 		public static CovariantAction<T1, T2, T3, T4, T5> operator -(CovariantAction<T1, T2, T3, T4, T5> cf, Action<T1, T2, T3, T4, T5> action) { cf.Remove(action); return cf; }
-		public static Boolean operator ==(CovariantAction<T1, T2, T3, T4, T5> left, CovariantAction<T1, T2, T3, T4, T5> right) => left?.GetInvocationList() == right?.GetInvocationList();
-		public static Boolean operator !=(CovariantAction<T1, T2, T3, T4, T5> left, CovariantAction<T1, T2, T3, T4, T5> right) => left?.GetInvocationList() != right?.GetInvocationList();
+		public static Boolean operator ==(CovariantAction<T1, T2, T3, T4, T5> left, CovariantAction<T1, T2, T3, T4, T5> right) => (left?.Equals(right)).GetValueOrDefault();
+		public static Boolean operator !=(CovariantAction<T1, T2, T3, T4, T5> left, CovariantAction<T1, T2, T3, T4, T5> right) => !(left == right);
 		
 		public Object Target => GetInvocationList().LastOrDefault()?.Target;
 		
@@ -307,8 +307,8 @@ namespace CoContra {
 		public static implicit operator Action<T1, T2, T3, T4, T5, T6>(CovariantAction<T1, T2, T3, T4, T5, T6> caction) { return caction.Invoke; }
 		public static CovariantAction<T1, T2, T3, T4, T5, T6> operator +(CovariantAction<T1, T2, T3, T4, T5, T6> cf, Action<T1, T2, T3, T4, T5, T6> action) { cf.Add(action); return cf; }
 		public static CovariantAction<T1, T2, T3, T4, T5, T6> operator -(CovariantAction<T1, T2, T3, T4, T5, T6> cf, Action<T1, T2, T3, T4, T5, T6> action) { cf.Remove(action); return cf; }
-		public static Boolean operator ==(CovariantAction<T1, T2, T3, T4, T5, T6> left, CovariantAction<T1, T2, T3, T4, T5, T6> right) => left?.GetInvocationList() == right?.GetInvocationList();
-		public static Boolean operator !=(CovariantAction<T1, T2, T3, T4, T5, T6> left, CovariantAction<T1, T2, T3, T4, T5, T6> right) => left?.GetInvocationList() != right?.GetInvocationList();
+		public static Boolean operator ==(CovariantAction<T1, T2, T3, T4, T5, T6> left, CovariantAction<T1, T2, T3, T4, T5, T6> right) => (left?.Equals(right)).GetValueOrDefault();
+		public static Boolean operator !=(CovariantAction<T1, T2, T3, T4, T5, T6> left, CovariantAction<T1, T2, T3, T4, T5, T6> right) => !(left == right);
 		
 		public Object Target => GetInvocationList().LastOrDefault()?.Target;
 		
@@ -366,8 +366,8 @@ namespace CoContra {
 		public static implicit operator Action<T1, T2, T3, T4, T5, T6, T7>(CovariantAction<T1, T2, T3, T4, T5, T6, T7> caction) { return caction.Invoke; }
 		public static CovariantAction<T1, T2, T3, T4, T5, T6, T7> operator +(CovariantAction<T1, T2, T3, T4, T5, T6, T7> cf, Action<T1, T2, T3, T4, T5, T6, T7> action) { cf.Add(action); return cf; }
 		public static CovariantAction<T1, T2, T3, T4, T5, T6, T7> operator -(CovariantAction<T1, T2, T3, T4, T5, T6, T7> cf, Action<T1, T2, T3, T4, T5, T6, T7> action) { cf.Remove(action); return cf; }
-		public static Boolean operator ==(CovariantAction<T1, T2, T3, T4, T5, T6, T7> left, CovariantAction<T1, T2, T3, T4, T5, T6, T7> right) => left?.GetInvocationList() == right?.GetInvocationList();
-		public static Boolean operator !=(CovariantAction<T1, T2, T3, T4, T5, T6, T7> left, CovariantAction<T1, T2, T3, T4, T5, T6, T7> right) => left?.GetInvocationList() != right?.GetInvocationList();
+		public static Boolean operator ==(CovariantAction<T1, T2, T3, T4, T5, T6, T7> left, CovariantAction<T1, T2, T3, T4, T5, T6, T7> right) => (left?.Equals(right)).GetValueOrDefault();
+		public static Boolean operator !=(CovariantAction<T1, T2, T3, T4, T5, T6, T7> left, CovariantAction<T1, T2, T3, T4, T5, T6, T7> right) => !(left == right);
 		
 		public Object Target => GetInvocationList().LastOrDefault()?.Target;
 		
@@ -425,8 +425,8 @@ namespace CoContra {
 		public static implicit operator Action<T1, T2, T3, T4, T5, T6, T7, T8>(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8> caction) { return caction.Invoke; }
 		public static CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8> operator +(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8> cf, Action<T1, T2, T3, T4, T5, T6, T7, T8> action) { cf.Add(action); return cf; }
 		public static CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8> operator -(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8> cf, Action<T1, T2, T3, T4, T5, T6, T7, T8> action) { cf.Remove(action); return cf; }
-		public static Boolean operator ==(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8> left, CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8> right) => left?.GetInvocationList() == right?.GetInvocationList();
-		public static Boolean operator !=(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8> left, CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8> right) => left?.GetInvocationList() != right?.GetInvocationList();
+		public static Boolean operator ==(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8> left, CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8> right) => (left?.Equals(right)).GetValueOrDefault();
+		public static Boolean operator !=(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8> left, CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8> right) => !(left == right);
 		
 		public Object Target => GetInvocationList().LastOrDefault()?.Target;
 		
@@ -484,8 +484,8 @@ namespace CoContra {
 		public static implicit operator Action<T1, T2, T3, T4, T5, T6, T7, T8, T9>(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9> caction) { return caction.Invoke; }
 		public static CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9> operator +(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9> cf, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9> action) { cf.Add(action); return cf; }
 		public static CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9> operator -(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9> cf, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9> action) { cf.Remove(action); return cf; }
-		public static Boolean operator ==(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9> left, CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9> right) => left?.GetInvocationList() == right?.GetInvocationList();
-		public static Boolean operator !=(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9> left, CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9> right) => left?.GetInvocationList() != right?.GetInvocationList();
+		public static Boolean operator ==(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9> left, CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9> right) => (left?.Equals(right)).GetValueOrDefault();
+		public static Boolean operator !=(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9> left, CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9> right) => !(left == right);
 		
 		public Object Target => GetInvocationList().LastOrDefault()?.Target;
 		
@@ -543,8 +543,8 @@ namespace CoContra {
 		public static implicit operator Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> caction) { return caction.Invoke; }
 		public static CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> operator +(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> cf, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> action) { cf.Add(action); return cf; }
 		public static CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> operator -(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> cf, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> action) { cf.Remove(action); return cf; }
-		public static Boolean operator ==(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> left, CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> right) => left?.GetInvocationList() == right?.GetInvocationList();
-		public static Boolean operator !=(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> left, CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> right) => left?.GetInvocationList() != right?.GetInvocationList();
+		public static Boolean operator ==(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> left, CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> right) => (left?.Equals(right)).GetValueOrDefault();
+		public static Boolean operator !=(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> left, CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> right) => !(left == right);
 		
 		public Object Target => GetInvocationList().LastOrDefault()?.Target;
 		
@@ -602,8 +602,8 @@ namespace CoContra {
 		public static implicit operator Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> caction) { return caction.Invoke; }
 		public static CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> operator +(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> cf, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> action) { cf.Add(action); return cf; }
 		public static CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> operator -(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> cf, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> action) { cf.Remove(action); return cf; }
-		public static Boolean operator ==(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> left, CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> right) => left?.GetInvocationList() == right?.GetInvocationList();
-		public static Boolean operator !=(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> left, CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> right) => left?.GetInvocationList() != right?.GetInvocationList();
+		public static Boolean operator ==(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> left, CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> right) => (left?.Equals(right)).GetValueOrDefault();
+		public static Boolean operator !=(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> left, CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> right) => !(left == right);
 		
 		public Object Target => GetInvocationList().LastOrDefault()?.Target;
 		
@@ -661,8 +661,8 @@ namespace CoContra {
 		public static implicit operator Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> caction) { return caction.Invoke; }
 		public static CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> operator +(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> cf, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> action) { cf.Add(action); return cf; }
 		public static CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> operator -(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> cf, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> action) { cf.Remove(action); return cf; }
-		public static Boolean operator ==(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> left, CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> right) => left?.GetInvocationList() == right?.GetInvocationList();
-		public static Boolean operator !=(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> left, CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> right) => left?.GetInvocationList() != right?.GetInvocationList();
+		public static Boolean operator ==(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> left, CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> right) => (left?.Equals(right)).GetValueOrDefault();
+		public static Boolean operator !=(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> left, CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> right) => !(left == right);
 		
 		public Object Target => GetInvocationList().LastOrDefault()?.Target;
 		
@@ -720,8 +720,8 @@ namespace CoContra {
 		public static implicit operator Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> caction) { return caction.Invoke; }
 		public static CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> operator +(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> cf, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> action) { cf.Add(action); return cf; }
 		public static CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> operator -(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> cf, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> action) { cf.Remove(action); return cf; }
-		public static Boolean operator ==(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> left, CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> right) => left?.GetInvocationList() == right?.GetInvocationList();
-		public static Boolean operator !=(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> left, CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> right) => left?.GetInvocationList() != right?.GetInvocationList();
+		public static Boolean operator ==(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> left, CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> right) => (left?.Equals(right)).GetValueOrDefault();
+		public static Boolean operator !=(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> left, CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> right) => !(left == right);
 		
 		public Object Target => GetInvocationList().LastOrDefault()?.Target;
 		
@@ -779,8 +779,8 @@ namespace CoContra {
 		public static implicit operator Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> caction) { return caction.Invoke; }
 		public static CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> operator +(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> cf, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> action) { cf.Add(action); return cf; }
 		public static CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> operator -(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> cf, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> action) { cf.Remove(action); return cf; }
-		public static Boolean operator ==(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> left, CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> right) => left?.GetInvocationList() == right?.GetInvocationList();
-		public static Boolean operator !=(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> left, CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> right) => left?.GetInvocationList() != right?.GetInvocationList();
+		public static Boolean operator ==(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> left, CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> right) => (left?.Equals(right)).GetValueOrDefault();
+		public static Boolean operator !=(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> left, CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> right) => !(left == right);
 		
 		public Object Target => GetInvocationList().LastOrDefault()?.Target;
 		
@@ -838,8 +838,8 @@ namespace CoContra {
 		public static implicit operator Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> caction) { return caction.Invoke; }
 		public static CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> operator +(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> cf, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> action) { cf.Add(action); return cf; }
 		public static CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> operator -(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> cf, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> action) { cf.Remove(action); return cf; }
-		public static Boolean operator ==(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> left, CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> right) => left?.GetInvocationList() == right?.GetInvocationList();
-		public static Boolean operator !=(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> left, CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> right) => left?.GetInvocationList() != right?.GetInvocationList();
+		public static Boolean operator ==(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> left, CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> right) => (left?.Equals(right)).GetValueOrDefault();
+		public static Boolean operator !=(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> left, CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> right) => !(left == right);
 		
 		public Object Target => GetInvocationList().LastOrDefault()?.Target;
 		
@@ -897,8 +897,8 @@ namespace CoContra {
 		public static implicit operator Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> caction) { return caction.Invoke; }
 		public static CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> operator +(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> cf, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> action) { cf.Add(action); return cf; }
 		public static CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> operator -(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> cf, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> action) { cf.Remove(action); return cf; }
-		public static Boolean operator ==(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> left, CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> right) => left?.GetInvocationList() == right?.GetInvocationList();
-		public static Boolean operator !=(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> left, CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> right) => left?.GetInvocationList() != right?.GetInvocationList();
+		public static Boolean operator ==(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> left, CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> right) => (left?.Equals(right)).GetValueOrDefault();
+		public static Boolean operator !=(CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> left, CovariantAction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> right) => !(left == right);
 		
 		public Object Target => GetInvocationList().LastOrDefault()?.Target;
 		

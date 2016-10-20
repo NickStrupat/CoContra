@@ -237,6 +237,9 @@ namespace Tests {
 			Assert.False(ca.Equals((Object) cb));
 		}
 
+		[Fact]
+		public void GetHashCode() { }
+
 		// TODO:
 		// operators
 		// equality methods
