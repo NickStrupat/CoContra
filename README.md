@@ -40,11 +40,17 @@ Events can be implemented like so...
 
 ```csharp
 	private CovariantAction<String> covariantEventDelegates = new CovariantAction<String>();
-	public event Action<String> Event { add { covariantEventDelegates += value; } remove { covariantEventDelegates -= value; } }
+	public event Action<String> Event {
+		add { covariantEventDelegates += value; }
+		remove { covariantEventDelegates -= value; }
+	}
 
 	// if you want to express that `covariantEventDelegates` be read-only, you must use `Add` and `Remove` since the operator overloading in the example immediately above requires write access to the field
 	private readonly CovariantAction<String> covariantEventDelegates = new CovariantAction<String>();
-	public event Action<String> Event { add { covariantEventDelegates.Add(value); } remove { covariantEventDelegates.Remove(value); } }
+	public event Action<String> Event {
+		add { covariantEventDelegates.Add(value); }
+		remove { covariantEventDelegates.Remove(value); }
+	}
 ```
 
 ### Remarks
