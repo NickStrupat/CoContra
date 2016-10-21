@@ -83,4 +83,4 @@ Missing/different elements of the API include:
 
 ## License
 
-MIT License
+[MIT License](https://github.com/NickStrupat/CoContra/blob/master/LICENSE)
