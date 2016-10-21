@@ -13,13 +13,13 @@ NuGet package listed on nuget.org at https://www.nuget.org/packages/CoContra/
 The following code demonstrates the broken implementation of delegates in .NET. The code will compile with no warnings, but will throw an exception at runtime when the second delegate is added.
 
 ```csharp
-	Func<string> stringFactory = () => "hello";
-	Func<object> objectFactory = () => new object();
+	Func<String> stringFactory = () => "hello";
+	Func<Object> objectFactory = () => new object();
 
-	Func<object> multi1 = stringFactory;
+	Func<Object> multi1 = stringFactory;
 	multi1 += objectFactory; // here
 
-	Func<object> multi2 = objectFactory;
+	Func<Object> multi2 = objectFactory;
 	multi2 += stringFactory; // here too
 ```
 
@@ -29,10 +29,10 @@ Replacing the multi-cast delegates with the classes in this library demonstrate 
 	Func<String> stringFactory = () => "hello";
 	Func<Object> objectFactory = () => new object();
 
-	CoContravariantFunc<object> multi1 = stringFactory;
+	CoContravariantFunc<Object> multi1 = stringFactory;
 	multi1 += objectFactory; // all good
 
-	CoContravariantFunc<object> multi2 = objectFactory;
+	CoContravariantFunc<Object> multi2 = objectFactory;
 	multi2 += stringFactory; // yup
 ```
 
@@ -55,7 +55,7 @@ Events can be implemented like so...
 
 ### Remarks
 
-Covariant and contravariant multi-cast delegates are broken in .NET. They work correctly if there is only one delegate, but break at runtime if you try to add a covariant/contravariant delegate. This library contains a set of classes which match the API of the `Action<>` and `Func<>` delegates; `CovariantAction<>` and `CoContravariantFunc<>` respectively. They can be dropped in place with almost no changes to your code.
+Covariant and contravariant multi-cast delegates are broken in .NET. They work correctly if there is only one delegate, but break at runtime if you try to add a covariant/contravariant delegate. This library contains a set of classes which match the API of the `Action<>` and `Func<>` delegates; `CovariantAction<>` and `CoContravariantFunc<>` respectively. They can be dropped in place with almost no changes to your code. They are thread-safe as 
 
 Missing/different elements of the API include:
 
