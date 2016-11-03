@@ -18,12 +18,13 @@
 	},
 
 	"frameworks": {
-		"net451": {},
 		"netstandard1.0": {
+			"buildOptions": { "outputName": "CoContra.netstandard1.0" },
 			"imports": "dnxcore50",
 			"dependencies": {
 				"System.Runtime.InteropServices": "4.1.0",
-				"System.Reflection.Extensions": "4.0.1"
+				"System.Reflection.Extensions": "4.0.1",
+				"System.Reflection.TypeExtensions": "4.1.0"
 			}
 		}
 	}
