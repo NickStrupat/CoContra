@@ -22,7 +22,7 @@ namespace CoContra {
 	public sealed class CovariantAction<<#= typeArgs #>> : CoContravariantDelegateBase<Action<<#= typeArgs #>>, CovariantAction<<#= typeArgs #>>> {
 		public CovariantAction() : base() {}
 		public CovariantAction(Action<<#= typeArgs #>> action) : base(action) {}
-		public static implicit operator CovariantAction<<#= typeArgs #>>(Action<<#= typeArgs #>> action) { return new CovariantAction<<#= typeArgs #>>(action); }
+		public static implicit operator CovariantAction<<#= typeArgs #>>(Action<<#= typeArgs #>> action) => TryUnwrapDelegate(action.GetMethodInfo(), action.Target) ?? new CovariantAction<<#= typeArgs #>>(action);
 		public static implicit operator Action<<#= typeArgs #>>(CovariantAction<<#= typeArgs #>> caction) { return caction.Invoke; }
 		public static CovariantAction<<#= typeArgs #>> operator +(CovariantAction<<#= typeArgs #>> cf, Action<<#= typeArgs #>> action) { cf.Add(action); return cf; }
 		public static CovariantAction<<#= typeArgs #>> operator -(CovariantAction<<#= typeArgs #>> cf, Action<<#= typeArgs #>> action) { cf.Remove(action); return cf; }
