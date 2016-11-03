@@ -238,7 +238,12 @@ namespace Tests {
 		}
 
 		[Fact]
-		public void GetHashCode() { }
+		public void ImplicitConversionToDelegateUnwrapsAWrappedCoContravariantDelegate() {
+			var ca = new CovariantAction<Int32>(i => { });
+			Action<Int32> a = ca;
+			CovariantAction<Int32> unwrappedca = a;
+			Assert.True(ReferenceEquals(ca, unwrappedca));
+		}
 
 		// TODO:
 		// operators
