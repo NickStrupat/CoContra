@@ -39,6 +39,7 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CoContravariantDelegate.cs" />
     <Compile Include="CoContravariantFunc.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

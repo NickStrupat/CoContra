@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using CoContra;
@@ -252,6 +253,39 @@ namespace Tests {
 			ccb += F3;
 			Assert.False(cca.Equals(ccb));
 			Assert.False(cca.Equals((Object) ccb));
+		}
+
+		[Fact]
+		public void ImplicitConversionToDelegateUnwrapsAWrappedCoContravariantDelegate() {
+			var ca = new CoContravariantFunc<Int32>(() => 42);
+			Func<Int32> a = ca;
+			CoContravariantFunc<Int32> unwrappedca = a;
+			Assert.True(ReferenceEquals(ca, unwrappedca));
+		}
+
+		[Fact]
+		public void AddRemoveOrder() {
+			var list = new List<Int32>();
+			Func<String, Object> a = s => { list.Add(1); return null; };
+			Func<String, Object> b = s => { list.Add(2); return null; };
+			Func<String, Object> c = s => { list.Add(3); return null; };
+
+			Func<String, Object> ma = a;
+			ma += b;
+			ma += c;
+			ma += b;
+			ma -= b;
+			ma.Invoke("wat");
+			Assert.True(list.SequenceEqual(new[] { 1, 2, 3 }));
+
+			list.Clear();
+			CoContravariantFunc<String, Object> mca = a;
+			mca += b;
+			mca += c;
+			mca += b;
+			mca -= b;
+			mca.Invoke("wat");
+			Assert.True(list.SequenceEqual(new[] { 1, 2, 3 }));
 		}
 	}
 }

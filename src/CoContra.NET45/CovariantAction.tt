@@ -23,19 +23,19 @@ namespace CoContra {
 		public CovariantAction() : base() {}
 		public CovariantAction(Action<<#= typeArgs #>> action) : base(action) {}
 		public static implicit operator CovariantAction<<#= typeArgs #>>(Action<<#= typeArgs #>> action) => TryUnwrapDelegate(action.GetMethodInfo(), action.Target) ?? new CovariantAction<<#= typeArgs #>>(action);
-		public static implicit operator Action<<#= typeArgs #>>(CovariantAction<<#= typeArgs #>> caction) { return caction.Invoke; }
-		public static CovariantAction<<#= typeArgs #>> operator +(CovariantAction<<#= typeArgs #>> cf, Action<<#= typeArgs #>> action) { cf.Add(action); return cf; }
-		public static CovariantAction<<#= typeArgs #>> operator -(CovariantAction<<#= typeArgs #>> cf, Action<<#= typeArgs #>> action) { cf.Remove(action); return cf; }
+		public static implicit operator Action<<#= typeArgs #>>(CovariantAction<<#= typeArgs #>> caction) => caction.Invoke;
+		public static CovariantAction<<#= typeArgs #>> operator +(CovariantAction<<#= typeArgs #>> cf, Action<<#= typeArgs #>> action) => Combine(cf, action);
+		public static CovariantAction<<#= typeArgs #>> operator -(CovariantAction<<#= typeArgs #>> cf, Action<<#= typeArgs #>> action) => Remove(cf, action);
 		public static Boolean operator ==(CovariantAction<<#= typeArgs #>> left, CovariantAction<<#= typeArgs #>> right) => (left?.Equals(right)).GetValueOrDefault();
 		public static Boolean operator !=(CovariantAction<<#= typeArgs #>> left, CovariantAction<<#= typeArgs #>> right) => !(left == right);
 		
-		public Object Target => GetInvocationList().LastOrDefault()?.Target;
+		public override Object Target => GetInvocationList().LastOrDefault()?.Target;
 		
 #if NET4 || NET45
-		public MethodInfo Method => GetInvocationList().LastOrDefault()?.Method;
+		public override MethodInfo Method => GetInvocationList().LastOrDefault()?.Method;
 #endif
 #if !NET4
-		public MethodInfo GetMethodInfo() => GetInvocationList().LastOrDefault()?.GetMethodInfo();
+		public override MethodInfo GetMethodInfo() => GetInvocationList().LastOrDefault()?.GetMethodInfo();
 #endif
 
 		public void Invoke(<#= invokeParams #>) {

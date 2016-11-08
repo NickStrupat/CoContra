@@ -24,18 +24,18 @@ namespace CoContra {
 		public CoContravariantFunc(Func<<#= typeArgs #>> func) : base(func) {}
 		public static implicit operator CoContravariantFunc<<#= typeArgs #>>(Func<<#= typeArgs #>> func) => TryUnwrapDelegate(func.GetMethodInfo(), func.Target) ?? new CoContravariantFunc<<#= typeArgs #>>(func);
 		public static implicit operator Func<<#= typeArgs #>>(CoContravariantFunc<<#= typeArgs #>> cfunc) => cfunc.Invoke;
-		public static CoContravariantFunc<<#= typeArgs #>> operator +(CoContravariantFunc<<#= typeArgs #>> cf, Func<<#= typeArgs #>> func) { cf.Add(func); return cf; }
-		public static CoContravariantFunc<<#= typeArgs #>> operator -(CoContravariantFunc<<#= typeArgs #>> cf, Func<<#= typeArgs #>> func) { cf.Remove(func); return cf; }
+		public static CoContravariantFunc<<#= typeArgs #>> operator +(CoContravariantFunc<<#= typeArgs #>> ccf, Func<<#= typeArgs #>> func) => Combine(ccf, func);
+		public static CoContravariantFunc<<#= typeArgs #>> operator -(CoContravariantFunc<<#= typeArgs #>> ccf, Func<<#= typeArgs #>> func) => Remove(ccf, func);
 		public static Boolean operator ==(CoContravariantFunc<<#= typeArgs #>> left, CoContravariantFunc<<#= typeArgs #>> right) => (left?.Equals(right)).GetValueOrDefault();
 		public static Boolean operator !=(CoContravariantFunc<<#= typeArgs #>> left, CoContravariantFunc<<#= typeArgs #>> right) => !(left == right);
 		
-		public Object Target => GetInvocationList().LastOrDefault()?.Target;
+		public override Object Target => GetInvocationList().LastOrDefault()?.Target;
 		
 #if NET4 || NET45
-		public MethodInfo Method => GetInvocationList().LastOrDefault()?.Method;
+		public override MethodInfo Method => GetInvocationList().LastOrDefault()?.Method;
 #endif
 #if !NET4
-		public MethodInfo GetMethodInfo() => GetInvocationList().LastOrDefault()?.GetMethodInfo();
+		public override MethodInfo GetMethodInfo() => GetInvocationList().LastOrDefault()?.GetMethodInfo();
 #endif
 
 		public TResult Invoke(<#= invokeParams #>) {

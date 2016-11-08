@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -243,6 +244,31 @@ namespace Tests {
 			Action<Int32> a = ca;
 			CovariantAction<Int32> unwrappedca = a;
 			Assert.True(ReferenceEquals(ca, unwrappedca));
+		}
+
+		[Fact]
+		public void AddRemoveOrder() {
+			var list = new List<Int32>();
+			Action<String> a = s => list.Add(1);
+			Action<String> b = s => list.Add(2);
+			Action<String> c = s => list.Add(3);
+
+			Action<String> ma = a;
+			ma += b;
+			ma += c;
+			ma += b;
+			ma -= b;
+			ma.Invoke("wat");
+			Assert.True(list.SequenceEqual(new [] { 1, 2, 3 }));
+
+			list.Clear();
+			CovariantAction<String> mca = a;
+			mca += b;
+			mca += c;
+			mca += b;
+			mca -= b;
+			mca.Invoke("wat");
+			Assert.True(list.SequenceEqual(new[] { 1, 2, 3 }));
 		}
 
 		// TODO:
