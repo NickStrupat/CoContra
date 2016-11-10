@@ -11,9 +11,12 @@ namespace CoContra {
 		public abstract Object Target { get; }
 
 #if NET4 || NET45
+		/// <summary>Gets the method represented by the delegate.</summary>
 		public abstract MethodInfo Method { get; }
 #endif
 #if !NET4
+		/// <summary>Gets an object that represents the method represented by the specified delegate.</summary>
+		/// <returns>An object that represents the method.</returns>
 		public abstract MethodInfo GetMethodInfo();
 #endif
 
@@ -58,7 +61,9 @@ namespace CoContra {
 			return value;
 		}
 
-		public static T Cast<T>(this Object @object, String paramName) where T : class {
+		public static T CastDelegate<T>(this Object @object, String paramName) where T : class {
+			if (@object == null)
+				return null;
 			var x = @object as T;
 			if (x == null)
 				throw new ArgumentException("The delegate types do not match", paramName);

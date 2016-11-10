@@ -63,24 +63,16 @@ namespace CoContra {
 			return ImmutableInterlocked.InterlockedCompareExchange(ref array, ImmutableArray<TDelegate>.Empty, ImmutableArray<TDelegate>.Empty);
 		}
 
-		internal sealed override CoContravariantDelegate CombineInternal(Delegate d)                            => Combine((TDerived) this, d.Cast<TDelegate>(nameof(d)));
-		internal sealed override CoContravariantDelegate CombineInternal(CoContravariantDelegate ccd)           => Combine((TDerived) this, ccd.Cast<TDerived>(nameof(ccd)));
-		internal sealed override CoContravariantDelegate CombineInternal(params CoContravariantDelegate[] ccds) => Combine((TDerived) this, ccds.Cast<TDerived[]>(nameof(ccds)));
-		internal sealed override CoContravariantDelegate CombineInternal(params Delegate[] ds)                  => Combine((TDerived) this, ds.Cast<TDelegate[]>(nameof(ds)));
+		internal sealed override CoContravariantDelegate CombineInternal(Delegate d)                            => Combine((TDerived) this, d   .CastDelegate<TDelegate>  (nameof(d)));
+		internal sealed override CoContravariantDelegate CombineInternal(CoContravariantDelegate ccd)           => Combine((TDerived) this, ccd .CastDelegate<TDerived>   (nameof(ccd)));
+		internal sealed override CoContravariantDelegate CombineInternal(params CoContravariantDelegate[] ccds) => Combine((TDerived) this, ccds.CastDelegate<TDerived[]> (nameof(ccds)));
+		internal sealed override CoContravariantDelegate CombineInternal(params Delegate[] ds)                  => Combine((TDerived) this, ds  .CastDelegate<TDelegate[]>(nameof(ds)));
 
-		internal sealed override CoContravariantDelegate RemoveInternal(Delegate d)                   => Remove((TDerived) this, d.Cast<TDelegate>(nameof(d)));
-		internal sealed override CoContravariantDelegate RemoveInternal(CoContravariantDelegate ccd2) => Remove((TDerived) this, ccd2.Cast<TDerived>(nameof(ccd2)));
+		internal sealed override CoContravariantDelegate RemoveInternal(Delegate d)                   => Remove((TDerived) this, d   .CastDelegate<TDelegate>(nameof(d)));
+		internal sealed override CoContravariantDelegate RemoveInternal(CoContravariantDelegate ccd2) => Remove((TDerived) this, ccd2.CastDelegate<TDerived> (nameof(ccd2)));
 
-		internal sealed override CoContravariantDelegate RemoveAllInternal(Delegate d)                   => RemoveAll((TDerived) this, d.Cast<TDelegate>(nameof(d)));
-		internal sealed override CoContravariantDelegate RemoveAllInternal(CoContravariantDelegate ccd2) => RemoveAll((TDerived) this, ccd2.Cast<TDerived>(nameof(ccd2)));
-
-		//private static ImmutableArray<TDelegate> RemoveLast(ImmutableArray<TDelegate> source, TDelegate value) {
-		//	var list = source;
-		//	var index = list.LastIndexOf(value);
-		//	if (index >= 0)
-		//		return list.RemoveAt(index);
-		//	return list;
-		//}
+		internal sealed override CoContravariantDelegate RemoveAllInternal(Delegate d)                   => RemoveAll((TDerived) this, d   .CastDelegate<TDelegate>(nameof(d)));
+		internal sealed override CoContravariantDelegate RemoveAllInternal(CoContravariantDelegate ccd2) => RemoveAll((TDerived) this, ccd2.CastDelegate<TDerived> (nameof(ccd2)));
 
 		private static TDelegate[] GetDelegateInvocationList(TDelegate @delegate) => ((Delegate) (Object) @delegate).GetInvocationList().Cast<TDelegate>().ToArray();
 
@@ -179,11 +171,10 @@ namespace CoContra {
 				throw new ArgumentNullException(nameof(value));
 			var sourceInvocationList = source.GetInvocationList();
 			ImmutableArray<TDelegate> temp;
-			for (;;) {
+			do {
 				temp = RemoveLast(sourceInvocationList, GetDelegateInvocationList(value));
-				if (temp == sourceInvocationList)
-					break;
 			}
+			while (temp != sourceInvocationList);
 			return new TDerived { array = temp };
 		}
 	}
