@@ -97,7 +97,7 @@ namespace CoContra {
 			if (invocationList.Count > source.Length)
 				return source;
 			var lastIndexOfEndOfValueInvocationList = -1;
-			for (var i = source.Length - invocationList.Count - 1; i != 0; i--) {
+			for (var i = source.Length - invocationList.Count; i != 0; i--) {
 				if (source.Skip(i).Take(invocationList.Count).SequenceEqual(invocationList)) {
 					lastIndexOfEndOfValueInvocationList = i;
 					break;
@@ -105,7 +105,7 @@ namespace CoContra {
 			}
 			if (lastIndexOfEndOfValueInvocationList == -1)
 				return source;
-			return source.RemoveRange(lastIndexOfEndOfValueInvocationList - invocationList.Count, invocationList.Count);
+			return source.RemoveRange(lastIndexOfEndOfValueInvocationList, invocationList.Count);
 		}
 
 
