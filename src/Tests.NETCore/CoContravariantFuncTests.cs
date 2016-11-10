@@ -39,7 +39,7 @@ namespace Tests {
 
 		[Fact]
 		public void NullConstructorArgument() {
-			new CoContravariantFunc<Object>(null);
+			Assert.Throws<ArgumentNullException>(() => new CoContravariantFunc<Object>(null));
 		}
 
 		[Fact]

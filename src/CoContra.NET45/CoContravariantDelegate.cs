@@ -52,10 +52,17 @@ namespace CoContra {
 	}
 
 	internal static class CoContravariantDelegateHelperExtensions {
-		public static CoContravariantDelegate CheckNull(this CoContravariantDelegate ccd, String paramName) {
-			if (ccd == null)
+		public static T CheckNull<T>(this T value, String paramName) {
+			if (value == null)
 				throw new ArgumentNullException(paramName);
-			return ccd;
+			return value;
+		}
+
+		public static T Cast<T>(this Object @object, String paramName) where T : class {
+			var x = @object as T;
+			if (x == null)
+				throw new ArgumentException("The delegate types do not match", paramName);
+			return x;
 		}
 	}
 }

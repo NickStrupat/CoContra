@@ -40,7 +40,7 @@ namespace Tests {
 
 		[Fact]
 		public void NullConstructorArgument() {
-			new CovariantAction<Object>(null);
+			Assert.Throws<ArgumentNullException>(() => new CovariantAction<Object>(null));
 		}
 
 		[Fact]

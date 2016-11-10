@@ -21,9 +21,9 @@ namespace CoContra {
 #>
 	public sealed class CovariantAction<<#= typeArgs #>> : CoContravariantDelegateBase<Action<<#= typeArgs #>>, CovariantAction<<#= typeArgs #>>> {
 		public CovariantAction() : base() {}
-		public CovariantAction(Action<<#= typeArgs #>> action) : base(action) {}
-		public static implicit operator CovariantAction<<#= typeArgs #>>(Action<<#= typeArgs #>> action) => TryUnwrapDelegate(action.GetMethodInfo(), action.Target) ?? new CovariantAction<<#= typeArgs #>>(action);
-		public static implicit operator Action<<#= typeArgs #>>(CovariantAction<<#= typeArgs #>> caction) => caction.Invoke;
+		public CovariantAction(Action<<#= typeArgs #>> action) : base(action.CheckNull(nameof(action))) {}
+		public static implicit operator CovariantAction<<#= typeArgs #>>(Action<<#= typeArgs #>> action) => TryUnwrapDelegate(action.CheckNull(nameof(action)).GetMethodInfo(), action.Target) ?? new CovariantAction<<#= typeArgs #>>(action);
+		public static implicit operator Action<<#= typeArgs #>>(CovariantAction<<#= typeArgs #>> caction) => caction.CheckNull(nameof(caction)).Invoke;
 		public static CovariantAction<<#= typeArgs #>> operator +(CovariantAction<<#= typeArgs #>> cf, Action<<#= typeArgs #>> action) => Combine(cf, action);
 		public static CovariantAction<<#= typeArgs #>> operator -(CovariantAction<<#= typeArgs #>> cf, Action<<#= typeArgs #>> action) => Remove(cf, action);
 		public static Boolean operator ==(CovariantAction<<#= typeArgs #>> left, CovariantAction<<#= typeArgs #>> right) => (left?.Equals(right)).GetValueOrDefault();

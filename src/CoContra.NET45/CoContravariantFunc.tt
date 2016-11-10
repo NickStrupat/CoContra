@@ -21,9 +21,9 @@ namespace CoContra {
 #>
 	public sealed class CoContravariantFunc<<#= typeArgs #>> : CoContravariantDelegateBase<Func<<#= typeArgs #>>, CoContravariantFunc<<#= typeArgs #>>> {
 		public CoContravariantFunc() : base() {}
-		public CoContravariantFunc(Func<<#= typeArgs #>> func) : base(func) {}
-		public static implicit operator CoContravariantFunc<<#= typeArgs #>>(Func<<#= typeArgs #>> func) => TryUnwrapDelegate(func.GetMethodInfo(), func.Target) ?? new CoContravariantFunc<<#= typeArgs #>>(func);
-		public static implicit operator Func<<#= typeArgs #>>(CoContravariantFunc<<#= typeArgs #>> cfunc) => cfunc.Invoke;
+		public CoContravariantFunc(Func<<#= typeArgs #>> func) : base(func.CheckNull(nameof(func))) {}
+		public static implicit operator CoContravariantFunc<<#= typeArgs #>>(Func<<#= typeArgs #>> func) => TryUnwrapDelegate(func.CheckNull(nameof(func)).GetMethodInfo(), func.Target) ?? new CoContravariantFunc<<#= typeArgs #>>(func);
+		public static implicit operator Func<<#= typeArgs #>>(CoContravariantFunc<<#= typeArgs #>> cfunc) => cfunc.CheckNull(nameof(cfunc)).Invoke;
 		public static CoContravariantFunc<<#= typeArgs #>> operator +(CoContravariantFunc<<#= typeArgs #>> ccf, Func<<#= typeArgs #>> func) => Combine(ccf, func);
 		public static CoContravariantFunc<<#= typeArgs #>> operator -(CoContravariantFunc<<#= typeArgs #>> ccf, Func<<#= typeArgs #>> func) => Remove(ccf, func);
 		public static Boolean operator ==(CoContravariantFunc<<#= typeArgs #>> left, CoContravariantFunc<<#= typeArgs #>> right) => (left?.Equals(right)).GetValueOrDefault();
