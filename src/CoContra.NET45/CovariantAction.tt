@@ -5,8 +5,6 @@
 <#@ import namespace="System.Collections.Generic" #>
 <#@ output extension=".cs" #>
 using System;
-using System.Linq;
-using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -19,24 +17,12 @@ namespace CoContra {
 		var invokeParams = String.Join(", ", suffixes.Select(x => "T" + x + " arg" + x));
 		var invokeArgs = String.Join(", ", suffixes.Select(x => "arg" + x));
 #>
-	public sealed class CovariantAction<<#= typeArgs #>> : CoContravariantDelegateBase<Action<<#= typeArgs #>>, CovariantAction<<#= typeArgs #>>> {
+	public class CovariantAction<<#= typeArgs #>> : CoContravariantDelegateBase<Action<<#= typeArgs #>>, CovariantAction<<#= typeArgs #>>> {
 		public CovariantAction() : base() {}
 		public CovariantAction(Action<<#= typeArgs #>> action) : base(action.CheckNull(nameof(action))) {}
-		public static implicit operator CovariantAction<<#= typeArgs #>>(Action<<#= typeArgs #>> action) => TryUnwrapDelegate(action.CheckNull(nameof(action)).GetMethodInfo(), action.Target) ?? new CovariantAction<<#= typeArgs #>>(action);
-		public static implicit operator Action<<#= typeArgs #>>(CovariantAction<<#= typeArgs #>> caction) => caction.CheckNull(nameof(caction)).Invoke;
-		public static CovariantAction<<#= typeArgs #>> operator +(CovariantAction<<#= typeArgs #>> cf, Action<<#= typeArgs #>> action) => Combine(cf, action);
-		public static CovariantAction<<#= typeArgs #>> operator -(CovariantAction<<#= typeArgs #>> cf, Action<<#= typeArgs #>> action) => Remove(cf, action);
-		public static Boolean operator ==(CovariantAction<<#= typeArgs #>> left, CovariantAction<<#= typeArgs #>> right) => (left?.Equals(right)).GetValueOrDefault();
-		public static Boolean operator !=(CovariantAction<<#= typeArgs #>> left, CovariantAction<<#= typeArgs #>> right) => !(left == right);
-		
-		public override Object Target => GetInvocationList().LastOrDefault()?.Target;
-		
-#if NET4 || NET45
-		public override MethodInfo Method => GetInvocationList().LastOrDefault()?.Method;
-#endif
-#if !NET4
-		public override MethodInfo GetMethodInfo() => GetInvocationList().LastOrDefault()?.GetMethodInfo();
-#endif
+
+		public static implicit operator CovariantAction<<#= typeArgs #>>(Action<<#= typeArgs #>> action) => ConvertToCoContravariantDelegate(action);
+		public static implicit operator Action<<#= typeArgs #>>(CovariantAction<<#= typeArgs #>> caction) => caction.Invoke;
 
 		public void Invoke(<#= invokeParams #>) {
 			var array = GetInvocationList();
@@ -68,14 +54,6 @@ namespace CoContra {
 		}
 
 		public void EndInvoke(IAsyncResult asyncResult) => ((Task) asyncResult).Wait();
-
-		public override Object DynamicInvoke(params Object[] args) {
-			var array = GetInvocationList();
-			var result = default(Object);
-			for (var i = 0; i < array.Length; i++)
-				result = array[i].DynamicInvoke(args);
-			return result;
-		}
 	}
 
 <# } #>

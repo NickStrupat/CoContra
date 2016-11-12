@@ -1,28 +1,37 @@
 using System;
 using System.Collections.Immutable;
+using System.Linq;
 using System.Reflection;
 
 namespace CoContra {
 	public abstract class CoContravariantDelegate {
 		internal CoContravariantDelegate() {}
 
+		public sealed override String ToString() => base.ToString();
+
 		/// <summary>Gets the class instance on which the current delegate invokes the instance method.</summary>
 		/// <returns>The object on which the current delegate invokes the instance method, if the delegate represents an instance method; null if the delegate represents a static method.</returns>
-		public abstract Object Target { get; }
+		public Object Target => GetInvocationList().LastOrDefault()?.Target;
 
 #if NET4 || NET45
 		/// <summary>Gets the method represented by the delegate.</summary>
-		public abstract MethodInfo Method { get; }
+		public MethodInfo Method => GetInvocationList().LastOrDefault()?.Method;
 #endif
 #if !NET4
 		/// <summary>Gets an object that represents the method represented by the specified delegate.</summary>
 		/// <returns>An object that represents the method.</returns>
-		public abstract MethodInfo GetMethodInfo();
+		public MethodInfo GetMethodInfo() => GetInvocationList().LastOrDefault()?.GetMethodInfo();
 #endif
 
 		/// <summary>Dynamically invokes (late-bound) the method represented by the current delegate.</summary>
 		/// <returns>The object returned by the method represented by the delegate.</returns>
-		public abstract Object DynamicInvoke(params Object[] args);
+		public Object DynamicInvoke(params Object[] args) {
+			var array = GetInvocationList();
+			var result = default(Object);
+			for (var i = 0; i < array.Length; i++)
+				result = array[i].DynamicInvoke(args);
+			return result;
+		}
 
 
 		internal abstract ImmutableArray<Delegate> GetInvocationListInternal();
@@ -61,7 +70,7 @@ namespace CoContra {
 			return value;
 		}
 
-		public static T CastDelegate<T>(this Object @object, String paramName) where T : class {
+		public static T CastDelegate<T>(this Object @object, String paramName = null) where T : class {
 			if (@object == null)
 				return null;
 			var x = @object as T;

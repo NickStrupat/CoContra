@@ -13,11 +13,20 @@ namespace CoContra {
 
 		internal CoContravariantDelegateBase() { array = ImmutableArray<TDelegate>.Empty; }
 		internal CoContravariantDelegateBase(TDerived other) { array = other.array; }
-		internal CoContravariantDelegateBase(TDelegate @delegate) { array = CombineInvocationLists(ImmutableArray<TDelegate>.Empty, GetDelegateInvocationList(@delegate)); }
-		
+		internal CoContravariantDelegateBase(TDelegate @delegate) { array = ImmutableArray.CreateRange(GetDelegateInvocationList(@delegate)); }
+
+		public static TDerived operator +(CoContravariantDelegateBase<TDelegate, TDerived> cf, TDelegate action) => Combine((TDerived) cf, action);
+		public static TDerived operator -(CoContravariantDelegateBase<TDelegate, TDerived> cf, TDelegate action) => Remove((TDerived) cf, action);
+		public static Boolean operator ==(CoContravariantDelegateBase<TDelegate, TDerived> left, CoContravariantDelegateBase<TDelegate, TDerived> right) => (((TDerived) left)?.Equals((TDerived) right)).GetValueOrDefault();
+		public static Boolean operator !=(CoContravariantDelegateBase<TDelegate, TDerived> left, CoContravariantDelegateBase<TDelegate, TDerived> right) => !((TDerived) left == (TDerived) right);
+
 		private static readonly MethodInfo invokeMethodInfo = typeof(TDerived).GetMethod(nameof(CovariantAction<Object>.Invoke));
-		protected static TDerived TryUnwrapDelegate(MethodInfo method, Object target) => method != invokeMethodInfo ? null : target as TDerived;
-		
+		private static TDerived TryUnwrapDelegate(Delegate @delegate) => @delegate.GetMethodInfo() != invokeMethodInfo ? null : @delegate.Target as TDerived;
+		protected static TDerived ConvertToCoContravariantDelegate(TDelegate @delegate) {
+			@delegate.CheckNull(nameof(@delegate));
+			return TryUnwrapDelegate(@delegate.CastDelegate<Delegate>()) ?? new TDerived { array = ImmutableArray.CreateRange(GetDelegateInvocationList(@delegate)) };
+		}
+
 		internal sealed override ImmutableArray<Delegate> GetInvocationListInternal() => GetInvocationList().CastArray<Delegate>();
 		public new ImmutableArray<TDelegate> GetInvocationList() => InterlockedGet(ref array);
 
@@ -55,9 +64,9 @@ namespace CoContra {
 		public sealed override Int32 GetHashCode() => array.GetHashCode();
 
 		/// <summary>Determines whether the specified object and the current delegate are of the same type and share the same targets, methods, and invocation list.</summary>
-		/// <returns>true if <paramref name="obj" /> and the current delegate have the same targets, methods, and invocation list; otherwise, false.</returns>
-		/// <param name="obj">The object to compare with the current delegate.</param>
-		public Boolean Equals(TDerived other) => other != null && (array.Equals(other.array) || array.SequenceEqual(other.array));
+		/// <returns>true if <paramref name="other" /> and the current delegate have the same targets, methods, and invocation list; otherwise, false.</returns>
+		/// <param name="other">The object to compare with the current delegate.</param>
+		public Boolean Equals(TDerived other) => !ReferenceEquals(other, null) && (array.Equals(other.array) || array.SequenceEqual(other.array));
 
 		private static ImmutableArray<TDelegate> InterlockedGet(ref ImmutableArray<TDelegate> array) {
 			return ImmutableInterlocked.InterlockedCompareExchange(ref array, ImmutableArray<TDelegate>.Empty, ImmutableArray<TDelegate>.Empty);

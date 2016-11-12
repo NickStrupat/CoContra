@@ -1,28 +1,14 @@
 ﻿using System;
-using System.Linq;
-using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace CoContra {
-	public sealed class CoContravariantFunc<TResult> : CoContravariantDelegateBase<Func<TResult>, CoContravariantFunc<TResult>> {
+	public class CoContravariantFunc<TResult> : CoContravariantDelegateBase<Func<TResult>, CoContravariantFunc<TResult>> {
 		public CoContravariantFunc() : base() {}
 		public CoContravariantFunc(Func<TResult> func) : base(func.CheckNull(nameof(func))) {}
-		public static implicit operator CoContravariantFunc<TResult>(Func<TResult> func) => TryUnwrapDelegate(func.CheckNull(nameof(func)).GetMethodInfo(), func.Target) ?? new CoContravariantFunc<TResult>(func);
-		public static implicit operator Func<TResult>(CoContravariantFunc<TResult> cfunc) => cfunc.CheckNull(nameof(cfunc)).Invoke;
-		public static CoContravariantFunc<TResult> operator +(CoContravariantFunc<TResult> ccf, Func<TResult> func) => Combine(ccf, func);
-		public static CoContravariantFunc<TResult> operator -(CoContravariantFunc<TResult> ccf, Func<TResult> func) => Remove(ccf, func);
-		public static Boolean operator ==(CoContravariantFunc<TResult> left, CoContravariantFunc<TResult> right) => (left?.Equals(right)).GetValueOrDefault();
-		public static Boolean operator !=(CoContravariantFunc<TResult> left, CoContravariantFunc<TResult> right) => !(left == right);
-		
-		public override Object Target => GetInvocationList().LastOrDefault()?.Target;
-		
-#if NET4 || NET45
-		public override MethodInfo Method => GetInvocationList().LastOrDefault()?.Method;
-#endif
-#if !NET4
-		public override MethodInfo GetMethodInfo() => GetInvocationList().LastOrDefault()?.GetMethodInfo();
-#endif
+
+		public static implicit operator CoContravariantFunc<TResult>(Func<TResult> func) => ConvertToCoContravariantDelegate(func);
+		public static implicit operator Func<TResult>(CoContravariantFunc<TResult> ccfunc) => ccfunc.Invoke;
 
 		public TResult Invoke() {
 			var array = GetInvocationList();
@@ -54,34 +40,14 @@ namespace CoContra {
 		}
 
 		public TResult EndInvoke(IAsyncResult asyncResult) => ((Task<TResult>) asyncResult).Result;
-
-		public override Object DynamicInvoke(params Object[] args) {
-			var array = GetInvocationList();
-			var result = default(Object);
-			for (var i = 0; i < array.Length; i++)
-				result = array[i].DynamicInvoke(args);
-			return result;
-		}
 	}
 
-	public sealed class CoContravariantFunc<T, TResult> : CoContravariantDelegateBase<Func<T, TResult>, CoContravariantFunc<T, TResult>> {
+	public class CoContravariantFunc<T, TResult> : CoContravariantDelegateBase<Func<T, TResult>, CoContravariantFunc<T, TResult>> {
 		public CoContravariantFunc() : base() {}
 		public CoContravariantFunc(Func<T, TResult> func) : base(func.CheckNull(nameof(func))) {}
-		public static implicit operator CoContravariantFunc<T, TResult>(Func<T, TResult> func) => TryUnwrapDelegate(func.CheckNull(nameof(func)).GetMethodInfo(), func.Target) ?? new CoContravariantFunc<T, TResult>(func);
-		public static implicit operator Func<T, TResult>(CoContravariantFunc<T, TResult> cfunc) => cfunc.CheckNull(nameof(cfunc)).Invoke;
-		public static CoContravariantFunc<T, TResult> operator +(CoContravariantFunc<T, TResult> ccf, Func<T, TResult> func) => Combine(ccf, func);
-		public static CoContravariantFunc<T, TResult> operator -(CoContravariantFunc<T, TResult> ccf, Func<T, TResult> func) => Remove(ccf, func);
-		public static Boolean operator ==(CoContravariantFunc<T, TResult> left, CoContravariantFunc<T, TResult> right) => (left?.Equals(right)).GetValueOrDefault();
-		public static Boolean operator !=(CoContravariantFunc<T, TResult> left, CoContravariantFunc<T, TResult> right) => !(left == right);
-		
-		public override Object Target => GetInvocationList().LastOrDefault()?.Target;
-		
-#if NET4 || NET45
-		public override MethodInfo Method => GetInvocationList().LastOrDefault()?.Method;
-#endif
-#if !NET4
-		public override MethodInfo GetMethodInfo() => GetInvocationList().LastOrDefault()?.GetMethodInfo();
-#endif
+
+		public static implicit operator CoContravariantFunc<T, TResult>(Func<T, TResult> func) => ConvertToCoContravariantDelegate(func);
+		public static implicit operator Func<T, TResult>(CoContravariantFunc<T, TResult> ccfunc) => ccfunc.Invoke;
 
 		public TResult Invoke(T arg) {
 			var array = GetInvocationList();
@@ -113,34 +79,14 @@ namespace CoContra {
 		}
 
 		public TResult EndInvoke(IAsyncResult asyncResult) => ((Task<TResult>) asyncResult).Result;
-
-		public override Object DynamicInvoke(params Object[] args) {
-			var array = GetInvocationList();
-			var result = default(Object);
-			for (var i = 0; i < array.Length; i++)
-				result = array[i].DynamicInvoke(args);
-			return result;
-		}
 	}
 
-	public sealed class CoContravariantFunc<T1, T2, TResult> : CoContravariantDelegateBase<Func<T1, T2, TResult>, CoContravariantFunc<T1, T2, TResult>> {
+	public class CoContravariantFunc<T1, T2, TResult> : CoContravariantDelegateBase<Func<T1, T2, TResult>, CoContravariantFunc<T1, T2, TResult>> {
 		public CoContravariantFunc() : base() {}
 		public CoContravariantFunc(Func<T1, T2, TResult> func) : base(func.CheckNull(nameof(func))) {}
-		public static implicit operator CoContravariantFunc<T1, T2, TResult>(Func<T1, T2, TResult> func) => TryUnwrapDelegate(func.CheckNull(nameof(func)).GetMethodInfo(), func.Target) ?? new CoContravariantFunc<T1, T2, TResult>(func);
-		public static implicit operator Func<T1, T2, TResult>(CoContravariantFunc<T1, T2, TResult> cfunc) => cfunc.CheckNull(nameof(cfunc)).Invoke;
-		public static CoContravariantFunc<T1, T2, TResult> operator +(CoContravariantFunc<T1, T2, TResult> ccf, Func<T1, T2, TResult> func) => Combine(ccf, func);
-		public static CoContravariantFunc<T1, T2, TResult> operator -(CoContravariantFunc<T1, T2, TResult> ccf, Func<T1, T2, TResult> func) => Remove(ccf, func);
-		public static Boolean operator ==(CoContravariantFunc<T1, T2, TResult> left, CoContravariantFunc<T1, T2, TResult> right) => (left?.Equals(right)).GetValueOrDefault();
-		public static Boolean operator !=(CoContravariantFunc<T1, T2, TResult> left, CoContravariantFunc<T1, T2, TResult> right) => !(left == right);
-		
-		public override Object Target => GetInvocationList().LastOrDefault()?.Target;
-		
-#if NET4 || NET45
-		public override MethodInfo Method => GetInvocationList().LastOrDefault()?.Method;
-#endif
-#if !NET4
-		public override MethodInfo GetMethodInfo() => GetInvocationList().LastOrDefault()?.GetMethodInfo();
-#endif
+
+		public static implicit operator CoContravariantFunc<T1, T2, TResult>(Func<T1, T2, TResult> func) => ConvertToCoContravariantDelegate(func);
+		public static implicit operator Func<T1, T2, TResult>(CoContravariantFunc<T1, T2, TResult> ccfunc) => ccfunc.Invoke;
 
 		public TResult Invoke(T1 arg1, T2 arg2) {
 			var array = GetInvocationList();
@@ -172,34 +118,14 @@ namespace CoContra {
 		}
 
 		public TResult EndInvoke(IAsyncResult asyncResult) => ((Task<TResult>) asyncResult).Result;
-
-		public override Object DynamicInvoke(params Object[] args) {
-			var array = GetInvocationList();
-			var result = default(Object);
-			for (var i = 0; i < array.Length; i++)
-				result = array[i].DynamicInvoke(args);
-			return result;
-		}
 	}
 
-	public sealed class CoContravariantFunc<T1, T2, T3, TResult> : CoContravariantDelegateBase<Func<T1, T2, T3, TResult>, CoContravariantFunc<T1, T2, T3, TResult>> {
+	public class CoContravariantFunc<T1, T2, T3, TResult> : CoContravariantDelegateBase<Func<T1, T2, T3, TResult>, CoContravariantFunc<T1, T2, T3, TResult>> {
 		public CoContravariantFunc() : base() {}
 		public CoContravariantFunc(Func<T1, T2, T3, TResult> func) : base(func.CheckNull(nameof(func))) {}
-		public static implicit operator CoContravariantFunc<T1, T2, T3, TResult>(Func<T1, T2, T3, TResult> func) => TryUnwrapDelegate(func.CheckNull(nameof(func)).GetMethodInfo(), func.Target) ?? new CoContravariantFunc<T1, T2, T3, TResult>(func);
-		public static implicit operator Func<T1, T2, T3, TResult>(CoContravariantFunc<T1, T2, T3, TResult> cfunc) => cfunc.CheckNull(nameof(cfunc)).Invoke;
-		public static CoContravariantFunc<T1, T2, T3, TResult> operator +(CoContravariantFunc<T1, T2, T3, TResult> ccf, Func<T1, T2, T3, TResult> func) => Combine(ccf, func);
-		public static CoContravariantFunc<T1, T2, T3, TResult> operator -(CoContravariantFunc<T1, T2, T3, TResult> ccf, Func<T1, T2, T3, TResult> func) => Remove(ccf, func);
-		public static Boolean operator ==(CoContravariantFunc<T1, T2, T3, TResult> left, CoContravariantFunc<T1, T2, T3, TResult> right) => (left?.Equals(right)).GetValueOrDefault();
-		public static Boolean operator !=(CoContravariantFunc<T1, T2, T3, TResult> left, CoContravariantFunc<T1, T2, T3, TResult> right) => !(left == right);
-		
-		public override Object Target => GetInvocationList().LastOrDefault()?.Target;
-		
-#if NET4 || NET45
-		public override MethodInfo Method => GetInvocationList().LastOrDefault()?.Method;
-#endif
-#if !NET4
-		public override MethodInfo GetMethodInfo() => GetInvocationList().LastOrDefault()?.GetMethodInfo();
-#endif
+
+		public static implicit operator CoContravariantFunc<T1, T2, T3, TResult>(Func<T1, T2, T3, TResult> func) => ConvertToCoContravariantDelegate(func);
+		public static implicit operator Func<T1, T2, T3, TResult>(CoContravariantFunc<T1, T2, T3, TResult> ccfunc) => ccfunc.Invoke;
 
 		public TResult Invoke(T1 arg1, T2 arg2, T3 arg3) {
 			var array = GetInvocationList();
@@ -231,34 +157,14 @@ namespace CoContra {
 		}
 
 		public TResult EndInvoke(IAsyncResult asyncResult) => ((Task<TResult>) asyncResult).Result;
-
-		public override Object DynamicInvoke(params Object[] args) {
-			var array = GetInvocationList();
-			var result = default(Object);
-			for (var i = 0; i < array.Length; i++)
-				result = array[i].DynamicInvoke(args);
-			return result;
-		}
 	}
 
-	public sealed class CoContravariantFunc<T1, T2, T3, T4, TResult> : CoContravariantDelegateBase<Func<T1, T2, T3, T4, TResult>, CoContravariantFunc<T1, T2, T3, T4, TResult>> {
+	public class CoContravariantFunc<T1, T2, T3, T4, TResult> : CoContravariantDelegateBase<Func<T1, T2, T3, T4, TResult>, CoContravariantFunc<T1, T2, T3, T4, TResult>> {
 		public CoContravariantFunc() : base() {}
 		public CoContravariantFunc(Func<T1, T2, T3, T4, TResult> func) : base(func.CheckNull(nameof(func))) {}
-		public static implicit operator CoContravariantFunc<T1, T2, T3, T4, TResult>(Func<T1, T2, T3, T4, TResult> func) => TryUnwrapDelegate(func.CheckNull(nameof(func)).GetMethodInfo(), func.Target) ?? new CoContravariantFunc<T1, T2, T3, T4, TResult>(func);
-		public static implicit operator Func<T1, T2, T3, T4, TResult>(CoContravariantFunc<T1, T2, T3, T4, TResult> cfunc) => cfunc.CheckNull(nameof(cfunc)).Invoke;
-		public static CoContravariantFunc<T1, T2, T3, T4, TResult> operator +(CoContravariantFunc<T1, T2, T3, T4, TResult> ccf, Func<T1, T2, T3, T4, TResult> func) => Combine(ccf, func);
-		public static CoContravariantFunc<T1, T2, T3, T4, TResult> operator -(CoContravariantFunc<T1, T2, T3, T4, TResult> ccf, Func<T1, T2, T3, T4, TResult> func) => Remove(ccf, func);
-		public static Boolean operator ==(CoContravariantFunc<T1, T2, T3, T4, TResult> left, CoContravariantFunc<T1, T2, T3, T4, TResult> right) => (left?.Equals(right)).GetValueOrDefault();
-		public static Boolean operator !=(CoContravariantFunc<T1, T2, T3, T4, TResult> left, CoContravariantFunc<T1, T2, T3, T4, TResult> right) => !(left == right);
-		
-		public override Object Target => GetInvocationList().LastOrDefault()?.Target;
-		
-#if NET4 || NET45
-		public override MethodInfo Method => GetInvocationList().LastOrDefault()?.Method;
-#endif
-#if !NET4
-		public override MethodInfo GetMethodInfo() => GetInvocationList().LastOrDefault()?.GetMethodInfo();
-#endif
+
+		public static implicit operator CoContravariantFunc<T1, T2, T3, T4, TResult>(Func<T1, T2, T3, T4, TResult> func) => ConvertToCoContravariantDelegate(func);
+		public static implicit operator Func<T1, T2, T3, T4, TResult>(CoContravariantFunc<T1, T2, T3, T4, TResult> ccfunc) => ccfunc.Invoke;
 
 		public TResult Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4) {
 			var array = GetInvocationList();
@@ -290,34 +196,14 @@ namespace CoContra {
 		}
 
 		public TResult EndInvoke(IAsyncResult asyncResult) => ((Task<TResult>) asyncResult).Result;
-
-		public override Object DynamicInvoke(params Object[] args) {
-			var array = GetInvocationList();
-			var result = default(Object);
-			for (var i = 0; i < array.Length; i++)
-				result = array[i].DynamicInvoke(args);
-			return result;
-		}
 	}
 
-	public sealed class CoContravariantFunc<T1, T2, T3, T4, T5, TResult> : CoContravariantDelegateBase<Func<T1, T2, T3, T4, T5, TResult>, CoContravariantFunc<T1, T2, T3, T4, T5, TResult>> {
+	public class CoContravariantFunc<T1, T2, T3, T4, T5, TResult> : CoContravariantDelegateBase<Func<T1, T2, T3, T4, T5, TResult>, CoContravariantFunc<T1, T2, T3, T4, T5, TResult>> {
 		public CoContravariantFunc() : base() {}
 		public CoContravariantFunc(Func<T1, T2, T3, T4, T5, TResult> func) : base(func.CheckNull(nameof(func))) {}
-		public static implicit operator CoContravariantFunc<T1, T2, T3, T4, T5, TResult>(Func<T1, T2, T3, T4, T5, TResult> func) => TryUnwrapDelegate(func.CheckNull(nameof(func)).GetMethodInfo(), func.Target) ?? new CoContravariantFunc<T1, T2, T3, T4, T5, TResult>(func);
-		public static implicit operator Func<T1, T2, T3, T4, T5, TResult>(CoContravariantFunc<T1, T2, T3, T4, T5, TResult> cfunc) => cfunc.CheckNull(nameof(cfunc)).Invoke;
-		public static CoContravariantFunc<T1, T2, T3, T4, T5, TResult> operator +(CoContravariantFunc<T1, T2, T3, T4, T5, TResult> ccf, Func<T1, T2, T3, T4, T5, TResult> func) => Combine(ccf, func);
-		public static CoContravariantFunc<T1, T2, T3, T4, T5, TResult> operator -(CoContravariantFunc<T1, T2, T3, T4, T5, TResult> ccf, Func<T1, T2, T3, T4, T5, TResult> func) => Remove(ccf, func);
-		public static Boolean operator ==(CoContravariantFunc<T1, T2, T3, T4, T5, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, TResult> right) => (left?.Equals(right)).GetValueOrDefault();
-		public static Boolean operator !=(CoContravariantFunc<T1, T2, T3, T4, T5, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, TResult> right) => !(left == right);
-		
-		public override Object Target => GetInvocationList().LastOrDefault()?.Target;
-		
-#if NET4 || NET45
-		public override MethodInfo Method => GetInvocationList().LastOrDefault()?.Method;
-#endif
-#if !NET4
-		public override MethodInfo GetMethodInfo() => GetInvocationList().LastOrDefault()?.GetMethodInfo();
-#endif
+
+		public static implicit operator CoContravariantFunc<T1, T2, T3, T4, T5, TResult>(Func<T1, T2, T3, T4, T5, TResult> func) => ConvertToCoContravariantDelegate(func);
+		public static implicit operator Func<T1, T2, T3, T4, T5, TResult>(CoContravariantFunc<T1, T2, T3, T4, T5, TResult> ccfunc) => ccfunc.Invoke;
 
 		public TResult Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5) {
 			var array = GetInvocationList();
@@ -349,34 +235,14 @@ namespace CoContra {
 		}
 
 		public TResult EndInvoke(IAsyncResult asyncResult) => ((Task<TResult>) asyncResult).Result;
-
-		public override Object DynamicInvoke(params Object[] args) {
-			var array = GetInvocationList();
-			var result = default(Object);
-			for (var i = 0; i < array.Length; i++)
-				result = array[i].DynamicInvoke(args);
-			return result;
-		}
 	}
 
-	public sealed class CoContravariantFunc<T1, T2, T3, T4, T5, T6, TResult> : CoContravariantDelegateBase<Func<T1, T2, T3, T4, T5, T6, TResult>, CoContravariantFunc<T1, T2, T3, T4, T5, T6, TResult>> {
+	public class CoContravariantFunc<T1, T2, T3, T4, T5, T6, TResult> : CoContravariantDelegateBase<Func<T1, T2, T3, T4, T5, T6, TResult>, CoContravariantFunc<T1, T2, T3, T4, T5, T6, TResult>> {
 		public CoContravariantFunc() : base() {}
 		public CoContravariantFunc(Func<T1, T2, T3, T4, T5, T6, TResult> func) : base(func.CheckNull(nameof(func))) {}
-		public static implicit operator CoContravariantFunc<T1, T2, T3, T4, T5, T6, TResult>(Func<T1, T2, T3, T4, T5, T6, TResult> func) => TryUnwrapDelegate(func.CheckNull(nameof(func)).GetMethodInfo(), func.Target) ?? new CoContravariantFunc<T1, T2, T3, T4, T5, T6, TResult>(func);
-		public static implicit operator Func<T1, T2, T3, T4, T5, T6, TResult>(CoContravariantFunc<T1, T2, T3, T4, T5, T6, TResult> cfunc) => cfunc.CheckNull(nameof(cfunc)).Invoke;
-		public static CoContravariantFunc<T1, T2, T3, T4, T5, T6, TResult> operator +(CoContravariantFunc<T1, T2, T3, T4, T5, T6, TResult> ccf, Func<T1, T2, T3, T4, T5, T6, TResult> func) => Combine(ccf, func);
-		public static CoContravariantFunc<T1, T2, T3, T4, T5, T6, TResult> operator -(CoContravariantFunc<T1, T2, T3, T4, T5, T6, TResult> ccf, Func<T1, T2, T3, T4, T5, T6, TResult> func) => Remove(ccf, func);
-		public static Boolean operator ==(CoContravariantFunc<T1, T2, T3, T4, T5, T6, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, T6, TResult> right) => (left?.Equals(right)).GetValueOrDefault();
-		public static Boolean operator !=(CoContravariantFunc<T1, T2, T3, T4, T5, T6, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, T6, TResult> right) => !(left == right);
-		
-		public override Object Target => GetInvocationList().LastOrDefault()?.Target;
-		
-#if NET4 || NET45
-		public override MethodInfo Method => GetInvocationList().LastOrDefault()?.Method;
-#endif
-#if !NET4
-		public override MethodInfo GetMethodInfo() => GetInvocationList().LastOrDefault()?.GetMethodInfo();
-#endif
+
+		public static implicit operator CoContravariantFunc<T1, T2, T3, T4, T5, T6, TResult>(Func<T1, T2, T3, T4, T5, T6, TResult> func) => ConvertToCoContravariantDelegate(func);
+		public static implicit operator Func<T1, T2, T3, T4, T5, T6, TResult>(CoContravariantFunc<T1, T2, T3, T4, T5, T6, TResult> ccfunc) => ccfunc.Invoke;
 
 		public TResult Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6) {
 			var array = GetInvocationList();
@@ -408,34 +274,14 @@ namespace CoContra {
 		}
 
 		public TResult EndInvoke(IAsyncResult asyncResult) => ((Task<TResult>) asyncResult).Result;
-
-		public override Object DynamicInvoke(params Object[] args) {
-			var array = GetInvocationList();
-			var result = default(Object);
-			for (var i = 0; i < array.Length; i++)
-				result = array[i].DynamicInvoke(args);
-			return result;
-		}
 	}
 
-	public sealed class CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, TResult> : CoContravariantDelegateBase<Func<T1, T2, T3, T4, T5, T6, T7, TResult>, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, TResult>> {
+	public class CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, TResult> : CoContravariantDelegateBase<Func<T1, T2, T3, T4, T5, T6, T7, TResult>, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, TResult>> {
 		public CoContravariantFunc() : base() {}
 		public CoContravariantFunc(Func<T1, T2, T3, T4, T5, T6, T7, TResult> func) : base(func.CheckNull(nameof(func))) {}
-		public static implicit operator CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, TResult> func) => TryUnwrapDelegate(func.CheckNull(nameof(func)).GetMethodInfo(), func.Target) ?? new CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, TResult>(func);
-		public static implicit operator Func<T1, T2, T3, T4, T5, T6, T7, TResult>(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, TResult> cfunc) => cfunc.CheckNull(nameof(cfunc)).Invoke;
-		public static CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, TResult> operator +(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, TResult> ccf, Func<T1, T2, T3, T4, T5, T6, T7, TResult> func) => Combine(ccf, func);
-		public static CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, TResult> operator -(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, TResult> ccf, Func<T1, T2, T3, T4, T5, T6, T7, TResult> func) => Remove(ccf, func);
-		public static Boolean operator ==(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, TResult> right) => (left?.Equals(right)).GetValueOrDefault();
-		public static Boolean operator !=(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, TResult> right) => !(left == right);
-		
-		public override Object Target => GetInvocationList().LastOrDefault()?.Target;
-		
-#if NET4 || NET45
-		public override MethodInfo Method => GetInvocationList().LastOrDefault()?.Method;
-#endif
-#if !NET4
-		public override MethodInfo GetMethodInfo() => GetInvocationList().LastOrDefault()?.GetMethodInfo();
-#endif
+
+		public static implicit operator CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, TResult> func) => ConvertToCoContravariantDelegate(func);
+		public static implicit operator Func<T1, T2, T3, T4, T5, T6, T7, TResult>(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, TResult> ccfunc) => ccfunc.Invoke;
 
 		public TResult Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7) {
 			var array = GetInvocationList();
@@ -467,34 +313,14 @@ namespace CoContra {
 		}
 
 		public TResult EndInvoke(IAsyncResult asyncResult) => ((Task<TResult>) asyncResult).Result;
-
-		public override Object DynamicInvoke(params Object[] args) {
-			var array = GetInvocationList();
-			var result = default(Object);
-			for (var i = 0; i < array.Length; i++)
-				result = array[i].DynamicInvoke(args);
-			return result;
-		}
 	}
 
-	public sealed class CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, TResult> : CoContravariantDelegateBase<Func<T1, T2, T3, T4, T5, T6, T7, T8, TResult>, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, TResult>> {
+	public class CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, TResult> : CoContravariantDelegateBase<Func<T1, T2, T3, T4, T5, T6, T7, T8, TResult>, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, TResult>> {
 		public CoContravariantFunc() : base() {}
 		public CoContravariantFunc(Func<T1, T2, T3, T4, T5, T6, T7, T8, TResult> func) : base(func.CheckNull(nameof(func))) {}
-		public static implicit operator CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, TResult> func) => TryUnwrapDelegate(func.CheckNull(nameof(func)).GetMethodInfo(), func.Target) ?? new CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, TResult>(func);
-		public static implicit operator Func<T1, T2, T3, T4, T5, T6, T7, T8, TResult>(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, TResult> cfunc) => cfunc.CheckNull(nameof(cfunc)).Invoke;
-		public static CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, TResult> operator +(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, TResult> ccf, Func<T1, T2, T3, T4, T5, T6, T7, T8, TResult> func) => Combine(ccf, func);
-		public static CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, TResult> operator -(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, TResult> ccf, Func<T1, T2, T3, T4, T5, T6, T7, T8, TResult> func) => Remove(ccf, func);
-		public static Boolean operator ==(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, TResult> right) => (left?.Equals(right)).GetValueOrDefault();
-		public static Boolean operator !=(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, TResult> right) => !(left == right);
-		
-		public override Object Target => GetInvocationList().LastOrDefault()?.Target;
-		
-#if NET4 || NET45
-		public override MethodInfo Method => GetInvocationList().LastOrDefault()?.Method;
-#endif
-#if !NET4
-		public override MethodInfo GetMethodInfo() => GetInvocationList().LastOrDefault()?.GetMethodInfo();
-#endif
+
+		public static implicit operator CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, TResult> func) => ConvertToCoContravariantDelegate(func);
+		public static implicit operator Func<T1, T2, T3, T4, T5, T6, T7, T8, TResult>(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, TResult> ccfunc) => ccfunc.Invoke;
 
 		public TResult Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8) {
 			var array = GetInvocationList();
@@ -526,34 +352,14 @@ namespace CoContra {
 		}
 
 		public TResult EndInvoke(IAsyncResult asyncResult) => ((Task<TResult>) asyncResult).Result;
-
-		public override Object DynamicInvoke(params Object[] args) {
-			var array = GetInvocationList();
-			var result = default(Object);
-			for (var i = 0; i < array.Length; i++)
-				result = array[i].DynamicInvoke(args);
-			return result;
-		}
 	}
 
-	public sealed class CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult> : CoContravariantDelegateBase<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult>, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult>> {
+	public class CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult> : CoContravariantDelegateBase<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult>, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult>> {
 		public CoContravariantFunc() : base() {}
 		public CoContravariantFunc(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult> func) : base(func.CheckNull(nameof(func))) {}
-		public static implicit operator CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult> func) => TryUnwrapDelegate(func.CheckNull(nameof(func)).GetMethodInfo(), func.Target) ?? new CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult>(func);
-		public static implicit operator Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult>(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult> cfunc) => cfunc.CheckNull(nameof(cfunc)).Invoke;
-		public static CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult> operator +(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult> ccf, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult> func) => Combine(ccf, func);
-		public static CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult> operator -(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult> ccf, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult> func) => Remove(ccf, func);
-		public static Boolean operator ==(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult> right) => (left?.Equals(right)).GetValueOrDefault();
-		public static Boolean operator !=(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult> right) => !(left == right);
-		
-		public override Object Target => GetInvocationList().LastOrDefault()?.Target;
-		
-#if NET4 || NET45
-		public override MethodInfo Method => GetInvocationList().LastOrDefault()?.Method;
-#endif
-#if !NET4
-		public override MethodInfo GetMethodInfo() => GetInvocationList().LastOrDefault()?.GetMethodInfo();
-#endif
+
+		public static implicit operator CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult> func) => ConvertToCoContravariantDelegate(func);
+		public static implicit operator Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult>(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult> ccfunc) => ccfunc.Invoke;
 
 		public TResult Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9) {
 			var array = GetInvocationList();
@@ -585,34 +391,14 @@ namespace CoContra {
 		}
 
 		public TResult EndInvoke(IAsyncResult asyncResult) => ((Task<TResult>) asyncResult).Result;
-
-		public override Object DynamicInvoke(params Object[] args) {
-			var array = GetInvocationList();
-			var result = default(Object);
-			for (var i = 0; i < array.Length; i++)
-				result = array[i].DynamicInvoke(args);
-			return result;
-		}
 	}
 
-	public sealed class CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult> : CoContravariantDelegateBase<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult>, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult>> {
+	public class CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult> : CoContravariantDelegateBase<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult>, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult>> {
 		public CoContravariantFunc() : base() {}
 		public CoContravariantFunc(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult> func) : base(func.CheckNull(nameof(func))) {}
-		public static implicit operator CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult> func) => TryUnwrapDelegate(func.CheckNull(nameof(func)).GetMethodInfo(), func.Target) ?? new CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult>(func);
-		public static implicit operator Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult>(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult> cfunc) => cfunc.CheckNull(nameof(cfunc)).Invoke;
-		public static CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult> operator +(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult> ccf, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult> func) => Combine(ccf, func);
-		public static CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult> operator -(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult> ccf, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult> func) => Remove(ccf, func);
-		public static Boolean operator ==(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult> right) => (left?.Equals(right)).GetValueOrDefault();
-		public static Boolean operator !=(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult> right) => !(left == right);
-		
-		public override Object Target => GetInvocationList().LastOrDefault()?.Target;
-		
-#if NET4 || NET45
-		public override MethodInfo Method => GetInvocationList().LastOrDefault()?.Method;
-#endif
-#if !NET4
-		public override MethodInfo GetMethodInfo() => GetInvocationList().LastOrDefault()?.GetMethodInfo();
-#endif
+
+		public static implicit operator CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult> func) => ConvertToCoContravariantDelegate(func);
+		public static implicit operator Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult>(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult> ccfunc) => ccfunc.Invoke;
 
 		public TResult Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10) {
 			var array = GetInvocationList();
@@ -644,34 +430,14 @@ namespace CoContra {
 		}
 
 		public TResult EndInvoke(IAsyncResult asyncResult) => ((Task<TResult>) asyncResult).Result;
-
-		public override Object DynamicInvoke(params Object[] args) {
-			var array = GetInvocationList();
-			var result = default(Object);
-			for (var i = 0; i < array.Length; i++)
-				result = array[i].DynamicInvoke(args);
-			return result;
-		}
 	}
 
-	public sealed class CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult> : CoContravariantDelegateBase<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult>, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult>> {
+	public class CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult> : CoContravariantDelegateBase<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult>, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult>> {
 		public CoContravariantFunc() : base() {}
 		public CoContravariantFunc(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult> func) : base(func.CheckNull(nameof(func))) {}
-		public static implicit operator CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult> func) => TryUnwrapDelegate(func.CheckNull(nameof(func)).GetMethodInfo(), func.Target) ?? new CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult>(func);
-		public static implicit operator Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult>(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult> cfunc) => cfunc.CheckNull(nameof(cfunc)).Invoke;
-		public static CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult> operator +(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult> ccf, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult> func) => Combine(ccf, func);
-		public static CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult> operator -(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult> ccf, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult> func) => Remove(ccf, func);
-		public static Boolean operator ==(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult> right) => (left?.Equals(right)).GetValueOrDefault();
-		public static Boolean operator !=(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult> right) => !(left == right);
-		
-		public override Object Target => GetInvocationList().LastOrDefault()?.Target;
-		
-#if NET4 || NET45
-		public override MethodInfo Method => GetInvocationList().LastOrDefault()?.Method;
-#endif
-#if !NET4
-		public override MethodInfo GetMethodInfo() => GetInvocationList().LastOrDefault()?.GetMethodInfo();
-#endif
+
+		public static implicit operator CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult> func) => ConvertToCoContravariantDelegate(func);
+		public static implicit operator Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult>(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult> ccfunc) => ccfunc.Invoke;
 
 		public TResult Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11) {
 			var array = GetInvocationList();
@@ -703,34 +469,14 @@ namespace CoContra {
 		}
 
 		public TResult EndInvoke(IAsyncResult asyncResult) => ((Task<TResult>) asyncResult).Result;
-
-		public override Object DynamicInvoke(params Object[] args) {
-			var array = GetInvocationList();
-			var result = default(Object);
-			for (var i = 0; i < array.Length; i++)
-				result = array[i].DynamicInvoke(args);
-			return result;
-		}
 	}
 
-	public sealed class CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult> : CoContravariantDelegateBase<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult>, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult>> {
+	public class CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult> : CoContravariantDelegateBase<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult>, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult>> {
 		public CoContravariantFunc() : base() {}
 		public CoContravariantFunc(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult> func) : base(func.CheckNull(nameof(func))) {}
-		public static implicit operator CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult> func) => TryUnwrapDelegate(func.CheckNull(nameof(func)).GetMethodInfo(), func.Target) ?? new CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult>(func);
-		public static implicit operator Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult>(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult> cfunc) => cfunc.CheckNull(nameof(cfunc)).Invoke;
-		public static CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult> operator +(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult> ccf, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult> func) => Combine(ccf, func);
-		public static CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult> operator -(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult> ccf, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult> func) => Remove(ccf, func);
-		public static Boolean operator ==(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult> right) => (left?.Equals(right)).GetValueOrDefault();
-		public static Boolean operator !=(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult> right) => !(left == right);
-		
-		public override Object Target => GetInvocationList().LastOrDefault()?.Target;
-		
-#if NET4 || NET45
-		public override MethodInfo Method => GetInvocationList().LastOrDefault()?.Method;
-#endif
-#if !NET4
-		public override MethodInfo GetMethodInfo() => GetInvocationList().LastOrDefault()?.GetMethodInfo();
-#endif
+
+		public static implicit operator CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult> func) => ConvertToCoContravariantDelegate(func);
+		public static implicit operator Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult>(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult> ccfunc) => ccfunc.Invoke;
 
 		public TResult Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12) {
 			var array = GetInvocationList();
@@ -762,34 +508,14 @@ namespace CoContra {
 		}
 
 		public TResult EndInvoke(IAsyncResult asyncResult) => ((Task<TResult>) asyncResult).Result;
-
-		public override Object DynamicInvoke(params Object[] args) {
-			var array = GetInvocationList();
-			var result = default(Object);
-			for (var i = 0; i < array.Length; i++)
-				result = array[i].DynamicInvoke(args);
-			return result;
-		}
 	}
 
-	public sealed class CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult> : CoContravariantDelegateBase<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult>, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult>> {
+	public class CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult> : CoContravariantDelegateBase<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult>, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult>> {
 		public CoContravariantFunc() : base() {}
 		public CoContravariantFunc(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult> func) : base(func.CheckNull(nameof(func))) {}
-		public static implicit operator CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult> func) => TryUnwrapDelegate(func.CheckNull(nameof(func)).GetMethodInfo(), func.Target) ?? new CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult>(func);
-		public static implicit operator Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult>(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult> cfunc) => cfunc.CheckNull(nameof(cfunc)).Invoke;
-		public static CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult> operator +(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult> ccf, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult> func) => Combine(ccf, func);
-		public static CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult> operator -(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult> ccf, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult> func) => Remove(ccf, func);
-		public static Boolean operator ==(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult> right) => (left?.Equals(right)).GetValueOrDefault();
-		public static Boolean operator !=(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult> right) => !(left == right);
-		
-		public override Object Target => GetInvocationList().LastOrDefault()?.Target;
-		
-#if NET4 || NET45
-		public override MethodInfo Method => GetInvocationList().LastOrDefault()?.Method;
-#endif
-#if !NET4
-		public override MethodInfo GetMethodInfo() => GetInvocationList().LastOrDefault()?.GetMethodInfo();
-#endif
+
+		public static implicit operator CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult> func) => ConvertToCoContravariantDelegate(func);
+		public static implicit operator Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult>(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult> ccfunc) => ccfunc.Invoke;
 
 		public TResult Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13) {
 			var array = GetInvocationList();
@@ -821,34 +547,14 @@ namespace CoContra {
 		}
 
 		public TResult EndInvoke(IAsyncResult asyncResult) => ((Task<TResult>) asyncResult).Result;
-
-		public override Object DynamicInvoke(params Object[] args) {
-			var array = GetInvocationList();
-			var result = default(Object);
-			for (var i = 0; i < array.Length; i++)
-				result = array[i].DynamicInvoke(args);
-			return result;
-		}
 	}
 
-	public sealed class CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult> : CoContravariantDelegateBase<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult>, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult>> {
+	public class CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult> : CoContravariantDelegateBase<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult>, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult>> {
 		public CoContravariantFunc() : base() {}
 		public CoContravariantFunc(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult> func) : base(func.CheckNull(nameof(func))) {}
-		public static implicit operator CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult> func) => TryUnwrapDelegate(func.CheckNull(nameof(func)).GetMethodInfo(), func.Target) ?? new CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult>(func);
-		public static implicit operator Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult>(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult> cfunc) => cfunc.CheckNull(nameof(cfunc)).Invoke;
-		public static CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult> operator +(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult> ccf, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult> func) => Combine(ccf, func);
-		public static CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult> operator -(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult> ccf, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult> func) => Remove(ccf, func);
-		public static Boolean operator ==(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult> right) => (left?.Equals(right)).GetValueOrDefault();
-		public static Boolean operator !=(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult> right) => !(left == right);
-		
-		public override Object Target => GetInvocationList().LastOrDefault()?.Target;
-		
-#if NET4 || NET45
-		public override MethodInfo Method => GetInvocationList().LastOrDefault()?.Method;
-#endif
-#if !NET4
-		public override MethodInfo GetMethodInfo() => GetInvocationList().LastOrDefault()?.GetMethodInfo();
-#endif
+
+		public static implicit operator CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult> func) => ConvertToCoContravariantDelegate(func);
+		public static implicit operator Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult>(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult> ccfunc) => ccfunc.Invoke;
 
 		public TResult Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, T14 arg14) {
 			var array = GetInvocationList();
@@ -880,34 +586,14 @@ namespace CoContra {
 		}
 
 		public TResult EndInvoke(IAsyncResult asyncResult) => ((Task<TResult>) asyncResult).Result;
-
-		public override Object DynamicInvoke(params Object[] args) {
-			var array = GetInvocationList();
-			var result = default(Object);
-			for (var i = 0; i < array.Length; i++)
-				result = array[i].DynamicInvoke(args);
-			return result;
-		}
 	}
 
-	public sealed class CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult> : CoContravariantDelegateBase<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult>, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult>> {
+	public class CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult> : CoContravariantDelegateBase<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult>, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult>> {
 		public CoContravariantFunc() : base() {}
 		public CoContravariantFunc(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult> func) : base(func.CheckNull(nameof(func))) {}
-		public static implicit operator CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult> func) => TryUnwrapDelegate(func.CheckNull(nameof(func)).GetMethodInfo(), func.Target) ?? new CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult>(func);
-		public static implicit operator Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult>(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult> cfunc) => cfunc.CheckNull(nameof(cfunc)).Invoke;
-		public static CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult> operator +(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult> ccf, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult> func) => Combine(ccf, func);
-		public static CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult> operator -(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult> ccf, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult> func) => Remove(ccf, func);
-		public static Boolean operator ==(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult> right) => (left?.Equals(right)).GetValueOrDefault();
-		public static Boolean operator !=(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult> right) => !(left == right);
-		
-		public override Object Target => GetInvocationList().LastOrDefault()?.Target;
-		
-#if NET4 || NET45
-		public override MethodInfo Method => GetInvocationList().LastOrDefault()?.Method;
-#endif
-#if !NET4
-		public override MethodInfo GetMethodInfo() => GetInvocationList().LastOrDefault()?.GetMethodInfo();
-#endif
+
+		public static implicit operator CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult> func) => ConvertToCoContravariantDelegate(func);
+		public static implicit operator Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult>(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult> ccfunc) => ccfunc.Invoke;
 
 		public TResult Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, T14 arg14, T15 arg15) {
 			var array = GetInvocationList();
@@ -939,34 +625,14 @@ namespace CoContra {
 		}
 
 		public TResult EndInvoke(IAsyncResult asyncResult) => ((Task<TResult>) asyncResult).Result;
-
-		public override Object DynamicInvoke(params Object[] args) {
-			var array = GetInvocationList();
-			var result = default(Object);
-			for (var i = 0; i < array.Length; i++)
-				result = array[i].DynamicInvoke(args);
-			return result;
-		}
 	}
 
-	public sealed class CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult> : CoContravariantDelegateBase<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult>, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult>> {
+	public class CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult> : CoContravariantDelegateBase<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult>, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult>> {
 		public CoContravariantFunc() : base() {}
 		public CoContravariantFunc(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult> func) : base(func.CheckNull(nameof(func))) {}
-		public static implicit operator CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult> func) => TryUnwrapDelegate(func.CheckNull(nameof(func)).GetMethodInfo(), func.Target) ?? new CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult>(func);
-		public static implicit operator Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult>(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult> cfunc) => cfunc.CheckNull(nameof(cfunc)).Invoke;
-		public static CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult> operator +(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult> ccf, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult> func) => Combine(ccf, func);
-		public static CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult> operator -(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult> ccf, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult> func) => Remove(ccf, func);
-		public static Boolean operator ==(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult> right) => (left?.Equals(right)).GetValueOrDefault();
-		public static Boolean operator !=(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult> left, CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult> right) => !(left == right);
-		
-		public override Object Target => GetInvocationList().LastOrDefault()?.Target;
-		
-#if NET4 || NET45
-		public override MethodInfo Method => GetInvocationList().LastOrDefault()?.Method;
-#endif
-#if !NET4
-		public override MethodInfo GetMethodInfo() => GetInvocationList().LastOrDefault()?.GetMethodInfo();
-#endif
+
+		public static implicit operator CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult> func) => ConvertToCoContravariantDelegate(func);
+		public static implicit operator Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult>(CoContravariantFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult> ccfunc) => ccfunc.Invoke;
 
 		public TResult Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, T14 arg14, T15 arg15, T16 arg16) {
 			var array = GetInvocationList();
@@ -998,14 +664,6 @@ namespace CoContra {
 		}
 
 		public TResult EndInvoke(IAsyncResult asyncResult) => ((Task<TResult>) asyncResult).Result;
-
-		public override Object DynamicInvoke(params Object[] args) {
-			var array = GetInvocationList();
-			var result = default(Object);
-			for (var i = 0; i < array.Length; i++)
-				result = array[i].DynamicInvoke(args);
-			return result;
-		}
 	}
 
 }
