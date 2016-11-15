@@ -7,17 +7,22 @@ using CoContra;
 namespace Testing {
 	public class Program {
 		public static void Main(string[] args) {
+			var cax = (Action<Int32>) new CovariantAction<Int32>(i => { });
+			var ucax = (CovariantAction<Int32>) cax;
+			MulticastDelegate md = cax;
+
 			Func<String> stringFactory = () => "hello";
+			var fdsa = stringFactory.GetInvocationList();
 			Func<Object> objectFactory = () => new object();
 
-			CoContravariantFunc<object> multi1 = stringFactory;
+			var multi1 = (CoContravariantFunc<Object>) stringFactory;
 			multi1 += objectFactory;
 
-			CoContravariantFunc<object> multi2 = objectFactory;
+			var multi2 = (CoContravariantFunc<Object>) objectFactory;
 			multi2 += stringFactory;
 			multi2 += () => "";
 
-			Func<Object> m = multi1;
+			var m = (Func<Object>) multi1;
 			var d = m.Invoke();
 			var b = multi1.Invoke();
 			var c = multi2.Invoke();

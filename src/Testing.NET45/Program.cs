@@ -39,13 +39,14 @@ namespace Testing.NET45 {
 				aa.Invoke(null);
 			sw.Stop();
 			Console.WriteLine(sw.ElapsedMilliseconds);
-			return;
+			//return;
 
-			//var h = new Action<String>(s => Console.WriteLine(s.GetType() + "a"));
-			//h += new Action<Object>(o => Console.WriteLine(o.GetType()));
+			Action<String> h = s => Console.WriteLine(s.GetType() + "a");
+			Action<Object> o2 = o => Console.WriteLine(o.GetType());
+			h += o2;
 
 			var j = new CovariantAction<String>(s => Console.WriteLine(s.GetType() + "a"));
-			j += new CovariantAction<Object>(o => Console.WriteLine(o.GetType()));
+			j += o2;
 			j.Invoke("ffff");
 		}
 	}
