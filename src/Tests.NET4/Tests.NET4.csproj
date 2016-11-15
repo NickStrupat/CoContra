@@ -56,6 +56,9 @@
     <Compile Include="..\Tests.NETCore\Foo.cs">
       <Link>Foo.cs</Link>
     </Compile>
+    <Compile Include="..\Tests.NETCore\StaticMethodTests.cs">
+      <Link>StaticMethodTests.cs</Link>
+    </Compile>
     <Compile Include="Extensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
