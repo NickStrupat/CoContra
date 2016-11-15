@@ -13,22 +13,33 @@ namespace CoContra {
 
 		internal CoContravariantDelegateBase() { array = ImmutableArray<TDelegate>.Empty; }
 		internal CoContravariantDelegateBase(TDerived other) { array = other.array; }
-		internal CoContravariantDelegateBase(TDelegate @delegate) { array = ImmutableArray.CreateRange(GetDelegateInvocationList(@delegate)); }
+		internal CoContravariantDelegateBase(TDelegate @delegate) { SetArray(out array, @delegate); }
 
-		public static TDerived operator +(CoContravariantDelegateBase<TDelegate, TDerived> cf, TDelegate action) => Combine((TDerived) cf, action);
-		public static TDerived operator -(CoContravariantDelegateBase<TDelegate, TDerived> cf, TDelegate action) => Remove((TDerived) cf, action);
-		public static Boolean operator ==(CoContravariantDelegateBase<TDelegate, TDerived> left, CoContravariantDelegateBase<TDelegate, TDerived> right) => (((TDerived) left)?.Equals((TDerived) right)).GetValueOrDefault();
-		public static Boolean operator !=(CoContravariantDelegateBase<TDelegate, TDerived> left, CoContravariantDelegateBase<TDelegate, TDerived> right) => !((TDerived) left == (TDerived) right);
+		private static void SetArray(out ImmutableArray<TDelegate> array, TDelegate @delegate) => array = ImmutableArray.CreateRange(GetDelegateInvocationList(@delegate));
+		private static TDerived MakeDerived(TDelegate @delegate) {
+			var d = new TDerived();
+			SetArray(out d.array, @delegate);
+			return d;
+		}
+
+		public static TDerived operator +(CoContravariantDelegateBase<TDelegate, TDerived> ccd, TDelegate d) => Combine((TDerived) ccd, ConvertToCoContravariantDelegate(d));
+		public static TDerived operator -(CoContravariantDelegateBase<TDelegate, TDerived> ccd, TDelegate d) => Remove((TDerived) ccd, ConvertToCoContravariantDelegate(d));
+		public static TDerived operator +(CoContravariantDelegateBase<TDelegate, TDerived> ccd, TDerived ccd2) => Combine((TDerived) ccd, ccd2);
+		public static TDerived operator -(CoContravariantDelegateBase<TDelegate, TDerived> ccd, TDerived ccd2) => Remove((TDerived) ccd, ccd2);
+		public static Boolean operator ==(CoContravariantDelegateBase<TDelegate, TDerived> left, TDerived right) => (((TDerived) left)?.Equals(right)).GetValueOrDefault();
+		public static Boolean operator !=(CoContravariantDelegateBase<TDelegate, TDerived> left, TDerived right) => !((TDerived) left == right);
 
 		private static readonly MethodInfo invokeMethodInfo = typeof(TDerived).GetMethod(nameof(CovariantAction<Object>.Invoke));
-		private static TDerived TryUnwrapDelegate(Delegate @delegate) => @delegate.GetMethodInfo() != invokeMethodInfo ? null : @delegate.Target as TDerived;
-		protected static TDerived ConvertToCoContravariantDelegate(TDelegate @delegate) {
-			@delegate.CheckNull(nameof(@delegate));
-			return TryUnwrapDelegate(@delegate.CastDelegate<Delegate>()) ?? new TDerived { array = ImmutableArray.CreateRange(GetDelegateInvocationList(@delegate)) };
-		}
+		private static TDerived TryUnwrapDelegate(Delegate @delegate) => @delegate?.GetMethodInfo() != invokeMethodInfo ? null : @delegate?.Target as TDerived;
+
+		protected static TDerived ConvertToCoContravariantDelegate(TDelegate @delegate) => TryUnwrapDelegate(@delegate as Delegate) ?? MakeDerived(@delegate);
 
 		internal sealed override ImmutableArray<Delegate> GetInvocationListInternal() => GetInvocationList().CastArray<Delegate>();
 		public new ImmutableArray<TDelegate> GetInvocationList() => InterlockedGet(ref array);
+
+		private static ImmutableArray<TDelegate> InterlockedGet(ref ImmutableArray<TDelegate> array) {
+			return ImmutableInterlocked.InterlockedCompareExchange(ref array, ImmutableArray<TDelegate>.Empty, ImmutableArray<TDelegate>.Empty);
+		}
 
 		public void Add(TDelegate @delegate) {
 			if (@delegate == null)
@@ -68,123 +79,84 @@ namespace CoContra {
 		/// <param name="other">The object to compare with the current delegate.</param>
 		public Boolean Equals(TDerived other) => !ReferenceEquals(other, null) && (array.Equals(other.array) || array.SequenceEqual(other.array));
 
-		private static ImmutableArray<TDelegate> InterlockedGet(ref ImmutableArray<TDelegate> array) {
-			return ImmutableInterlocked.InterlockedCompareExchange(ref array, ImmutableArray<TDelegate>.Empty, ImmutableArray<TDelegate>.Empty);
-		}
+		internal sealed override CoContravariantDelegate CombineInternal(CoContravariantDelegate ccd)           => CombineImpl((TDerived) this, (TDerived) ccd);
+		internal sealed override CoContravariantDelegate CombineInternal(params CoContravariantDelegate[] ccds) => CombineImpl((TDerived[]) ccds);
+		internal sealed override CoContravariantDelegate RemoveInternal(CoContravariantDelegate ccd)            => RemoveImpl((TDerived) this, (TDerived) ccd);
+		internal sealed override CoContravariantDelegate RemoveAllInternal(CoContravariantDelegate ccd)         => RemoveAllImpl((TDerived) this, (TDerived) ccd);
 
-		internal sealed override CoContravariantDelegate CombineInternal(Delegate d)                            => Combine((TDerived) this, d   .CastDelegate<TDelegate>  (nameof(d)));
-		internal sealed override CoContravariantDelegate CombineInternal(CoContravariantDelegate ccd)           => Combine((TDerived) this, ccd .CastDelegate<TDerived>   (nameof(ccd)));
-		internal sealed override CoContravariantDelegate CombineInternal(params CoContravariantDelegate[] ccds) => Combine((TDerived) this, ccds.CastDelegate<TDerived[]> (nameof(ccds)));
-		internal sealed override CoContravariantDelegate CombineInternal(params Delegate[] ds)                  => Combine((TDerived) this, ds  .CastDelegate<TDelegate[]>(nameof(ds)));
+		private static ImmutableArray<TDelegate> GetDelegateInvocationList(TDelegate @delegate) => ((Delegate) (Object) @delegate).GetInvocationList().Cast<TDelegate>().ToImmutableArray();
 
-		internal sealed override CoContravariantDelegate RemoveInternal(Delegate d)                   => Remove((TDerived) this, d   .CastDelegate<TDelegate>(nameof(d)));
-		internal sealed override CoContravariantDelegate RemoveInternal(CoContravariantDelegate ccd2) => Remove((TDerived) this, ccd2.CastDelegate<TDerived> (nameof(ccd2)));
-
-		internal sealed override CoContravariantDelegate RemoveAllInternal(Delegate d)                   => RemoveAll((TDerived) this, d   .CastDelegate<TDelegate>(nameof(d)));
-		internal sealed override CoContravariantDelegate RemoveAllInternal(CoContravariantDelegate ccd2) => RemoveAll((TDerived) this, ccd2.CastDelegate<TDerived> (nameof(ccd2)));
-
-		private static TDelegate[] GetDelegateInvocationList(TDelegate @delegate) => ((Delegate) (Object) @delegate).GetInvocationList().Cast<TDelegate>().ToArray();
-
-		private static ImmutableArray<TDelegate> CombineInvocationLists(ImmutableArray<TDelegate> source, params ICollection<TDelegate>[] invocationLists) {
-			var capacity = invocationLists.Sum(x => x.Count);
+		private static ImmutableArray<TDelegate> CombineInvocationLists(ImmutableArray<TDelegate> source, ImmutableArray<TDelegate> invocationList) {
+			var capacity = source.Length + invocationList.Length;
 			var builder = ImmutableArray.CreateBuilder<TDelegate>(capacity);
 			builder.AddRange(source);
+			builder.AddRange(invocationList);
+			return builder.ToImmutable();
+		}
+
+		private static ImmutableArray<TDelegate> CombineInvocationLists(IEnumerable<ImmutableArray<TDelegate>> invocationLists, Int32 invocationListsCount) {
+			var builder = ImmutableArray.CreateBuilder<TDelegate>(invocationListsCount);
 			foreach (var invocationList in invocationLists)
 				builder.AddRange(invocationList);
 			return builder.ToImmutable();
 		}
 
-		private static ImmutableArray<TDelegate> RemoveLast(ImmutableArray<TDelegate> source, ICollection<TDelegate> invocationList) {
-			if (invocationList.Count > source.Length)
+		private static ImmutableArray<TDelegate> RemoveLast(ImmutableArray<TDelegate> source, ImmutableArray<TDelegate> invocationList) {
+			if (invocationList.Length > source.Length)
 				return source;
 			var lastIndexOfEndOfValueInvocationList = -1;
-			for (var i = source.Length - invocationList.Count; i != 0; i--) {
-				if (source.Skip(i).Take(invocationList.Count).SequenceEqual(invocationList)) {
+			for (var i = source.Length - invocationList.Length; i != 0; i--) {
+				if (source.Skip(i).Take(invocationList.Length).SequenceEqual(invocationList)) {
 					lastIndexOfEndOfValueInvocationList = i;
 					break;
 				}
 			}
 			if (lastIndexOfEndOfValueInvocationList == -1)
 				return source;
-			return source.RemoveRange(lastIndexOfEndOfValueInvocationList, invocationList.Count);
+			return source.RemoveRange(lastIndexOfEndOfValueInvocationList, invocationList.Length);
 		}
 
 
 
-		public static TDerived Combine(TDerived ccd, TDelegate @delegate) {
-			if (ccd == null)
-				throw new ArgumentNullException(nameof(ccd));
-			if (@delegate == null)
-				throw new ArgumentNullException(nameof(@delegate));
+		private static TDerived CombineImpl(TDerived ccd, TDerived ccd2) {
+			if (ReferenceEquals(ccd2, null))
+				return ccd;
 			return new TDerived {
-				array = CombineInvocationLists(ccd.GetInvocationList(), GetDelegateInvocationList(@delegate))
+				array = CombineInvocationLists(ccd.GetInvocationList(), ccd2.GetInvocationList())
 			};
 		}
 
-		public static TDerived Combine(TDerived d1, TDerived d2) {
-			if (d1 == null)
-				throw new ArgumentNullException(nameof(d1));
-			if (d2 == null)
-				throw new ArgumentNullException(nameof(d2));
+		private static TDerived CombineImpl(params TDerived[] ccds) {
 			return new TDerived {
-				array = CombineInvocationLists(d1.GetInvocationList(), d2.GetInvocationList())
+				array = CombineInvocationLists(ccds.Select(x => x.GetInvocationList()), ccds.Length)
 			};
 		}
 
-		public static TDerived Combine(TDerived ccd1, params TDerived[] ccds) {
-			if (ccd1 == null)
-				throw new ArgumentNullException(nameof(ccd1));
-			if (ccds == null)
-				throw new ArgumentNullException(nameof(ccds));
-			var invocationLists = ccds.Select(x => x.GetInvocationList().ToArray()).ToArray();
+		private static TDerived RemoveImpl(TDerived ccd, TDerived ccd2) {
+			if (ReferenceEquals(ccd2, null))
+				return ccd;
 			return new TDerived {
-				array = CombineInvocationLists(ccd1.GetInvocationList(), invocationLists)
+				array = RemoveLast(ccd.GetInvocationList(), ccd2.GetInvocationList())
 			};
 		}
 
-		public static TDerived Combine(TDerived ccd, params TDelegate[] delegates) {
-			if (ccd == null)
-				throw new ArgumentNullException(nameof(ccd));
-			if (delegates == null)
-				throw new ArgumentNullException(nameof(delegates));
-			var invocationLists = delegates.Select(GetDelegateInvocationList).ToArray();
-			return new TDerived {
-				array = CombineInvocationLists(ccd.GetInvocationList(), invocationLists)
-			};
-		}
-
-		public static TDerived Remove(TDerived source, TDelegate value) {
-			if (source == null)
-				throw new ArgumentNullException(nameof(source));
-			if (value == null)
-				throw new ArgumentNullException(nameof(value));
-			return new TDerived {
-				array = RemoveLast(source.GetInvocationList(), GetDelegateInvocationList(value))
-			};
-		}
-
-		public static TDerived Remove(TDerived source, TDerived value) {
-			if (source == null)
-				return null;
-			if (value == null)
-				return source;
-			return new TDerived {
-				array = RemoveLast(source.GetInvocationList(), value.GetInvocationList())
-			};
-		}
-
-		public static TDerived RemoveAll(TDerived source, TDelegate value) {
-			if (source == null)
-				throw new ArgumentNullException(nameof(source));
-			if (value == null)
-				throw new ArgumentNullException(nameof(value));
-			var sourceInvocationList = source.GetInvocationList();
+		private static TDerived RemoveAllImpl(TDerived ccd, TDerived ccd2) {
+			if (ReferenceEquals(ccd2, null))
+				return ccd;
+			var sourceInvocationList = ccd.GetInvocationList();
 			ImmutableArray<TDelegate> temp;
 			do {
-				temp = RemoveLast(sourceInvocationList, GetDelegateInvocationList(value));
+				temp = RemoveLast(sourceInvocationList, ccd2.GetInvocationList());
 			}
 			while (temp != sourceInvocationList);
 			return new TDerived { array = temp };
 		}
+
+
+
+		public static TDerived Combine(TDerived ccd, TDerived ccd2)   => (TDerived) CoContravariantDelegate.Combine(ccd, ccd2);
+		public static TDerived Combine(params TDerived[] ccds)        => (TDerived) CoContravariantDelegate.Combine(ccds);
+		public static TDerived Remove(TDerived ccd, TDerived ccd2)    => (TDerived) CoContravariantDelegate.Remove(ccd, ccd2);
+		public static TDerived RemoveAll(TDerived ccd, TDerived ccd2) => (TDerived) CoContravariantDelegate.RemoveAll(ccd, ccd2);
 	}
 }

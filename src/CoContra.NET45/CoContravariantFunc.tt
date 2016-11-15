@@ -21,8 +21,8 @@ namespace CoContra {
 		public CoContravariantFunc() : base() {}
 		public CoContravariantFunc(Func<<#= typeArgs #>> func) : base(func.CheckNull(nameof(func))) {}
 
-		public static implicit operator CoContravariantFunc<<#= typeArgs #>>(Func<<#= typeArgs #>> func) => ConvertToCoContravariantDelegate(func);
-		public static implicit operator Func<<#= typeArgs #>>(CoContravariantFunc<<#= typeArgs #>> ccfunc) => ccfunc.Invoke;
+		public static explicit operator CoContravariantFunc<<#= typeArgs #>>(Func<<#= typeArgs #>> func) => ConvertToCoContravariantDelegate(func);
+		public static explicit operator Func<<#= typeArgs #>>(CoContravariantFunc<<#= typeArgs #>> ccfunc) => ccfunc.Invoke;
 
 		public TResult Invoke(<#= invokeParams #>) {
 			var array = GetInvocationList();

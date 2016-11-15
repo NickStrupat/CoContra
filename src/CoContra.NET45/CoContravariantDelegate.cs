@@ -38,29 +38,15 @@ namespace CoContra {
 
 		public ImmutableArray<Delegate> GetInvocationList() => GetInvocationListInternal();
 
-
-		internal abstract CoContravariantDelegate CombineInternal(Delegate d);
 		internal abstract CoContravariantDelegate CombineInternal(CoContravariantDelegate ccd);
 		internal abstract CoContravariantDelegate CombineInternal(params CoContravariantDelegate[] ccds);
-		internal abstract CoContravariantDelegate CombineInternal(params Delegate[] ds);
+		internal abstract CoContravariantDelegate RemoveInternal(CoContravariantDelegate ccd);
+		internal abstract CoContravariantDelegate RemoveAllInternal(CoContravariantDelegate ccd);
 
-		internal abstract CoContravariantDelegate RemoveInternal(Delegate d);
-		internal abstract CoContravariantDelegate RemoveInternal(CoContravariantDelegate ccd2);
-
-		internal abstract CoContravariantDelegate RemoveAllInternal(Delegate d);
-		internal abstract CoContravariantDelegate RemoveAllInternal(CoContravariantDelegate ccd2);
-
-		
-		public static CoContravariantDelegate Combine(CoContravariantDelegate ccd, Delegate d)                            => ccd.CheckNull(nameof(ccd)).CombineInternal(d);
-		public static CoContravariantDelegate Combine(CoContravariantDelegate ccd, CoContravariantDelegate ccd2)          => ccd.CheckNull(nameof(ccd)).CombineInternal(ccd2);
-		public static CoContravariantDelegate Combine(CoContravariantDelegate ccd, params CoContravariantDelegate[] ccds) => ccd.CheckNull(nameof(ccd)).CombineInternal(ccds);
-		public static CoContravariantDelegate Combine(CoContravariantDelegate ccd, params Delegate[] ds)                  => ccd.CheckNull(nameof(ccd)).CombineInternal(ds);
-
-		public static CoContravariantDelegate Remove(CoContravariantDelegate ccd, Delegate d)                             => ccd.CheckNull(nameof(ccd)).RemoveInternal(d);
-		public static CoContravariantDelegate Remove(CoContravariantDelegate ccd, CoContravariantDelegate ccd2)           => ccd.CheckNull(nameof(ccd)).RemoveInternal(ccd2);
-
-		public static CoContravariantDelegate RemoveAll(CoContravariantDelegate ccd, Delegate d)                          => ccd.CheckNull(nameof(ccd)).RemoveAllInternal(d);
-		public static CoContravariantDelegate RemoveAll(CoContravariantDelegate ccd, CoContravariantDelegate ccd2)        => ccd.CheckNull(nameof(ccd)).RemoveAllInternal(ccd2);
+		public static CoContravariantDelegate Combine(CoContravariantDelegate ccd, CoContravariantDelegate ccd2)   => ReferenceEquals(ccd, null) ? ccd2 : ccd.CombineInternal(ccd2);
+		public static CoContravariantDelegate Combine(params CoContravariantDelegate[] ccds)                       => ccds?.FirstOrDefault()?.CombineInternal(ccds);
+		public static CoContravariantDelegate Remove(CoContravariantDelegate ccd, CoContravariantDelegate ccd2)    => ccd?.RemoveInternal(ccd2);
+		public static CoContravariantDelegate RemoveAll(CoContravariantDelegate ccd, CoContravariantDelegate ccd2) => ccd?.RemoveAllInternal(ccd2);
 	}
 
 	internal static class CoContravariantDelegateHelperExtensions {

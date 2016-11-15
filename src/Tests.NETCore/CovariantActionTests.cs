@@ -31,10 +31,10 @@ namespace Tests {
 			Action<String> stringFactory = s => { };
 			Action<Object> objectFactory = o => { };
 
-			CovariantAction<String> multi1 = objectFactory;
+			var multi1 = new CovariantAction<String>(objectFactory);
 			multi1 += stringFactory;
 
-			CovariantAction<String> multi2 = stringFactory;
+			var multi2 = new CovariantAction<String>(stringFactory);
 			multi2 += objectFactory;
 		}
 
@@ -168,14 +168,30 @@ namespace Tests {
 			Assert.True(2 == count);
 		}
 
+		private void What(String s) => Assert.True(false, "Shouldn't run");
 		[Fact]
 		public void EventBackingField() {
+			Int32 i = 0;
 			var foo = new Foo();
 			foo.Actions += s => Assert.True(InvokeArgument == s);
+			Action<String> a = s => i = 1;
+			foo.Actions += a;
+			foo.Actions -= a;
+			foo.Actions += What;
+			foo.Actions -= What;
 			foo.RaiseActions(InvokeArgument);
+			Assert.True(i == 0);
 			
+			Int32 ii = 0;
 			foo.ReadOnlyActions += s => Assert.True(InvokeArgument2 == s);
 			foo.RaiseReadOnlyActions(InvokeArgument2);
+			Action<String> aa = s => ii = 1;
+			foo.ReadOnlyActions += aa;
+			foo.ReadOnlyActions -= aa;
+			foo.ReadOnlyActions += What;
+			foo.ReadOnlyActions -= What;
+			foo.RaiseReadOnlyActions(InvokeArgument2);
+			Assert.True(ii == 0);
 		}
 
 		[Fact]
@@ -184,7 +200,7 @@ namespace Tests {
 			Action<String> a2 = A2;
 			Action<String> a3 = A3;
 
-			CovariantAction<String> caction = a1;
+			var caction = new CovariantAction<String>(a1);
 			caction += a2;
 			caction += a3;
 
@@ -220,8 +236,8 @@ namespace Tests {
 			Assert.False(a.Equals(b));
 			Assert.False(a.Equals((Object) b));
 
-			CovariantAction<String> ca = (Action<String>) A1;
-			CovariantAction<String> cb = (Action<String>) A1;
+			var ca = new CovariantAction<String>(A1);
+			var cb = new CovariantAction<String>(A1);
 			Assert.True(ca.Equals(ca));
 			Assert.True(ca.Equals(cb));
 			Assert.True(ca.Equals((Object) ca));
@@ -241,8 +257,8 @@ namespace Tests {
 		[Fact]
 		public void ImplicitConversionToDelegateUnwrapsAWrappedCoContravariantDelegate() {
 			var ca = new CovariantAction<Int32>(i => { });
-			Action<Int32> a = ca;
-			CovariantAction<Int32> unwrappedca = a;
+			var a = (Action<Int32>) ca;
+			var unwrappedca = (CovariantAction<Int32>) a;
 			Assert.True(ReferenceEquals(ca, unwrappedca));
 		}
 
@@ -262,7 +278,7 @@ namespace Tests {
 			Assert.True(list.SequenceEqual(new [] { 1, 2, 3 }));
 
 			list.Clear();
-			CovariantAction<String> mca = a;
+			var mca = new CovariantAction<String>(a);
 			mca += b;
 			mca += c;
 			mca += b;

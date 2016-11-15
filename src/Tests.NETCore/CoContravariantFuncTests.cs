@@ -30,10 +30,10 @@ namespace Tests {
 			Func<String> stringFactory = () => "hello";
 			Func<Object> objectFactory = () => new Object();
 
-			CoContravariantFunc<Object> multi1 = stringFactory;
+			CoContravariantFunc<Object> multi1 = new CoContravariantFunc<Object>(stringFactory);
 			multi1 += objectFactory;
 
-			CoContravariantFunc<Object> multi2 = objectFactory;
+			CoContravariantFunc<Object> multi2 = new CoContravariantFunc<Object>(objectFactory);
 			multi2 += stringFactory;
 		}
 
@@ -201,7 +201,7 @@ namespace Tests {
 			Func<String> f2 = F2;
 			Func<String> f3 = F3;
 
-			CoContravariantFunc<String> ccfunc = f1;
+			var ccfunc = new CoContravariantFunc<String>(f1);
 			ccfunc += f2;
 			ccfunc += f3;
 
@@ -237,8 +237,8 @@ namespace Tests {
 			Assert.False(a.Equals(b));
 			Assert.False(a.Equals((Object) b));
 
-			CoContravariantFunc<String> cca = (Func<String>) F1;
-			CoContravariantFunc<String> ccb = (Func<String>) F1;
+			var cca = new CoContravariantFunc<String>(F1);
+			var ccb = new CoContravariantFunc<String>(F1);
 			Assert.True(cca.Equals(cca));
 			Assert.True(cca.Equals(ccb));
 			Assert.True(cca.Equals((Object) cca));
@@ -258,8 +258,8 @@ namespace Tests {
 		[Fact]
 		public void ImplicitConversionToDelegateUnwrapsAWrappedCoContravariantDelegate() {
 			var ca = new CoContravariantFunc<Int32>(() => 42);
-			Func<Int32> a = ca;
-			CoContravariantFunc<Int32> unwrappedca = a;
+			var a = (Func<Int32>) ca;
+			var unwrappedca = (CoContravariantFunc<Int32>) a;
 			Assert.True(ReferenceEquals(ca, unwrappedca));
 		}
 
@@ -279,7 +279,7 @@ namespace Tests {
 			Assert.True(list.SequenceEqual(new[] { 1, 2, 3 }));
 
 			list.Clear();
-			CoContravariantFunc<String, Object> mca = a;
+			var mca = new CoContravariantFunc<String, Object>(a);
 			mca += b;
 			mca += c;
 			mca += b;

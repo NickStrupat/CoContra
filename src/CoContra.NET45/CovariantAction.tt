@@ -21,8 +21,8 @@ namespace CoContra {
 		public CovariantAction() : base() {}
 		public CovariantAction(Action<<#= typeArgs #>> action) : base(action.CheckNull(nameof(action))) {}
 
-		public static implicit operator CovariantAction<<#= typeArgs #>>(Action<<#= typeArgs #>> action) => ConvertToCoContravariantDelegate(action);
-		public static implicit operator Action<<#= typeArgs #>>(CovariantAction<<#= typeArgs #>> caction) => caction.Invoke;
+		public static explicit operator CovariantAction<<#= typeArgs #>>(Action<<#= typeArgs #>> action) => ConvertToCoContravariantDelegate(action);
+		public static explicit operator Action<<#= typeArgs #>>(CovariantAction<<#= typeArgs #>> caction) => caction.Invoke;
 
 		public void Invoke(<#= invokeParams #>) {
 			var array = GetInvocationList();
