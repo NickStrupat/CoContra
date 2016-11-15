@@ -30,7 +30,7 @@ namespace CoContra {
 		public static Boolean operator !=(CoContravariantDelegateBase<TDelegate, TDerived> left, TDerived right) => !((TDerived) left == right);
 
 		private static readonly MethodInfo invokeMethodInfo = typeof(TDerived).GetMethod(nameof(CovariantAction<Object>.Invoke));
-		private static TDerived TryUnwrapDelegate(Delegate @delegate) => @delegate?.GetMethodInfo() != invokeMethodInfo ? null : @delegate?.Target as TDerived;
+		private static TDerived TryUnwrapDelegate(Delegate @delegate) => @delegate == null || @delegate.GetMethodInfo() != invokeMethodInfo ? null : @delegate.Target as TDerived;
 
 		protected static TDerived ConvertToCoContravariantDelegate(TDelegate @delegate) => TryUnwrapDelegate(@delegate as Delegate) ?? MakeDerived(@delegate);
 
@@ -101,19 +101,29 @@ namespace CoContra {
 			return builder.ToImmutable();
 		}
 
-		private static ImmutableArray<TDelegate> RemoveLast(ImmutableArray<TDelegate> source, ImmutableArray<TDelegate> invocationList) {
-			if (invocationList.Length > source.Length)
+		private static ImmutableArray<T> RemoveLast<T>(ImmutableArray<T> source, ImmutableArray<T> invocationList) {
+			var index = ReverseSearch(source, invocationList);
+			if (index == -1)
 				return source;
-			var lastIndexOfEndOfValueInvocationList = -1;
-			for (var i = source.Length - invocationList.Length; i != 0; i--) {
-				if (source.Skip(i).Take(invocationList.Length).SequenceEqual(invocationList)) {
-					lastIndexOfEndOfValueInvocationList = i;
-					break;
-				}
+			return source.RemoveRange(index, invocationList.Length);
+		}
+
+		private static Int32 ReverseSearch<T>(ImmutableArray<T> haystack, ImmutableArray<T> needle) {
+			for (var i = haystack.Length - needle.Length; i >= 0; i--) {
+				if (Match(haystack, needle, i))
+					return i;
 			}
-			if (lastIndexOfEndOfValueInvocationList == -1)
-				return source;
-			return source.RemoveRange(lastIndexOfEndOfValueInvocationList, invocationList.Length);
+			return -1;
+		}
+
+		private static Boolean Match<T>(ImmutableArray<T> haystack, ImmutableArray<T> needle, int start) {
+			if (needle.Length + start > haystack.Length)
+				return false;
+			for (var i = 0; i < needle.Length; i++) {
+				if (!needle[i].Equals(haystack[i + start]))
+					return false;
+			}
+			return true;
 		}
 
 
