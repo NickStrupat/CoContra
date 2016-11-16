@@ -94,8 +94,9 @@ namespace CoContra {
 			return builder.ToImmutable();
 		}
 
-		private static ImmutableArray<TDelegate> CombineInvocationLists(IEnumerable<ImmutableArray<TDelegate>> invocationLists, Int32 invocationListsCount) {
-			var builder = ImmutableArray.CreateBuilder<TDelegate>(invocationListsCount);
+		private static ImmutableArray<TDelegate> CombineInvocationLists(ImmutableArray<TDelegate>[] invocationLists) {
+			var capacity = invocationLists.Sum(x => x.Length);
+			var builder = ImmutableArray.CreateBuilder<TDelegate>(capacity);
 			foreach (var invocationList in invocationLists)
 				builder.AddRange(invocationList);
 			return builder.ToImmutable();
@@ -116,7 +117,7 @@ namespace CoContra {
 			return -1;
 		}
 
-		private static Boolean Match<T>(ImmutableArray<T> haystack, ImmutableArray<T> needle, int start) {
+		private static Boolean Match<T>(ImmutableArray<T> haystack, ImmutableArray<T> needle, Int32 start) {
 			if (needle.Length + start > haystack.Length)
 				return false;
 			for (var i = 0; i < needle.Length; i++) {
@@ -138,7 +139,7 @@ namespace CoContra {
 
 		private static TDerived CombineImpl(params TDerived[] ccds) {
 			return new TDerived {
-				array = CombineInvocationLists(ccds.Select(x => x.GetInvocationList()), ccds.Length)
+				array = CombineInvocationLists(ccds.Select(x => x.GetInvocationList()).ToArray())
 			};
 		}
 
