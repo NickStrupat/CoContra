@@ -285,6 +285,15 @@ namespace Tests {
 			mca -= b;
 			mca.Invoke("wat");
 			Assert.True(list.SequenceEqual(new[] { 1, 2, 3 }));
+
+			list.Clear();
+			mca = new CovariantAction<String>(a);
+			mca.Add(b);
+			mca.Add(c);
+			mca.Add(b);
+			mca.Remove(b);
+			mca.Invoke("wat");
+			Assert.True(list.SequenceEqual(new[] { 1, 2, 3 }));
 		}
 
 		// TODO:

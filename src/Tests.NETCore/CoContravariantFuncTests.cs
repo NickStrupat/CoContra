@@ -286,6 +286,15 @@ namespace Tests {
 			mca -= b;
 			mca.Invoke("wat");
 			Assert.True(list.SequenceEqual(new[] { 1, 2, 3 }));
+
+			list.Clear();
+			mca = new CoContravariantFunc<String, Object>(a);
+			mca.Add(b);
+			mca.Add(c);
+			mca.Add(b);
+			mca.Remove(b);
+			mca.Invoke("wat");
+			Assert.True(list.SequenceEqual(new[] { 1, 2, 3 }));
 		}
 	}
 }
