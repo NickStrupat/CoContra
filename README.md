@@ -17,7 +17,7 @@ The following code demonstrates the broken implementation of delegates in .NET. 
 	Func<Object> objectFactory = () => new object();
 
 	Func<Object> multi1 = stringFactory;
-	multi1 += objectFactory; // here
+	multi1 += objectFactory; // exception here
 
 	Func<Object> multi2 = objectFactory;
 	multi2 += stringFactory; // here too
@@ -29,11 +29,11 @@ Replacing the multi-cast delegates with the classes in this library demonstrate 
 	Func<String> stringFactory = () => "hello";
 	Func<Object> objectFactory = () => new object();
 
-	CoContravariantFunc<Object> multi1 = stringFactory;
-	multi1 += objectFactory; // all good
+	var multi1 = new CovariantAction<String>(objectFactory);
+	multi1 += stringFactory; // all good
 
-	CoContravariantFunc<Object> multi2 = objectFactory;
-	multi2 += stringFactory; // yup
+	var multi2 = new CovariantAction<String>(stringFactory);
+	multi2 += objectFactory; // yup
 ```
 
 Events can be implemented like so...
