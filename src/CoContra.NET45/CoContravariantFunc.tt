@@ -17,7 +17,7 @@ namespace CoContra {
 		var invokeParams = String.Join(", ", suffixes.Select(x => "T" + x + " arg" + x));
 		var invokeArgs = String.Join(", ", suffixes.Select(x => "arg" + x));
 #>
-	public class CoContravariantFunc<<#= typeArgs #>> : CoContravariantDelegateBase<Func<<#= typeArgs #>>, CoContravariantFunc<<#= typeArgs #>>> {
+	public sealed class CoContravariantFunc<<#= typeArgs #>> : CoContravariantDelegateBase<Func<<#= typeArgs #>>, CoContravariantFunc<<#= typeArgs #>>> {
 		public CoContravariantFunc() : base() {}
 		public CoContravariantFunc(Func<<#= typeArgs #>> func) : base(func.CheckNull(nameof(func))) {}
 
