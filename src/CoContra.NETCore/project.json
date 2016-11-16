@@ -1,5 +1,5 @@
 {
-	"version": "0.2.2-prerelease",
+	"version": "1.0.0",
 	"title": "CoContra",
 	"description": "Delegate-like classes for covariant and contravariant delegates and events",
 	"authors": [ "Nick Strupat" ],
