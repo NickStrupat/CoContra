@@ -42,8 +42,8 @@
     <Compile Include="..\CoContra.NET45\CoContravariantDelegate.cs">
       <Link>CoContravariantDelegate.cs</Link>
     </Compile>
-    <Compile Include="..\CoContra.NET45\CoContravariantDelegateBase.cs">
-      <Link>CoContravariantDelegateBase.cs</Link>
+    <Compile Include="..\CoContra.NET45\CoContravariantDelegate`2.cs">
+      <Link>CoContravariantDelegate`2.cs</Link>
     </Compile>
     <Compile Include="..\CoContra.NET45\CoContravariantFunc.cs">
       <Link>CoContravariantFunc.cs</Link>
@@ -51,11 +51,13 @@
     <Compile Include="..\CoContra.NET45\CovariantAction.cs">
       <Link>CovariantAction.cs</Link>
     </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReflectionExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

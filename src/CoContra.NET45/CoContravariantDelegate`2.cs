@@ -6,14 +6,14 @@ using System.Reflection;
 
 namespace CoContra {
 	/// <summary>Represents a delegate, which is a data structure that refers to a static method or to a class instance and an instance method of that class.</summary>
-	public abstract class CoContravariantDelegateBase<TDelegate, TDerived> : CoContravariantDelegate, IEquatable<TDerived>
+	public abstract class CoContravariantDelegate<TDelegate, TDerived> : CoContravariantDelegate, IEquatable<TDerived>
 	where TDelegate : class
-	where TDerived : CoContravariantDelegateBase<TDelegate, TDerived>, new() {
+	where TDerived : CoContravariantDelegate<TDelegate, TDerived>, new() {
 		private ImmutableArray<TDelegate> array;
 
-		internal CoContravariantDelegateBase() { array = ImmutableArray<TDelegate>.Empty; }
-		internal CoContravariantDelegateBase(TDerived other) { array = other.array; }
-		internal CoContravariantDelegateBase(TDelegate @delegate) { SetArray(out array, @delegate); }
+		internal CoContravariantDelegate() { array = ImmutableArray<TDelegate>.Empty; }
+		internal CoContravariantDelegate(TDerived other) { array = other.array; }
+		internal CoContravariantDelegate(TDelegate @delegate) { SetArray(out array, @delegate); }
 
 		private static void SetArray(out ImmutableArray<TDelegate> array, TDelegate @delegate) => array = ImmutableArray.CreateRange(GetDelegateInvocationList(@delegate));
 		private static TDerived MakeDerived(TDelegate @delegate) {
@@ -22,12 +22,12 @@ namespace CoContra {
 			return d;
 		}
 
-		public static TDerived operator +(CoContravariantDelegateBase<TDelegate, TDerived> ccd, TDelegate d) => Combine((TDerived) ccd, ConvertToCoContravariantDelegate(d));
-		public static TDerived operator -(CoContravariantDelegateBase<TDelegate, TDerived> ccd, TDelegate d) => Remove((TDerived) ccd, ConvertToCoContravariantDelegate(d));
-		public static TDerived operator +(CoContravariantDelegateBase<TDelegate, TDerived> ccd, TDerived ccd2) => Combine((TDerived) ccd, ccd2);
-		public static TDerived operator -(CoContravariantDelegateBase<TDelegate, TDerived> ccd, TDerived ccd2) => Remove((TDerived) ccd, ccd2);
-		public static Boolean operator ==(CoContravariantDelegateBase<TDelegate, TDerived> left, TDerived right) => (((TDerived) left)?.Equals(right)).GetValueOrDefault();
-		public static Boolean operator !=(CoContravariantDelegateBase<TDelegate, TDerived> left, TDerived right) => !((TDerived) left == right);
+		public static TDerived operator +(CoContravariantDelegate<TDelegate, TDerived> ccd, TDelegate d) => Combine((TDerived) ccd, ConvertToCoContravariantDelegate(d));
+		public static TDerived operator -(CoContravariantDelegate<TDelegate, TDerived> ccd, TDelegate d) => Remove((TDerived) ccd, ConvertToCoContravariantDelegate(d));
+		public static TDerived operator +(CoContravariantDelegate<TDelegate, TDerived> ccd, TDerived ccd2) => Combine((TDerived) ccd, ccd2);
+		public static TDerived operator -(CoContravariantDelegate<TDelegate, TDerived> ccd, TDerived ccd2) => Remove((TDerived) ccd, ccd2);
+		public static Boolean operator ==(CoContravariantDelegate<TDelegate, TDerived> left, TDerived right) => (((TDerived) left)?.Equals(right)).GetValueOrDefault();
+		public static Boolean operator !=(CoContravariantDelegate<TDelegate, TDerived> left, TDerived right) => !((TDerived) left == right);
 
 		private static readonly MethodInfo invokeMethodInfo = typeof(TDerived).GetMethod(nameof(CovariantAction<Object>.Invoke));
 		private static TDerived TryUnwrapDelegate(Delegate @delegate) => @delegate == null || @delegate.GetMethodInfo() != invokeMethodInfo ? null : @delegate.Target as TDerived;
