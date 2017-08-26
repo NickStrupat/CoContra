@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>Delegate-like classes for covariant and contravariant delegates and events</Description>
+    <AssemblyTitle>CoContra</AssemblyTitle>
+    <VersionPrefix>1.0.1</VersionPrefix>
+    <Authors>Nick Strupat</Authors>
+    <TargetFramework>netstandard1.0</TargetFramework>
+    <AssemblyName>CoContra.NETCore</AssemblyName>
+    <PackageId>CoContra.NETCore</PackageId>
+    <PackageTags>covariance;covariant;contravariance;contravariant;delegate</PackageTags>
+    <PackageProjectUrl>https://github.com/NickStrupat/CoContra</PackageProjectUrl>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/NickStrupat/CoContra/master/LICENSE</PackageLicenseUrl>
+    <NetStandardImplicitPackageVersion>1.6.1</NetStandardImplicitPackageVersion>
+    <PackageTargetFallback>$(PackageTargetFallback);dnxcore50</PackageTargetFallback>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\CoContra.NET45\*.cs" Exclude="bin\**;obj\**;**\*.xproj;packages\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Collections.Immutable" Version="1.3.0" />
+    <PackageReference Include="System.Reflection.TypeExtensions" Version="4.3.0" />
+  </ItemGroup>
+
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard1.0' ">
+    <AssemblyName>CoContra.netstandard1.0</AssemblyName>
+  </PropertyGroup>
+
+</Project>

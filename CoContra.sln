@@ -1,20 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.10
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{A6D2F455-8CC8-48EE-AED3-3A117A790C3C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5CB8DDC7-212D-4EC3-9CC5-1F676A8666AA}"
 	ProjectSection(SolutionItems) = preProject
-		global.json = global.json
 		LICENSE = LICENSE
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "CoContra.NETCore", "src\CoContra.NETCore\CoContra.NETCore.xproj", "{05C7D977-065A-4614-BD72-0CEAD813D235}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoContra.NETCore", "src\CoContra.NETCore\CoContra.NETCore.csproj", "{05C7D977-065A-4614-BD72-0CEAD813D235}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Testing", "src\Testing\Testing.xproj", "{66CB7EBD-F5AB-4F6C-96E2-B3C26D01BE17}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Testing", "src\Testing\Testing.csproj", "{66CB7EBD-F5AB-4F6C-96E2-B3C26D01BE17}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoContra.NET45", "src\CoContra.NET45\CoContra.NET45.csproj", "{85563D13-92D8-4DAD-8F39-4663FC2B58D4}"
 EndProject
@@ -26,7 +25,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.NET4", "src\Tests.NET
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.NET45", "src\Tests.NET45\Tests.NET45.csproj", "{85077604-D36A-417D-A3C5-5E03A891B7F0}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Tests.NETCore", "src\Tests.NETCore\Tests.NETCore.xproj", "{3AEFF445-23E6-41E8-AF8C-9DD38FD763EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests.NETCore", "src\Tests.NETCore\Tests.NETCore.csproj", "{3AEFF445-23E6-41E8-AF8C-9DD38FD763EB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -181,5 +180,8 @@ Global
 		{5E425A6B-6F4B-4654-88EA-C6B880154256} = {A6D2F455-8CC8-48EE-AED3-3A117A790C3C}
 		{85077604-D36A-417D-A3C5-5E03A891B7F0} = {A6D2F455-8CC8-48EE-AED3-3A117A790C3C}
 		{3AEFF445-23E6-41E8-AF8C-9DD38FD763EB} = {A6D2F455-8CC8-48EE-AED3-3A117A790C3C}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {749F9AD6-FFD8-4808-9AC0-391DBDFA7BFC}
 	EndGlobalSection
 EndGlobal
