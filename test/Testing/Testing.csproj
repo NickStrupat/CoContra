@@ -11,7 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CoContra.NETCore\CoContra.NETCore.csproj" />
+    <ProjectReference Include="..\..\src\CoContra.NETCore\CoContra.NETCore.csproj" />
   </ItemGroup>
 
 </Project>
