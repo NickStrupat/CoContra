@@ -3,13 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using CoContra;
-
-#if NET4
-using NUnit.Framework;
-using Fact = NUnit.Framework.TestAttribute;
-#else
 using Xunit;
-#endif
 
 namespace Tests {
 	public class CoContravariantFuncTests {

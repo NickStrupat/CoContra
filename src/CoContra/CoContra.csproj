@@ -1,0 +1,48 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;net461</TargetFrameworks>
+    <Description>Delegate-like classes for covariant and contravariant delegates and events</Description>
+    <AssemblyTitle>CoContra</AssemblyTitle>
+    <VersionPrefix>1.1.0</VersionPrefix>
+    <Authors>Nick Strupat</Authors>
+    <AssemblyName>CoContra</AssemblyName>
+    <PackageId>CoContra</PackageId>
+    <PackageTags>covariance;covariant;contravariance;contravariant;delegate</PackageTags>
+    <PackageProjectUrl>https://github.com/NickStrupat/CoContra</PackageProjectUrl>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/NickStrupat/CoContra/master/LICENSE</PackageLicenseUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Collections.Immutable" Version="1.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="CoContravariantFunc.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>CoContravariantFunc.cs</LastGenOutput>
+    </None>
+    <None Update="CovariantAction.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>CovariantAction.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="CoContravariantFunc.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CoContravariantFunc.tt</DependentUpon>
+    </Compile>
+    <Compile Update="CovariantAction.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CovariantAction.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+</Project>

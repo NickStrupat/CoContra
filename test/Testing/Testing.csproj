@@ -1,17 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp1.1</TargetFramework>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
     <AssemblyName>Testing</AssemblyName>
     <OutputType>Exe</OutputType>
-    <PackageId>Testing</PackageId>
-    <NetStandardImplicitPackageVersion>1.6.1</NetStandardImplicitPackageVersion>
-    <PackageTargetFallback>$(PackageTargetFallback);dnxcore50</PackageTargetFallback>
-    <RuntimeFrameworkVersion>1.1.1</RuntimeFrameworkVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\CoContra.NETCore\CoContra.NETCore.csproj" />
+    <ProjectReference Include="..\..\src\CoContra\CoContra.csproj" />
   </ItemGroup>
 
 </Project>
