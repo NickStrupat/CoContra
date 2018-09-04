@@ -213,7 +213,7 @@ namespace Tests {
 		private static String F1() => null;
 
 		[Fact]
-		public void Equals() {
+		public void Equality() {
 			Func<String> a = F1;
 			Func<String> b = F1;
 			Assert.True(a.Equals(a));

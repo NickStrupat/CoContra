@@ -218,7 +218,7 @@ namespace Tests {
 		private static void A1(String s) {}
 
 		[Fact]
-		public void Equals() {
+		public void Equality() {
 			Action<String> a = A1;
 			Action<String> b = A1;
 			Assert.True(a.Equals(a));
